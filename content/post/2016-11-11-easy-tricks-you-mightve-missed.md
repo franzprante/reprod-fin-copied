@@ -1,5 +1,5 @@
 ---
-title: "RStudio IDE Easy Tricks You Might’ve Missed"
+title: "RStudio IDE Easy Tricks You Might've Missed"
 author: "Sean Lopp"
 date: 2016-11-11T16:17:16+00:00
 slug: easy-tricks-you-mightve-missed
@@ -35,7 +35,7 @@ The history pane shows a searchable list of commands that have been run. Command
 Rename in Scope
 ---------------
 
-This feature makes it easy to rename all instances of a variable. The tool is context aware; changing ‘m’ to ‘m1’ won’t change ‘mtcars’ to ‘m1tcars’.
+This feature makes it easy to rename all instances of a variable. The tool is context aware; changing ‘m' to ‘m1' won't change ‘mtcars' to ‘m1tcars'.
 
 ![](https://www.rstudio.com/wp-content/uploads/2016/11/tip_rename_in_scope.gif)
 
@@ -63,7 +63,7 @@ Code snippets are a shortcut to insert common boilerplate code. For instance, ty
 File Navigation
 ---------------
 
-Many people know of RStudio’s rich set of tab complete options for functions and function arguments. Tab complete can also help find files and remove the hassle of writing out long path locations. Hit tab in between two double quotes (“ “) to open a file explorer.
+Many people know of RStudio's rich set of tab complete options for functions and function arguments. Tab complete can also help find files and remove the hassle of writing out long path locations. Hit tab in between two double quotes (" ") to open a file explorer.
 
 ![](https://www.rstudio.com/wp-content/uploads/2016/11/tip_file_nav.gif)
 
@@ -76,4 +76,4 @@ Want to dig into the innards of a function? With the cursor on a function press 
 
 These are just a few of my favorite tricks. A comprehensive list is available in the [RStudio IDE Cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf) or follow @rstudiotips on Twitter to learn a few tricks every week.
 
-What’s your favorite RStudio tip?
+What's your favorite RStudio tip?

@@ -13,7 +13,7 @@ knitr::opts_chunk$set(tidy = FALSE)
 
 Financial applications were an early driving force behind the adoption of the R language, but as data science becomes increasingly critical to banks, hedge funds, investment managers, data providers, exchanges, etc., R is becoming even more important to Finance. We are excited and inspired by what the future holds in the brave new world of data-driven financial institutions. In this first post of what we hope will be a regular series about Finance, R and RStudio, we present a classic use case: import stock data, build a portfolio, and calculate the Sharpe Ratio. We use the new RStudio IDE Notebooks tool to emphasize reproducibility.
 
-By way of a brief roadmap, we’ll start with a function that grabs monthly stock returns and saves those monthly returns as an xts object in the global environment. With that function, we will create three xts objects of monthly returns, and merge those three xts objects into one object, before passing that merged object to dygraphs to peek at the individual stocks. Then, we move on to build a portfolio by selecting asset weights and calculating the portfolio monthly returns. Next, we will calculate the growth of a dollar invested in that portfolio (which is what matters to us) over time, and save the results to an xts object. Dygraphs will come in handy again for the portfolio visualizations. Finally, we will calculate the Sharpe Ratio.
+By way of a brief roadmap, we'll start with a function that grabs monthly stock returns and saves those monthly returns as an xts object in the global environment. With that function, we will create three xts objects of monthly returns, and merge those three xts objects into one object, before passing that merged object to dygraphs to peek at the individual stocks. Then, we move on to build a portfolio by selecting asset weights and calculating the portfolio monthly returns. Next, we will calculate the growth of a dollar invested in that portfolio (which is what matters to us) over time, and save the results to an xts object. Dygraphs will come in handy again for the portfolio visualizations. Finally, we will calculate the Sharpe Ratio.
 
 Before we get to the fun stuff – the code itself! – I will note that these posts aim to be useful to R coders who either work in the financial industry or want to work in the financial industry. At times the posts will contain ideas or paradigms that are good practice in the institutional context but perhaps not directly relevant to an R user on the lookout for one-off coding tricks. That is a good segue into the structure and content of this Notebook, which could be fit comfortably into one setup chunk and one substantive code chunk, instead of my five chunks.
 
@@ -47,7 +47,7 @@ monthly_stock_returns <- function(ticker, start_year) {
 }
 ```
 
-The `monthly_stock_returns` function above takes 2 parameters, a stock symbol and a year. Note that we could have included a third parameter called something like ‘period’ if we wanted the ability to grab periods other than monthly returns. For example, we can envision a desire to look at annual, weekly or daily returns. Here, I force monthly returns because I don’t want to allow different period options. It’s a choice driven by the purpose of this Notebook – which here is focused on monthly returns.
+The `monthly_stock_returns` function above takes 2 parameters, a stock symbol and a year. Note that we could have included a third parameter called something like ‘period' if we wanted the ability to grab periods other than monthly returns. For example, we can envision a desire to look at annual, weekly or daily returns. Here, I force monthly returns because I don't want to allow different period options. It's a choice driven by the purpose of this Notebook – which here is focused on monthly returns.
 
 In the next chunk, we choose three stock tickers and a starting year argument for the `monthly_stock_returns` function. Then, we merge them into one xts object and graph their individual performances over time.
 
@@ -73,7 +73,7 @@ dygraph(merged_returns, main = "Google v JP Morgan v Amazon") %>%
   dyOptions(colors = RColorBrewer::brewer.pal(3, "Set2")) 
 ```
 
-Nothing earth-shattering thus far: we have an xts object of three time series and have seen that one of them had weird behavior in April of 2014 (a Google stock split). We’ll ignore that behavior for this example and go on to constructing a portfolio, which means finding the monthly returns of a weighted combination of assets. Unsurprisingly, we start out by choosing those weights.
+Nothing earth-shattering thus far: we have an xts object of three time series and have seen that one of them had weird behavior in April of 2014 (a Google stock split). We'll ignore that behavior for this example and go on to constructing a portfolio, which means finding the monthly returns of a weighted combination of assets. Unsurprisingly, we start out by choosing those weights.
 
 ```{r out.width='100%'}
 # We have the 3 monthly returns saved in 1 object.
@@ -91,7 +91,7 @@ dygraph(portfolio_monthly_returns, main = "Portfolio Monthly Return") %>%
 ```
 
 
-Now, instead of looking at monthly returns, let’s look at how \$1 would have grown in this portfolio.
+Now, instead of looking at monthly returns, let's look at how \$1 would have grown in this portfolio.
 
 ```{r out.width='100%'}
 # Add the wealth.index = TRUE argument and, instead of returning monthly returns, 
@@ -103,17 +103,17 @@ dygraph(dollar_growth, main = "Growth of $1 Invested in Portfolio") %>%
   dyAxis("y", label = "$")
 ```
 
-A dollar would have grown quite nicely in this portfolio – about 2.5x – fantastic. Now let’s look at the risk/reward of this portfolio by calculating the Sharpe Ratio. Briefly, the Sharpe Ratio is the mean of the excess monthly returns above the risk-free rate, divided by the standard deviation of the excess monthly returns above the risk-free rate. This is the formulation of the Sharpe Ratio as of 1994; if we wished to use the original formulation from 1966 the denominator would be the standard deviation of portfolio monthly returns. Learn more [here](http://web.stanford.edu/~wfsharpe/art/sr/sr.htm).
+A dollar would have grown quite nicely in this portfolio – about 2.5x – fantastic. Now let's look at the risk/reward of this portfolio by calculating the Sharpe Ratio. Briefly, the Sharpe Ratio is the mean of the excess monthly returns above the risk-free rate, divided by the standard deviation of the excess monthly returns above the risk-free rate. This is the formulation of the Sharpe Ratio as of 1994; if we wished to use the original formulation from 1966 the denominator would be the standard deviation of portfolio monthly returns. Learn more [here](http://web.stanford.edu/~wfsharpe/art/sr/sr.htm).
 
-In other words, the Sharpe Ratio measures excess returns per unit of volatility, where we take the standard deviation to represent portfolio volatility. The Sharpe Ratio was brought to us by Bill Sharpe – arguably the most important economist for modern investment management as the creator of the Sharpe Ratio, CAPM and Financial Engines, a forerunner of today’s robo-advisor movement.
+In other words, the Sharpe Ratio measures excess returns per unit of volatility, where we take the standard deviation to represent portfolio volatility. The Sharpe Ratio was brought to us by Bill Sharpe – arguably the most important economist for modern investment management as the creator of the Sharpe Ratio, CAPM and Financial Engines, a forerunner of today's robo-advisor movement.
 
-In the code chunk below, we’ll calculate the Sharpe Ratio in two ways.
+In the code chunk below, we'll calculate the Sharpe Ratio in two ways.
 
-First, we’ll use the Return.excess function from PerformanceAnalytics to calculate a time series of monthly excess returns. Two arguments need to be supplied: the time series of returns and the risk-free rate. The function will return a time series of excess returns, and we’ll take the mean of that time series to get the numerator of the Sharpe Ratio. Then we’ll divide by the standard deviation of the that time series to get the Sharpe Ratio.
+First, we'll use the Return.excess function from PerformanceAnalytics to calculate a time series of monthly excess returns. Two arguments need to be supplied: the time series of returns and the risk-free rate. The function will return a time series of excess returns, and we'll take the mean of that time series to get the numerator of the Sharpe Ratio. Then we'll divide by the standard deviation of the that time series to get the Sharpe Ratio.
 
-Our second method is a bit easier. We’ll use the SharpeRatio function in PerformanceAnalytics, for which we’ll supply two arguments: a time series of monthly returns and risk-free rate.
+Our second method is a bit easier. We'll use the SharpeRatio function in PerformanceAnalytics, for which we'll supply two arguments: a time series of monthly returns and risk-free rate.
 
-For both methods I use a risk-free rate of .03% as the approximate mean of the 1-month Treasury bill rate since 2010. I’ll cover a quick way to grab this and other data via Quandl in a future post.
+For both methods I use a risk-free rate of .03% as the approximate mean of the 1-month Treasury bill rate since 2010. I'll cover a quick way to grab this and other data via Quandl in a future post.
 
 ```{r}
 # Method 1: use the Return.excess function from PerformanceAnalytics, 
@@ -133,6 +133,6 @@ Using the Return.excess function and then dividing by the standard deviation of 
 
 Using the built in SharpeRatio function, the Sharpe Ratio is `sharpe_ratio[1,]` = `r sharpe_ratio[1,]`.
 
-Alright, we have built a portfolio and calculated the Sharpe Ratio – and also set up some nice reusable chunks for data import, portfolio construction and visualization. We haven’t done anything terribly complex but this can serve as a useful paradigm to any collaborators, including our future selves, who want to reproduce this work, learn from this work, or expand upon this work.
+Alright, we have built a portfolio and calculated the Sharpe Ratio – and also set up some nice reusable chunks for data import, portfolio construction and visualization. We haven't done anything terribly complex but this can serve as a useful paradigm to any collaborators, including our future selves, who want to reproduce this work, learn from this work, or expand upon this work.
 
 In the next post, we will create a Shiny app to let users enter their own stock tickers, starting year, portfolio weights and risk-free rate, and then calculate a portfolio Sharpe Ratio. See you next time!

@@ -9,7 +9,7 @@ tags: [Applications, Data Science, Open Source, Packages, R Language, Statistics
 
 Sometimes great ideas come from trying to solve simple problems. This seems to be especially true for software developers who are willing to put in an unreasonable amount of effort to solve a simple problem to their satisfaction. So the [story](http://www.highcharts.com/about) goes that Torstein Hønsi, the founder and Chief Product Officer of [Highcharts](http://www.highcharts.com/). was looking for a simple charting tool for updating his homepage with snow depth measurements from Vikjafjellet, the local mountain where his family keeps a cabin. Frustrated with the common flash plug-ins, and other proprietary solutions available at the time, he decided to build a standards-based solution of his own and then, of course, share it.
 
-In this post, I’ll use [Joshua Kunst’s](https://github.com/jbkunst) [highcharter package](https://mran.revolutionanalytics.com/package/highcharter/), a wrapper for the Highcharts javascript library, along with [Shiny](http://shiny.rstudio.com/) to create some pretty slick plots.
+In this post, I'll use [Joshua Kunst's](https://github.com/jbkunst) [highcharter package](https://mran.revolutionanalytics.com/package/highcharter/), a wrapper for the Highcharts javascript library, along with [Shiny](http://shiny.rstudio.com/) to create some pretty slick plots.
 
 Please note that all products in this library are free for non-commercial use. For use in commercial projects and websites, see <https://shop.highsoft.com>.
 
@@ -34,7 +34,7 @@ Example 1: US births on Friday the 13th
 
 The inspiration for this visualization is a FiveThirtyEight article titled [Some People Are Too Superstitious To Have A Baby On Friday The 13th](http://fivethirtyeight.com/features/some-people-are-too-superstitious-to-have-a-baby-on-friday-the-13th/). FiveThirtyEight generously makes the data used in (some of) their articles available on their [GitHub repository](https://github.com/fivethirtyeight/data). The data used in this particular analysis can be found [here](https://github.com/mine-cetinkaya-rundel/highcharts-in-r/tree/master/data).
 
-Our goal is to [recreate this particular visualization](http://i2.wp.com/espnfivethirtyeight.files.wordpress.com/2016/05/bialik-fridaythe13th-2.png?quality=90&strip=all&w=1150&ssl=1). In order to do so, we need to calculate the differences between the number of births on the 13th and the average of 6th and 20th of each month, and aggregate these values for the days of the week. This is nothing a bit of dplyr and tidyr can’t handle.
+Our goal is to [recreate this particular visualization](http://i2.wp.com/espnfivethirtyeight.files.wordpress.com/2016/05/bialik-fridaythe13th-2.png?quality=90&strip=all&w=1150&ssl=1). In order to do so, we need to calculate the differences between the number of births on the 13th and the average of 6th and 20th of each month, and aggregate these values for the days of the week. This is nothing a bit of dplyr and tidyr can't handle.
 
 Let's load the necessary packages:
 
@@ -85,7 +85,7 @@ Note that the calculated percentage point differences (`diff_ppt`) may not match
 1. Holidays are excluded in the FiveThirtyEight but not in this analysis.
 2. Two data files are provided by FiveThirtyEight, one for years 1994 to 2003 and another for years 2000 to 2014. The numbers of births for the overlapping years (2000 – 2003) are not exactly the same. This app uses the SSA data for these years, however it is unclear which data source FiveThirtyEight used for these years.
 
-Let’s start by making a very simple highchart of these data using the `hchart()` function:
+Let's start by making a very simple highchart of these data using the `hchart()` function:
 
 ```r
 hchart(diff13, "scatter", x = day_of_week, y = diff_ppt)
@@ -132,7 +132,7 @@ We have built an app that extends the visualization we created earlier, allowing
 Things to Look Out For
 ----------------------
 
-Highcharts’ built-in and customizable hover/tooltip box and zooming functionality are among its most attractive features. However, whether or not these features would be useful for you depends on your use case.
+Highcharts' built-in and customizable hover/tooltip box and zooming functionality are among its most attractive features. However, whether or not these features would be useful for you depends on your use case.
 
 For example, the tooltip is not as useful if you are plotting data with larger sample sizes. Take a look at this plot of arrival vs. departure delays of flights headed to Los Angeles (LAX) in October 2013 from the various New York airports. The overplotting on the lower left of the plot makes the hovering functionality not that useful.
 
@@ -160,4 +160,4 @@ hchart(oct_lax_flights_agg, "line", x = dep_delay_cat, y = med_arr_delay, group 
 Summary
 -------
 
-Highcharts provides high quality web graphics with high customizability, and the highcharter package allows R users to take full advantage of them. If you’re interested in finding out more about the functionality of the package, I highly recommend browsing the highcharter package [homepage](http://jkunst.com/highcharter/) which contains a variety of Highcharts, [Highstock](http://www.highcharts.com/products/highstock) and [Highmaps](http://www.highcharts.com/products/highmaps) plots along with sample code to reproduce them. Additionally, the [Highcharts Options Reference page](http://api.highcharts.com/highcharts) is immensely useful for finding the specific syntax for customization options.
+Highcharts provides high quality web graphics with high customizability, and the highcharter package allows R users to take full advantage of them. If you're interested in finding out more about the functionality of the package, I highly recommend browsing the highcharter package [homepage](http://jkunst.com/highcharter/) which contains a variety of Highcharts, [Highstock](http://www.highcharts.com/products/highstock) and [Highmaps](http://www.highcharts.com/products/highmaps) plots along with sample code to reproduce them. Additionally, the [Highcharts Options Reference page](http://api.highcharts.com/highcharts) is immensely useful for finding the specific syntax for customization options.

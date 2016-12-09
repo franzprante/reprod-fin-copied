@@ -16,7 +16,7 @@ September was a bit of a slow month for new R packages. Only 96 new packages sho
 -   [LendingClub](https://mran.revolutionanalytics.com/package/LendingClub/) v0.1.2: Lets investors manage their [LendingClub](https://www.lendingclub.com/) investments from R.
 - [sparklyr](https://mran.revolutionanalytics.com/package/sparklyr/) V0.4: Allows R users to connect, provision and interface to Apache Spark. Detailed examples using MLlib and H2O are available on the [RStudio site](http://spark.rstudio.com/).
 - [trelloR](https://mran.revolutionanalytics.com/package/trelloR/): V0.1.0: Provides access to the [Trello API](https://developers.trello.com/). The [vignette](https://mran.revolutionanalytics.com/web/packages/trelloR/vignettes/R_API_for_Trello.html) explains how to retrieve data from public and private Trello boards.
-- [XRPython](https://mran.revolutionanalytics.com/package/XRPython/) V0.7: A Python interface structured according to the general form of the package XR described in John Chamber’s book  [Extending R](https://www.crcpress.com/Extending-R/Chambers/p/book/9781498775717).
+- [XRPython](https://mran.revolutionanalytics.com/package/XRPython/) V0.7: A Python interface structured according to the general form of the package XR described in John Chamber's book  [Extending R](https://www.crcpress.com/Extending-R/Chambers/p/book/9781498775717).
 
 ## Machine Learning
 
@@ -79,7 +79,7 @@ plotftest(4,3,5)
 
 -   [GeneralTree](https://mran.revolutionanalytics.com/package/GeneralTree/) v0.0.1: Implements a general tree data structure in R. There is a [tutorial](https://mran.revolutionanalytics.com/web/packages/GeneralTree/vignettes/tutorial.html).
 - [radiant](https://mran.revolutionanalytics.com/package/radiant/) V0.6.0: [Radiant](https://mran.revolutionanalytics.com/web/packages/radiant/vignettes/programming.html) is a platform for business analytics based on R and Shiny.
-- [RDocumentation](https://mran.revolutionanalytics.com/package/RDocumentation/) v0.6: A wrapper for R’s documentation so that help documentation will appear as it does on http://www.rdocumentation.org.
+- [RDocumentation](https://mran.revolutionanalytics.com/package/RDocumentation/) v0.6: A wrapper for R's documentation so that help documentation will appear as it does on http://www.rdocumentation.org.
 -   [tableMatrix](https://mran.revolutionanalytics.com/package/tableMatrix/) v0.8: Provides 2 classes extending data.table: tableList and tableMatrix.
 
 With this post, I am up to date with new CRAN packages. I hope to make my package picks a regular, monthly feature of this blog.

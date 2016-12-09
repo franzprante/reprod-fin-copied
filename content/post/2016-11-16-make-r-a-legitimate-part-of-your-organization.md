@@ -13,7 +13,7 @@ How R Enters Through the Back Door
 
 In many organizations, R enters through the back door when analysts download the free software and install it on their local workstations
 
-> *Jamie has been an avid R programmer since college. When she takes a new job at a large corporation, she finds that she is the only analyst in the company who knows and uses R. In addition to the other tools her company gives her, Jamie decides to download R onto her laptop. She installs R without consulting her manager or IT. With R she can pull data, build models, and create nice reports. Her manager knows nothing about R, but goes along with it because Jamie is happy and doing quality work. Her co-workers, ever curious about analytics, also download R and learn from Jamie. Before long, R becomes an important part of the day-to-day operations of her team. When Jamie starts hiring new analysts, she lists R as a required skill. Now Jamie wants to “go big” by putting R on the company servers so she can scale her analyses, socialize her results, and integrate her apps. Unfortunately, she finds she is unable to get the resources she needs because R is not officially recognized in the company.*
+> *Jamie has been an avid R programmer since college. When she takes a new job at a large corporation, she finds that she is the only analyst in the company who knows and uses R. In addition to the other tools her company gives her, Jamie decides to download R onto her laptop. She installs R without consulting her manager or IT. With R she can pull data, build models, and create nice reports. Her manager knows nothing about R, but goes along with it because Jamie is happy and doing quality work. Her co-workers, ever curious about analytics, also download R and learn from Jamie. Before long, R becomes an important part of the day-to-day operations of her team. When Jamie starts hiring new analysts, she lists R as a required skill. Now Jamie wants to "go big" by putting R on the company servers so she can scale her analyses, socialize her results, and integrate her apps. Unfortunately, she finds she is unable to get the resources she needs because R is not officially recognized in the company.*
 
 Whether you are an analyst wanting to do more, a stakeholder wanting a competitive analytic platform, or an IT professional wanting a controlled and secured environment, you should make R a legitimate part of your organization and get the resources needed to support it.
 
@@ -29,12 +29,12 @@ All organizations have a process for onboarding software through official channe
 The review board is responsible for:
 
 -   **Reviewing new software initiatives and approve expenditures.** Does this tool increase or decrease costs? What line items will this go under? What is the long-term cost projected to be? What is the cost of support?
--   **Supporting the organization’s strategic vision.** Does the tool help satisfy a customer need? Does it help us remain competitive? Can it help us attract better talent? Does it make existing systems more efficient and agile?
+-   **Supporting the organization's strategic vision.** Does the tool help satisfy a customer need? Does it help us remain competitive? Can it help us attract better talent? Does it make existing systems more efficient and agile?
 -   **Complying with existing systems architectures.** Does the tool integrate with other supported tools? Will it be used in development and/or production? Does it duplicate the capabilities of other supported tools?
 -   **Managing risk and ensure security.** Does the tool comply with our formal security policies? Do the software licenses meet our legal requirements?
 -   **Defining roles and responsibilities for support.** What groups own the tool? What support is offered with the tool? What internal resources will be required to maintain it? Who will provide training?
 
-Because of R’s popularity and explosive growth, many organizations are friendly and even eager to bring R through the front door. If your organization is friendly toward R but has not made it an official part of the organization, a formal review process is still valuable. The review process gives IT a formal stake in the ground when it comes to supporting R for the long term. It also makes future decisions about growth and investment much easier.
+Because of R's popularity and explosive growth, many organizations are friendly and even eager to bring R through the front door. If your organization is friendly toward R but has not made it an official part of the organization, a formal review process is still valuable. The review process gives IT a formal stake in the ground when it comes to supporting R for the long term. It also makes future decisions about growth and investment much easier.
 
 The Ubiquity of Open Source Software
 ====================================
@@ -50,7 +50,7 @@ Some organizations struggle to standardize on R due to a lack of management and 
 Getting the Resources You Need
 ==============================
 
-Passing the review board should get you resources. You’ll need physical resources and human resources to build, scale, and maintain an R environment.
+Passing the review board should get you resources. You'll need physical resources and human resources to build, scale, and maintain an R environment.
 
 Physical Resources
 ------------------

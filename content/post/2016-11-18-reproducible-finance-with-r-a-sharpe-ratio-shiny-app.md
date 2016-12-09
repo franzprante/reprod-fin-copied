@@ -10,7 +10,7 @@ banner: http://www.freewebheaders.com/wordpress/wp-content/gallery/retro-abstrac
 
 In this [previous post](/2016/11/09/reproducible-finance-with-r-the-sharpe-ratio/), we used an R Notebook to grab the monthly return data on three stocks, build a portfolio, visualize portfolio performance, and calculate the Sharpe Ratio. The Notebook format emphasized reproducibility and reuse by other R coders.
 
-Today, we’ll convert that Notebook into a Shiny application that allows end users to build their own portfolios, and then calculate performance/Sharpe Ratio. Friday = fun day!
+Today, we'll convert that Notebook into a Shiny application that allows end users to build their own portfolios, and then calculate performance/Sharpe Ratio. Friday = fun day!
 
 Here is the [link to the app](https://beta.rstudioconnect.com/content/2128/#sharpe-ratio).
 
@@ -55,7 +55,7 @@ This app could have been built using an app.r file, but I prefer to use a flexda
     }
     ```
 
-The sidebar code chunk is, of course, unique to the Shiny app, because there are no reactive inputs in a Notebook. But the dygraphs code chunks are similar enough that it’s easy to transfer the Notebook code, with a few changes, over to the flexdashboard:
+The sidebar code chunk is, of course, unique to the Shiny app, because there are no reactive inputs in a Notebook. But the dygraphs code chunks are similar enough that it's easy to transfer the Notebook code, with a few changes, over to the flexdashboard:
 
     ```{r}
     ##dygraph chunk
@@ -68,7 +68,7 @@ The sidebar code chunk is, of course, unique to the Shiny app, because there are
     })
     ```
 
-File formats aside, from a team workflow perspective, this conversion to a Shiny app is super important - it’s where the R coders co-mingle with team members who need to make use of R’s analytical tools, but do not want to touch the code. For example, we can imagine a portfolio manager who wants the ability to quickly iterate through different portfolios and compare Sharpe Ratios, for internal construction purposes or perhaps even in a client-facing context. The PM does not want to write or reproduce this R code; he or she wants to focus on the portfolio.
+File formats aside, from a team workflow perspective, this conversion to a Shiny app is super important - it's where the R coders co-mingle with team members who need to make use of R's analytical tools, but do not want to touch the code. For example, we can imagine a portfolio manager who wants the ability to quickly iterate through different portfolios and compare Sharpe Ratios, for internal construction purposes or perhaps even in a client-facing context. The PM does not want to write or reproduce this R code; he or she wants to focus on the portfolio.
 
 In other words, a PM wants to see this:
 
@@ -97,6 +97,6 @@ Not this:
 
 Note that the portfolio performance and Share Ratio calculations are consolidated and moved to the front page, and the individual stock returns are on the second page. The original Notebook had the opposite layout - we began with individual returns and progressed to the portfolio - because it was emphasizing the steps involved in arriving at the conclusion. We wanted our collaborators to start with the basics of grabbing stock return data and then proceed through each logical step.
 
-With this Shiny app, we don’t want to force our collaborators to go through our logic, because that is not the purpose of this app. End users of this app build and analyze portfolios, so let’s put those tools front and center. Give the users what they want!
+With this Shiny app, we don't want to force our collaborators to go through our logic, because that is not the purpose of this app. End users of this app build and analyze portfolios, so let's put those tools front and center. Give the users what they want!
 
 Have fun with this app, dream about buying tech stocks at their lows, and remember, as with our previous Notebook, that this app is a starting point. End users might want the ability to choose more than three stocks, or add bonds to the portfolio, or benchmark against a return other than a risk-free rate. This is where R coders and portfolio managers start to collaborate and build things bigger and better. Have a good weekend!

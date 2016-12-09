@@ -12,7 +12,7 @@ I am ever-optimistic that on the weekend I will have enough time and brainpower 
 
 1. In this [paper from Nature Communications](http://www.nature.com/articles/ncomms12474), Kun-Hsing Yu et al. use machine learning to diagnose cancer. The authors write:
 
-    > “We extract 9,879 quantitative image features and use regularized machine-learning methods to select the top features and to distinguish shorter-term survivors from longer-term survivors with stage I adenocarcinoma (P&lt;0.003) or squamous cell carcinoma (P=0.023) in the TCGA data set.”
+    > "We extract 9,879 quantitative image features and use regularized machine-learning methods to select the top features and to distinguish shorter-term survivors from longer-term survivors with stage I adenocarcinoma (P&lt;0.003) or squamous cell carcinoma (P=0.023) in the TCGA data set."
 
     Figure **a** shows ROC curves for classifying lung [adenocarcinoma](http://www.cancercenter.com/terms/adenocarcinoma/) versus adjacent normal tissue.
 
