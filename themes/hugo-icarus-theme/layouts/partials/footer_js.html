@@ -1,0 +1,19 @@
+{{ template "_internal/google_analytics.html" . }}
+<script src="{{ "fancybox/jquery.fancybox.pack.js" | absURL }}"></script>
+<script src="{{ "js/script.js" | absURL }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/yaml.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('pre:not([class]) code:not([class])').addClass('nohighlight hljs');
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});</script>
+{{ range .Site.Params.custom_js }}
+<script src="{{ . | absURL }}"></script>
+{{ end }}
+
+{{ "<!-- MathJax -->" | safeHTML }}
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>

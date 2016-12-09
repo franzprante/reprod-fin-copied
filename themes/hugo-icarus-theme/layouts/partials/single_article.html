@@ -1,0 +1,39 @@
+{{ if .IsPage }}
+<section id="main" class="full-width">
+{{ else }}
+<section id="main">
+{{ end }}
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+        <div class="article-inner">
+            {{ if and (isset .Params "banner") (not (eq .Params.banner "")) }}
+                <img src="{{ .Params.banner | absURL }}" class="article-banner">
+            {{ end }}
+
+            {{ partial "article_header" . }}
+            <div class="article-entry" itemprop="articleBody">
+                {{ .Content }}
+            </div>
+            {{ partial "article_footer" . }}
+        </div>
+
+        {{ partial "prev_next_post" . }}
+    </article>
+
+    {{ if and (not (eq .Site.DisqusShortname "")) (not .Params.disable_comments) }}
+    <section id="comments">
+        <div id="disqus_thread">
+        <script type="text/javascript">
+        (function() {
+            if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+                return;
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            var disqus_shortname = '{{ .Site.DisqusShortname }}';
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
+    </section>
+    {{ end }}
+</section>
