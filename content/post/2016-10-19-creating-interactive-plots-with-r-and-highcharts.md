@@ -17,7 +17,7 @@ The highcharter package enables the creation of Highcharts type plots within R.
 
 There are two main functions in the package:
 
-- `highchart():` Creates a Highchart chart object using [htmlwidgets](http://www.htmlwidgets.org/). The widget can be rendered on HTML pages generated from R Markdown, Shiny, or other applications.
+- `highchart()`: Creates a Highchart chart object using [htmlwidgets](http://www.htmlwidgets.org/). The widget can be rendered on HTML pages generated from R Markdown, Shiny, or other applications.
 - `hchart()`: Uses `highchart()` to draw a plot for different R object classes using a convenient single command. Specifically, it can plot data frames, numeric, histogram, character, density, factors, ts, mts, xts, stl, ohlc, acf, forecast, mforecast, ets, igraph, dist, dendrogram, phylo, and survfit classes.
 
 Plots are built in the spirit of ggplot2 by layering, although they use the pipe operator `(%>%)` instead of `+`.
