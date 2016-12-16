@@ -129,6 +129,8 @@ Since the highcharter package is powered by htmlwidlgets, it is also Shiny compa
 
 We have built an app that extends the visualization we created earlier, allowing for custom selection of years plotted, type of plot, and theme. You can view [the app and the source code here](https://gallery.shinyapps.io/highcharter-births/).
 
+<iframe src="https://gallery.shinyapps.io/highcharter-births/" width="100%" height="400px"></iframe>
+
 Things to Look Out For
 ----------------------
 
