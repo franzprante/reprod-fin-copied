@@ -35,21 +35,21 @@ This app could have been built using an app.r file, but I prefer to use a flexda
     library(PerformanceAnalytics)
     library(quantmod)
     library(dygraphs)
-    
-    # Function to calculate monthly returns on a stock 
+
+    # Function to calculate monthly returns on a stock
     monthly_stock_returns <- function(ticker, start_year) {
       # Download the data from Yahoo finance
-      symbol <- getSymbols(ticker, src = 'yahoo', from = start_year, 
-                           auto.assign = FALSE, warnings = FALSE) 
+      symbol <- getSymbols(ticker, src = 'yahoo', from = start_year,
+                           auto.assign = FALSE, warnings = FALSE)
       # Tranform it to monthly returns using the periodReturn function from quantmod
       data <- periodReturn(symbol, period = 'monthly', type = 'log')
-      
+
       # Let's rename the column of returns to something intuitive because the column
       # name is what will eventually be displayed on the time series graph
       colnames(data) <- as.character(ticker)
-      
-      # We want to be able to work with the xts objects that result from this function 
-      # so let's explicitly put them to the global environment with an easy to use 
+
+      # We want to be able to work with the xts objects that result from this function
+      # so let's explicitly put them to the global environment with an easy to use
       # name, the stock ticker
       assign(ticker, data, .GlobalEnv)
     }
@@ -60,8 +60,7 @@ The sidebar code chunk is, of course, unique to the Shiny app, because there are
     ```{r}
     ##dygraph chunk
     dygraphOutput("dygraphDollarGrowth")
-    
-    
+
     output$dygraphDollarGrowth%
         dyAxis("y", label = "$") %>%
         dyOptions(axisLineWidth = 1.5, fillGraph = TRUE, drawGrid = TRUE)
@@ -79,15 +78,14 @@ Not this:
     ```{r}
     ##dygraph chunk
     dygraphOutput("dygraphDollarGrowth")
-    
-    
+
     output$dygraphDollarGrowth<-renderDygraph({
       dygraph(portfolio_growth(), main = "Growth of $1 Invested in Your Portfolio") %>%
         dyAxis("y", label = "$") %>%
         dyOptions(axisLineWidth = 1.5, fillGraph = TRUE, drawGrid = TRUE)
     })
     ```
-    
+
     ```{r}
     valueBoxOutput("approvalBox1")
     output$approvalBox1<-renderValueBox({
