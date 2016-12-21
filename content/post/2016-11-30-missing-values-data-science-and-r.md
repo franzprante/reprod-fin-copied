@@ -30,14 +30,14 @@ Here is a short list of R packages for missing value imputation. I have selected
 
 [mice](https://mran.revolutionanalytics.com/package/mice/) which is an acronym for multivariate imputation of chained equations, formalizes the multiple implementation process outline above and is probably the gold standard for FCS multiple imputation. Package features include:
 
--   Columnwise specification of the imputation model
--   Support for arbitrary patterns of missing data
--   Passive imputation techniques that maintain consistency among data transformations
--   Subset selection of predictors
--   Support of arbitrary complete-data methods
--   Support pooling various types of statistics
--   Diagnostics for imputations
--   Callable user-written imputation functions
+- Columnwise specification of the imputation model
+- Support for arbitrary patterns of missing data
+- Passive imputation techniques that maintain consistency among data transformations
+- Subset selection of predictors
+- Support of arbitrary complete-data methods
+- Support pooling various types of statistics
+- Diagnostics for imputations
+- Callable user-written imputation functions
 
 The [JSS paper](https://www.jstatsoft.org/article/view/v045i03) describes how the desire to provide a separate imputation model for each variable led to the development of the chained equation technique where a Gibbs sampler fills out the missing data. [miceAdds](https://mran.revolutionanalytics.com/package/miceadds/) provides additional functions to be used with mice including plausible value imputation, multilevel imputation functions, imputation using partial least squares (PLS) for high dimensional predictors, nested multiple imputation, and two-way imputation.
 

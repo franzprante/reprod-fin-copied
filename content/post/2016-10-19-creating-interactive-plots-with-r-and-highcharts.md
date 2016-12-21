@@ -17,7 +17,7 @@ The highcharter package enables the creation of Highcharts type plots within R.
 
 There are two main functions in the package:
 
-- `highchart():` Creates a Highchart chart object using [htmlwidgets](http://www.htmlwidgets.org/). The widget can be rendered on HTML pages generated from R Markdown, Shiny, or other applications.
+- `highchart()`: Creates a Highchart chart object using [htmlwidgets](http://www.htmlwidgets.org/). The widget can be rendered on HTML pages generated from R Markdown, Shiny, or other applications.
 - `hchart()`: Uses `highchart()` to draw a plot for different R object classes using a convenient single command. Specifically, it can plot data frames, numeric, histogram, character, density, factors, ts, mts, xts, stl, ohlc, acf, forecast, mforecast, ets, igraph, dist, dendrogram, phylo, and survfit classes.
 
 Plots are built in the spirit of ggplot2 by layering, although they use the pipe operator `(%>%)` instead of `+`.
@@ -29,8 +29,7 @@ Other attractive features of the package are:
 
 We will demonstrate the functionality of this package as well as of Highcharts in general through a series of visualisation examples.
 
-Example 1: US births on Friday the 13th
----------------------------------------
+## Example 1: US births on Friday the 13th
 
 The inspiration for this visualization is a FiveThirtyEight article titled [Some People Are Too Superstitious To Have A Baby On Friday The 13th](http://fivethirtyeight.com/features/some-people-are-too-superstitious-to-have-a-baby-on-friday-the-13th/). FiveThirtyEight generously makes the data used in (some of) their articles available on their [GitHub repository](https://github.com/fivethirtyeight/data). The data used in this particular analysis can be found [here](https://github.com/mine-cetinkaya-rundel/highcharts-in-r/tree/master/data).
 
@@ -122,15 +121,15 @@ highchart() %>%
 
 Once again, an attractive feature of this visualization is the hover tooltip. Themes also make it easy to change the look of the plot (in this case using `hc_theme_538()` gets us very close to the original visualization). Additionally, we are able to easily change labels (e.g., names of days) without having to make changes in the original data.
 
-Example 2: US births on Friday the 13th, an interactive look
-------------------------------------------------------------
+## Example 2: US births on Friday the 13th, an interactive look
 
 Since the highcharter package is powered by htmlwidlgets, it is also Shiny compatible! In order to build a highchart within a Shiny app, we use the `renderHighchart()` function.
 
 We have built an app that extends the visualization we created earlier, allowing for custom selection of years plotted, type of plot, and theme. You can view [the app and the source code here](https://gallery.shinyapps.io/highcharter-births/).
 
-Things to Look Out For
-----------------------
+<iframe src="https://gallery.shinyapps.io/highcharter-births/" width="100%" height="400px"></iframe>
+
+## Things to Look Out For
 
 Highcharts' built-in and customizable hover/tooltip box and zooming functionality are among its most attractive features. However, whether or not these features would be useful for you depends on your use case.
 
@@ -157,7 +156,6 @@ hchart(oct_lax_flights_agg, "line", x = dep_delay_cat, y = med_arr_delay, group 
 
 <iframe src="https://beta.rstudioconnect.com/content/2015/" width="100%" height="400px"></iframe>
 
-Summary
--------
+## Summary
 
 Highcharts provides high quality web graphics with high customizability, and the highcharter package allows R users to take full advantage of them. If you're interested in finding out more about the functionality of the package, I highly recommend browsing the highcharter package [homepage](http://jkunst.com/highcharter/) which contains a variety of Highcharts, [Highstock](http://www.highcharts.com/products/highstock) and [Highmaps](http://www.highcharts.com/products/highmaps) plots along with sample code to reproduce them. Additionally, the [Highcharts Options Reference page](http://api.highcharts.com/highcharts) is immensely useful for finding the specific syntax for customization options.

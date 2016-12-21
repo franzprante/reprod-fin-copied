@@ -33,7 +33,7 @@ model <- naiveBayes(Class ~ ., data = HouseVotes84)
 print(model)
 ```
 
-The model object produced by the naiveBayes() function includes a contingency table for each vote, which is displayed by the print statement above. Here is an example of just one of the tables displayed by the print statement:
+The model object produced by the `naiveBayes()` function includes a contingency table for each vote, which is displayed by the print statement above. Here is an example of just one of the tables displayed by the print statement:
 
 ```
 model$tables$V2
@@ -93,24 +93,24 @@ data("HouseVotes84")
 head(HouseVotes84,2)
 
 #---------------------------------------
-# This function is taken from Kalish Awati's 
+# This function is taken from Kalish Awati's
 # post on Naive Bayes
-# It imputes missing values for the 
-# HouseVotes84 data set 
-# function to return number of NAs by vote and class 
+# It imputes missing values for the
+# HouseVotes84 data set
+# function to return number of NAs by vote and class
 # (democrat or republican)
-na_by_col_class <- 
-function (col,cls){return(sum(is.na(HouseVotes84[,col] & 
+na_by_col_class <-
+function (col,cls){return(sum(is.na(HouseVotes84[,col] &
                          HouseVotes84$Class==cls))}
 # function to compute the conditional probability
 # that a member of a party will cast
-# a 'yes' vote for a particular issue. 
-# The probability is based on all members of the 
+# a 'yes' vote for a particular issue.
+# The probability is based on all members of the
 # party who actually cast a vote on the issue (ignores NAs).
 p_y_col_class <- function(col,cls){
-  sum_y<-sum(HouseVotes84[,col]=='y' & 
+  sum_y<-sum(HouseVotes84[,col]=='y' &
          HouseVotes84$Class==cls,na.rm = TRUE)
-  sum_n<-sum(HouseVotes84[,col]=='n' & 
+  sum_n<-sum(HouseVotes84[,col]=='n' &
          HouseVotes84$Class==cls,na.rm = TRUE)
   return(sum_y/(sum_y+sum_n))}
 #impute missing values.
@@ -118,7 +118,7 @@ for (i in 2:ncol(HouseVotes84)) {
   if(sum(is.na(HouseVotes84[,i])>0)) {
     c1 <- which(is.na(HouseVotes84[,i])& HouseVotes84$Class=='democrat',arr.ind = TRUE)
     c2 <- which(is.na(HouseVotes84[,i])& HouseVotes84$Class=='republican',arr.ind = TRUE)
-    
+
     HouseVotes84[c1,i] <-
       ifelse(runif(na_by_col_class(i,'democrat'))<
              p_y_col_class(i,'democrat'),'y','n')
@@ -155,20 +155,19 @@ Finally, we partition the data into training and test data sets and use the MLli
 ```r
 # Partition into 'training', 'test'
 partitions <- votes_tbl %>%
-  sdf_partition(training = 0.5, 
+  sdf_partition(training = 0.5,
                 test = 0.5, seed = 1099)
-
 
 head(partitions$training)
 # pick out the feature variables.
-X_names <- names(votes[,2:17]) 
+X_names <- names(votes[,2:17])
 # Fit model
-nb_spark_model <- ml_naive_bayes(partitions$training, 
-                   response= "Class", 
+nb_spark_model <- ml_naive_bayes(partitions$training,
+                   response= "Class",
                    features = X_names)
 nb_spark_model
 ```
 
 From here, it would not take much more work to complete the rest of Kalish's example in Spark.
 
-In the machine learning world, Naive Bayes may be an even more popular "go to" classifier than logistic regression. It often provides predictive results that are good enough to set the bar as a baseline model. it is interesting as a simple example of a generative model, and with the help of the sparklyr package, it is easy for R users to deploy in Spark's big data environment.
+In the machine learning world, Naive Bayes may be an even more popular "go to" classifier than logistic regression. It often provides predictive results that are good enough to set the bar as a baseline model. It is interesting as a simple example of a generative model, and with the help of the sparklyr package, it is easy for R users to deploy in Spark's big data environment.
