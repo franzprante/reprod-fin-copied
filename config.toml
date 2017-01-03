@@ -23,7 +23,7 @@ theme = "hugo-icarus-theme"
     location = "Boston, MA"
     site_description = "An R community blog edited by RStudio"
     copyright  = "RStudio, Inc. All Rights Reserved."
-    avatar = "css/images/avatar.png"
+    avatar = "css/images/logo.png"
     logo = "css/images/logo.png"
 
     # Format dates with Go's time formatting
