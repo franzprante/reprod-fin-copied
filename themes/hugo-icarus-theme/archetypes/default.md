@@ -1,10 +1,9 @@
-+++
-tags = []
-categories = []
-description = ""
-menu = ""
-banner = ""
-images = []
-+++
-
-<!--more-->
+---
+title: ""
+author: ""
+categories: []
+tags: []
+summary: ""
+banner: ""
+draft: true
+---
