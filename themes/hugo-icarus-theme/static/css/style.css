@@ -2168,3 +2168,26 @@ ol.toc {
 .highlight .code .selector-id {
   font-weight: bold;
 }
+.mktoForm input[type=email] {
+  border: 1px solid #999999;
+  padding: 10px 10px !important;
+  color: #999;
+}
+.mktoButton {
+  background-color: #75aadb;
+  text-transform: uppercase;
+  border: 1px #ffffff;
+  font-size: 16px;
+  width: 200px;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 5px;
+}
+span.mktoButtonWrap.mktoNative {
+  margin-left: 10px !important;
+}
+.mktoButton:hover {
+  background-color: #fff;
+  color: #75aadb;
+  border: 1px solid #75aadb;
+}
