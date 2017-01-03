@@ -5,7 +5,6 @@ date: 2016-11-18T11:58:25+00:00
 slug: reproducible-finance-with-r-a-sharpe-ratio-shiny-app
 categories: [R Views]
 tags: [Data Science, Finance, R Language, Time Series]
-banner: http://www.freewebheaders.com/wordpress/wp-content/gallery/retro-abstract/retro-abstract-blue-header-6101.jpg
 ---
 
 In this [previous post](/2016/11/09/reproducible-finance-with-r-the-sharpe-ratio/), we used an R Notebook to grab the monthly return data on three stocks, build a portfolio, visualize portfolio performance, and calculate the Sharpe Ratio. The Notebook format emphasized reproducibility and reuse by other R coders.
