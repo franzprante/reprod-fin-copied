@@ -19,7 +19,7 @@ theme = "hugo-icarus-theme"
 [params]
     # Tell me who you are
     author = "R Views"
-    bio = "An R community blog edited by RStudio"
+    bio = "An R community blog edited by ![RStudio](/css/images/rstudio.png)"
     location = "Boston, MA"
     site_description = "An R community blog edited by RStudio"
     copyright  = "RStudio, Inc. All Rights Reserved."

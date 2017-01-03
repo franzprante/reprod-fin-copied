@@ -381,7 +381,7 @@ code {
 }
 .header-inner #logo .logo {
   margin-right: 5px;
-  display: inline-block;
+  display: none;
 }
 .header-inner #logo .site-title {
   font-size: 16px;
@@ -655,7 +655,7 @@ code {
   background: #fff;
 }
 #profile .inner .base-info #avatar {
-  display: block;
+  display: none;
   margin: 10px auto 20px;
   width: 128px;
   height: 128px;
@@ -669,6 +669,13 @@ code {
 #profile .inner .base-info #name {
   font-size: 20px;
   font-weight: 600;
+  display: none;
+}
+#profile .inner .base-info #title {
+  font-size: 18px;
+}
+#profile .inner .base-info #title img {
+  vertical-align: middle;
 }
 #profile .inner .base-info #location {
   font-size: 12px;
