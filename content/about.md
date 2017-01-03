@@ -1,7 +1,6 @@
 ---
-title: About
+title: About R Views
 date: 2016-12-04T00:45:07-06:00
-menu: "main"
 ---
 
 Welcome to the R Views blog.

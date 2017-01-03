@@ -41,6 +41,11 @@ theme = "hugo-icarus-theme"
     link   = "/"
 
 [[params.menu]]
+    before = true
+    label  = "About"
+    link   = "about/"
+
+[[params.menu]]
     before = false
     label  = "Tags"
     link   = "tags/"
