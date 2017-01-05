@@ -1856,7 +1856,7 @@ ol.toc {
   }
 }
 #recent-post li {
-  padding: 10px 0 10px 94px;
+  padding: 10px 0 10px 0px;
 }
 #recent-post li:before,
 #recent-post li:after {
@@ -1870,6 +1870,7 @@ ol.toc {
   padding: 10px 0px;
 }
 #recent-post li .item-thumbnail {
+  display: none;
   opacity: 1;
   float: left;
   margin-left: -94px;
