@@ -4,6 +4,7 @@
         {{ .Title }}
     </h1>
     </a>
+    {{ if not .IsPage }}
     <div class="article-meta">
         <div class="article-date">
             <i class="fa fa-calendar"></i>
@@ -43,4 +44,5 @@
             {{ end }}
         {{ end }}
     </div>
+  {{ end }}
 </header>
