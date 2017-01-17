@@ -4,15 +4,13 @@
         {{ .Title }}
     </h1>
     </a>
-    {{ if not .IsPage }}
+    {{ if and (isset .Params "author") (not (eq .Params.author "")) }}
     <div class="article-meta">
         <div class="article-date">
             <i class="fa fa-calendar"></i>
             <time datetime="{{ .Date }}" itemprop="datePublished">{{ .Date.Format .Site.Params.date_format }}</time>
-            {{ if and (isset .Params "author") (not (eq .Params.author "")) }}
             <i class="fa fa-user"></i>
             {{ .Params.author }}
-            {{ end }}
         </div>
 
 
