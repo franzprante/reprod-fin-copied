@@ -1,0 +1,37 @@
+
+
+blogdown::new_post("title", rmd = TRUE)
+
+
+For RStudio people to make a new post
+Install blogdown
+Make a new RStudio project that points to github/rstudio/rviews
+
+github/rstudio/rviews
+         Make a branch for the new post
+         name branch: date author name and slug
+         eg. 2017-01_ortega_sparklyr
+
+from local repo:
+         Make a new file with title of post
+            use the blogdown command: blogdown::new_post("title", rmd = TRUE)
+            or use the New Post Addin
+         put the content in the file
+         save the file
+         do a Pull Request
+         commit the file
+         change to branch you just made just made for the new post
+         push the file
+
+from github/rstudio/rviews
+         Add joseph rickert as reviewer
+         do pull request
+
+
+Branch vs fork
+
+How to undo a commit when post was pushed to the wrong branch?
+
+How do we remove a branch?
+What is difference between assignee and reviewer?
+Do we want to make an R scrip to run for each of these actions?
