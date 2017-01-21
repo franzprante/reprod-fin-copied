@@ -10,7 +10,7 @@ tags: [Data Science, Finance, R Language, Time Series]
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(tidy = FALSE)
 # packages required for this post
-for (pkg in c('PerformanceAnalytics', 'quantmod', 'dygraphs')) {
+for (pkg in c('PerformanceAnalytics', 'quantmod', 'dygraphs', 'RColorBrewer')) {
   if (!requireNamespace(pkg)) install.packages(pkg)
 }
 ```
