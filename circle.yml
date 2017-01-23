@@ -1,0 +1,39 @@
+machine:
+  environment:
+    R_LIBS_USER: ~/R
+    PATH: "$PATH:$HOME/bin"
+
+dependencies:
+  cache_directories:
+    - ~/R
+    - ~/bin
+    - blogdown
+  pre:
+    - "[ ! -d ~/R ] && mkdir ~/R || true"
+    - "[ ! -d ~/bin ] && mkdir ~/bin || true"
+    - echo 'options(repos = "https://cran.rstudio.com")' > ~/.Rprofile
+  post:
+    - sudo apt-add-repository -y "deb https://cran.rstudio.com/bin/linux/ubuntu `lsb_release -cs`/"
+    - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+    - sudo apt-get update
+    - sudo apt-get -y install r-base-dev
+    - R -e '.libPaths(); sessionInfo()'
+    - wget https://github.com/jgm/pandoc/releases/download/1.17.2/pandoc-1.17.2-1-amd64.deb && sudo dpkg -i pandoc-1.17.2-1-amd64.deb
+    - Rscript -e 'if (!requireNamespace("devtools")) install.packages("devtools"); devtools::install_github("rstudio/blogdown")'
+    - Rscript -e "blogdown::install_hugo(); blogdown::build_site()"
+
+test:
+  post:
+    - ls public
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - Rscript -e "blogdown::build_site(local = FALSE)"
+      - aws s3 sync public/ s3://rviews.rstudio.com/ --acl public-read
+  staging:
+    branch: /.*/
+    commands:
+      - Rscript -e "blogdown::build_site(local = TRUE)"
+      - aws s3 sync public/ s3://beta.rviews.rstudio.com/ --acl public-read
