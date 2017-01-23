@@ -7,8 +7,8 @@ draft: true
 summary: ""
 tags: [Dashboards, R Markdown, Open Source, R for the Enterprise, R Language]
 ---
-</br>
-In the corporate world, spreadsheets and Powerpoint presentations still dominate as the tools used for analyzing and sharing information. So, it is not at all surprising that even when business analysts use R for the analytical heavy lifting, they frequently revert to using spreadsheets and slide decks to share their results. This may seem like the easiest way to communicate with colleagues,  but any modestly complicated project is likely to be error prone and generate hours of unnecessary rework.
+</BR>
+In the corporate world, spreadsheets and PowerPoint presentations still dominate as the tools used for analyzing and sharing information. So, it is not at all surprising that even when business analysts use R for the analytical heavy lifting, they frequently revert to using spreadsheets and slide decks to share their results. This may seem like the easiest way to communicate with colleagues,  but any modestly complicated project is likely to be error prone and generate hours of unnecessary rework.
 
 An R savvy analyst can harness R Markdown to develop reproducible business reporting, and information sharing workflows in any business organization; all it takes is just a little effort to master some basic R document preparation tools.
 
@@ -18,7 +18,7 @@ In this post, I would like to examine a scenario that represents some experience
 
 ![After a new analysis is delivered](new_analysis.png)
 
-A new R analysis is delivered in a Powerpoint presentation; everyone thinks that the insights are very valuable and want more associates to see it.  Almost immediately, the following 3 requests are made:
+A new R analysis is delivered in a PowerPoint presentation; everyone thinks that the insights are very valuable and want more associates to see it.  Almost immediately, the following 3 requests are made:
  
 - **“...We need it broken out by”** - The presentation needs to be split by a specific segment.  The segment is normally  geographical or managerial in nature.
 
@@ -53,13 +53,26 @@ R  Markdown combines the creation and sharing steps.  The three requests can be 
 - **Creating a dashboard is easy** -  In a spreadsheet, this is normally accomplished with a combination of pivot tables and graphs.  R Markdown uses [flexdashboard](http://rmarkdown.rstudio.com/flexdashboard/) to create visually striking dashboards that are self contained.  Used in combination with htmlwidgets, the audience is empowered with a very powerful tool.  
 
 Here is an example of a **live** parameterized R Markdown flexdashboard based on stock data:
-</br>
-</br>
+</BR>
+</BR>
 <center><embed src="http://colorado.rstudio.com:3939/content/239/parameterized-flexdashboard-stock.html", width = "800", height="400"</embed></center>
 
 ## How to get started
 
 **R Markdown is a free package**, so if you have R, and ideally RStudio, you can start using it today.  Also, there are a lot of resources to learn how to use R Markdown; the package’s [official website](http://rmarkdown.rstudio.com/lesson-1.html) is a good place to start. 
+
+Here is a sample script that uses Parameterized R Markdown to create a slide deck based on a selected stock.  In this case we used Google:
+
+<script src="https://gist.github.com/edgararuiz/0ad9a1cc3586b99d2ac57186d90e1aa7.js"></script>
+
+And here is the resulting deck. Press the left arrow key to see the next slide:
+<BR>
+<center><embed src="http://colorado.rstudio.com:3939/content/250/Sample_Presentation.html", width = "800", height="400", frameborder="1"></embed></center>
+
+This simple script creates an nice looking and interactive deck that needs no manual intervention if the data needs to be refreshed, and one small parameter change if a different stock is to be selected.
+
+
+## Final thought
 
 We encourage you to try R Markdown. The “start small and then build big” strategy rarely fails, so maybe begin by automating a simple report first and then start taking advantage of more advanced features as you grow comfortable with the tool.   
 
