@@ -10,7 +10,6 @@ title: "Submit_New_Post"
 
 WORKFLOW 1: The old-fashioned way for external authors
 Prepare your post in an R Markdown file (.rmd) and send it to joseph.rickert@rstudio.com
->>>>>>> 8f3def8e760e725e44808b661a83d48d84e97c56
 
 WORKFLOW 2: The collaborative way for RStudio authors
 Step-1: Install blogdown
