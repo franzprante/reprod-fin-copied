@@ -32,7 +32,7 @@ Step-3: From local repo:
 
 
 Step-4: From github/rstudio/rviews
-         (1) Add joseph rickert as reviewer
+         (1) Add joseph-rickert as reviewer
          (2) Do pull request
          (3) Notify JBR via email: joseph.rickert@rstudio.co
 
