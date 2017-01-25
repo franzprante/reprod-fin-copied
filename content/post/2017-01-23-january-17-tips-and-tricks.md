@@ -6,8 +6,10 @@ slug: january-17-rstudio-tips-and-tricks
 tags: [Community, Data Science, Education, Open Source, RStudio]
 categories: [R Views]
 ---
+by Sean Lopp
 
-This month's collection of Tips and Tricks is stolen from an excellent talk given at the 2017 rstudio::conf by RStudio Software Engineer Kevin Ushey.
+This month's collection of Tips and Tricks comes from an excellent talk given at the 2017 rstudio::conf in Orlando by RStudio Software Engineer Kevin Ushey.  The slides from his talk are embedded below and cover features from autocompletion to R Markdown shortcuts. Clicking on the presentation will change slides.
+
 
 Enjoy!
 
