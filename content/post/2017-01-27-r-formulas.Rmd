@@ -22,7 +22,7 @@ library(splines)
 
 ## Introduction
 
-The formula interface to symbolically specifying blocks of data is ubiquitous in R. It is commonly used to generate _design matrices_ for modeling function (e.g. `lm`). In traditional linear model statistics, the design matrix is the two dimensional representation of the predictor set where instances of data are in rows and variable attributes are in columns (a.k.a. the _X_ matrix). 
+The formula interface to symbolically specify blocks of data is ubiquitous in R. It is commonly used to generate _design matrices_ for modeling function (e.g. `lm`). In traditional linear model statistics, the design matrix is the two-dimensional representation of the predictor set where instances of data are in rows and variable attributes are in columns (a.k.a. the _X_ matrix). 
 
 A simple motivating example uses the inescapable iris data in a linear regression model: 
 
@@ -31,9 +31,9 @@ mod1 <- lm(Sepal.Width ~ Petal.Width + log(Petal.Length) + Species,
            data = iris, subset = Sepal.Length > 4.6)
 ```
 
-While the purpose of this code chunk is to fit a linear regression models, the formula is used to specify the symbolic model as well as generating the intended design matrix. Note that the formula method defines the columns to be included in the design matrix as well as which rows should be retained. 
+While the purpose of this code chunk is to fit a linear regression models, the formula is used to specify the symbolic model as well as generating the intended design matrix. Note that the formula method defines the columns to be included in the design matrix, as well as which rows should be retained. 
 
-Formulas are used in R beyond specifying statistical models and their use has been growing over time (see [this](https://cran.r-project.org/web/packages/lazyeval/vignettes/lazyeval.html) or [this](http://rmhogervorst.nl/cleancode/blog/2016/06/13/NSE_standard_evaluation_dplyr.html)). An example for data aggregation is used later as an example. 
+Formulas are used in R beyond specifying statistical models, and their use has been growing over time (see [this](https://cran.r-project.org/web/packages/lazyeval/vignettes/lazyeval.html) or [this](http://rmhogervorst.nl/cleancode/blog/2016/06/13/NSE_standard_evaluation_dplyr.html)). An example for data aggregation is used later as an example. 
 
 In this post, I'll walk through the mechanics of how some modeling functions use formulas to make a design matrix using `lm` to illustrate the details. Note, however, that the syntactical minutiae are likely to be different from function to function, even within base R. 
 
@@ -71,7 +71,7 @@ The object `mf` is initially created to mirror the original call. After executin
 lm(formula = Sepal.Width ~ Petal.Width + log(Petal.Length) + Species, 
    data = iris, subset = Sepal.Length > 4.6)
 ```
-and `class(mf)` has a value of `"call"`. Note that the first element of the call, `mf[[1L]]`, has a value of `lm` with the class of `name`.  The next few lines remove any arguments to `lm` that are not arguments to `model.frame` and adds another (`drop.unused.levels`). Finally, the call is modified by replacing the first element of the call (`lm`) to `stats::model.frame`. Now, `mf`, has a value of 
+and `class(mf)` has a value of `"call"`. Note that the first element of the call, `mf[[1L]]`, has a value of `lm` with the class of `name`.  The next few lines remove any arguments to `lm` that are not arguments to `model.frame`, and adds another (`drop.unused.levels`). Finally, the call is modified by replacing the first element of the call (`lm`) to `stats::model.frame`. Now, `mf`, has a value of 
 ```{r, eval = FALSE}
 stats::model.frame(formula = Sepal.Width ~ Petal.Width + log(Petal.Length) + Species, 
                    data = iris, 
@@ -99,12 +99,12 @@ Note that :
 
  * all of the columns are present, predictors _and_ response,
  * the filtering defined by the `subset` command is executed here (note the row names above),
- * the `Petal.Length` has been logged and that the column name is not a valid name, and
- * the species variable has not generated any dummy variables. 
+ * the `Petal.Length` has been logged and the column name is not a valid name, and
+ * the Species variable has not generated any dummy variables. 
 
 If weights or an offset was used in the model, the resulting model frame would also include these. 
 
-As alluded to above, `mf` has several attributes and includes one that would not normally be associated with a data frame (e.g. `"terms"`). The `terms` object contains the data that defines the relationships between variables in the formulas as well as any transformations of the individual predictors (e.g. `log`). For our original model:
+As alluded to above, `mf` has several attributes, and includes one that would not normally be associated with a data frame (e.g. `"terms"`). The `terms` object contains the data that defines the relationships between variables in the formulas, as well as any transformations of the individual predictors (e.g. `log`). For our original model:
 ```{r terms}
 mod1$terms
 ```
@@ -112,7 +112,7 @@ The `terms` object will be used to generate design matrices on new data (e.g. sa
 
 ### Creating the Design Matrix
 
-The `lm` code has some additional steps to save the model terms and do generate the design matrix: 
+The `lm` code has some additional steps to save the model terms and generate the design matrix: 
 ```{r model_matrix, eval = FALSE}
 mt <- attr(x = mf, which = "terms")
 x <- model.matrix(object = mt, data = mf, contrasts.arg = contrasts)
@@ -121,12 +121,12 @@ The `model.matrix` function uses the data in the `terms` object to generate any 
 
 # The Predictive Nature of the `terms`
 
-In the previous example, the log transformation is applied to one of the columns. When using an inline function inside a formula, this transformation will be applied to the current data as well as any future data points (say via `predict.lm`). The same workflow is used where a model frame is used with the `terms` object and `model.matrix`. 
+In the previous example, the log transformation is applied to one of the columns. When using an inline function inside a formula, this transformation will be applied to the current data, as well as any future data points (say, via `predict.lm`). The same workflow is followed where a model frame is used with the `terms` object and `model.matrix`. 
 
 However, there are some operations that can be specified in a formula that require statistical estimates. Two examples: 
 
-* a natural spline (`splines::ns`) takes a numeric variable, does some computations, and expands that variable into multiple features that can be used to model that predictor in a nonlinear fashion 
-* orthogonal polynomials (`stats::poly`) is a basis expansion that takes a single predictor and produces new columns that correspond to the polynomial degree. 
+* a natural spline (`splines::ns`) takes a numeric variable, does some computations, and expands that variable into multiple features that can be used to model that predictor in a nonlinear fashion.
+* orthogonal polynomials (`stats::poly`) is a basis expansion that takes a single predictor and produces new columns that correspond to the polynomial degree.
 
 As an example of natural splines: 
 ```{r ns_1}
@@ -146,19 +146,19 @@ Now, getting back to formulas, we can include a function like this inline:
 ```{r lm_2}
 mod2 <- lm(Sepal.Width ~ ns(Petal.Width, df = 2) + Species, data = iris)
 ```
-The resulting `terms` object saves the model specification and also the values required to reproduce the spline basis function. The `terms` object contains an attribute that is misleadingly named `predvars` that has this information: 
+The resulting `terms` object saves the model specification, and also the values required to reproduce the spline basis function. The `terms` object contains an attribute that is misleadingly named `predvars` that has this information: 
 ```{r predvars}
 attr(x = mod2$terms, which = "predvars")
 ## The part with `ns` is in the _third_ element:
 attr(x = mod2$terms, which = "predvars")[[3]]
 ```
-When `predict.lm` is invoked with a new data set, the terms are passed to `model.frame` and the `predvars` are evaluated on the new data, e.g. 
+When `predict.lm` is invoked with a new data set, the terms are passed to `model.frame` and the `predvars` are evaluated on the new data, e.g.,
 ```{r predvars_eval}
 eval(attr(x = mod2$terms, which = "predvars")[[3]], envir = head(iris))
 ``` 
 
-In summary, R's formula interface works by exploiting the original formula as a general expression and the `terms` object is where most of the information about the design matrix are stored. 
+In summary, R's formula interface works by exploiting the original formula as a general expression, and the `terms` object is where most of the information about the design matrix is stored. 
 
-Finally, it is possible to include more complex operations in the formula. For example, two techniques for imputation in predictive models are using tree ensembles and _K_-nearest neighbors. In each case, a model can be created to impute a predictor and this model also could be embedded into `predvars` as long as the prediction function can be exploited as an expression. 
+Finally, it is possible to include more complex operations in the formula. For example, two techniques for imputation in predictive models are using tree ensembles and _K_-nearest neighbors. In each case, a model can be created to impute a predictor, and this model also could be embedded into `predvars` as long as the prediction function can be exploited as an expression. 
 
 In a future post, I will discuss some limitations of the standard formula interface.
