@@ -5,7 +5,7 @@ date: 2017-01-27T14:19:41-08:00
 draft: true
 summary: ""
 tags: [R, Formulas]
-title: "R Formulas"
+title: "The R Formula Method: The Good Parts"
 ---
 
 ```{r setup, include=FALSE}
@@ -22,7 +22,7 @@ library(splines)
 
 ## Introduction
 
-The formula interface to symbolically specify blocks of data is ubiquitous in R. It is commonly used to generate _design matrices_ for modeling function (e.g. `lm`). In traditional linear model statistics, the design matrix is the two-dimensional representation of the predictor set where instances of data are in rows and variable attributes are in columns (a.k.a. the _X_ matrix). 
+The formula interface to symbolically specify blocks of data is ubiquitous in R. It is commonly used to generate _design matrices_ for modeling function (e.g. `lm`). In traditional linear model statistics, the _design matrix_ is the two-dimensional representation of the predictor set where instances of data are in rows and variable attributes are in columns (a.k.a. the _X_ matrix). 
 
 A simple motivating example uses the inescapable iris data in a linear regression model: 
 
@@ -33,7 +33,7 @@ mod1 <- lm(Sepal.Width ~ Petal.Width + log(Petal.Length) + Species,
 
 While the purpose of this code chunk is to fit a linear regression models, the formula is used to specify the symbolic model as well as generating the intended design matrix. Note that the formula method defines the columns to be included in the design matrix, as well as which rows should be retained. 
 
-Formulas are used in R beyond specifying statistical models, and their use has been growing over time (see [this](https://cran.r-project.org/web/packages/lazyeval/vignettes/lazyeval.html) or [this](http://rmhogervorst.nl/cleancode/blog/2016/06/13/NSE_standard_evaluation_dplyr.html)). An example for data aggregation is used later as an example. 
+Formulas are used in R beyond specifying statistical models, and their use has been growing over time (see [this](https://cran.r-project.org/web/packages/lazyeval/vignettes/lazyeval.html) or [this](http://rmhogervorst.nl/cleancode/blog/2016/06/13/NSE_standard_evaluation_dplyr.html)). 
 
 In this post, I'll walk through the mechanics of how some modeling functions use formulas to make a design matrix using `lm` to illustrate the details. Note, however, that the syntactical minutiae are likely to be different from function to function, even within base R. 
 
@@ -64,14 +64,16 @@ function (formula, data, subset, weights, na.action, method = "qr",
     mf <- eval(expr = mf, envir = parent.frame())
 ```
 
-The goal of this code is to manipulate the formula and other arguments into an acceptable set of arguments to the `model.frame` function in the `stats` package. The code will modify the call to `lm` to use as the substrate into `model.frame`, which has many similar arguments (e.g. `formula`, `data`, `subset`, and `na.action`) and some others that are not. 
+The goal of this code is to manipulate the formula and other arguments into an acceptable set of arguments to the `model.frame` function in the `stats` package. The code will modify the call to `lm` to use as the substrate into `model.frame`, which has many similar arguments (e.g. `formula`, `data`, `subset`, and `na.action`). However, there are arguments that are not common to both functions. 
 
 The object `mf` is initially created to mirror the original call. After executing `match.call(expand.dots = FALSE)`, our original call generates a value of 
 ```
 lm(formula = Sepal.Width ~ Petal.Width + log(Petal.Length) + Species, 
    data = iris, subset = Sepal.Length > 4.6)
 ```
-and `class(mf)` has a value of `"call"`. Note that the first element of the call, `mf[[1L]]`, has a value of `lm` with the class of `name`.  The next few lines remove any arguments to `lm` that are not arguments to `model.frame`, and adds another (`drop.unused.levels`). Finally, the call is modified by replacing the first element of the call (`lm`) to `stats::model.frame`. Now, `mf`, has a value of 
+and `class(mf)` has a value of `"call"`. Note that the first element of the call, `mf[[1L]]`, has a value of `lm` with the class of `name`.  
+
+The next few lines remove any arguments to `lm` that are not arguments to `model.frame`, and adds another (`drop.unused.levels`). Finally, the call is modified by replacing the first element of the call (`lm`) to `stats::model.frame`. Now, `mf`, has a value of 
 ```{r, eval = FALSE}
 stats::model.frame(formula = Sepal.Width ~ Petal.Width + log(Petal.Length) + Species, 
                    data = iris, 
@@ -99,7 +101,7 @@ Note that :
 
  * all of the columns are present, predictors _and_ response,
  * the filtering defined by the `subset` command is executed here (note the row names above),
- * the `Petal.Length` has been logged and the column name is not a valid name, and
+ * the `Petal.Length` has been log transformed and the column name is not a valid name, and
  * the Species variable has not generated any dummy variables. 
 
 If weights or an offset was used in the model, the resulting model frame would also include these. 
@@ -125,7 +127,7 @@ In the previous example, the log transformation is applied to one of the columns
 
 However, there are some operations that can be specified in a formula that require statistical estimates. Two examples: 
 
-* a natural spline (`splines::ns`) takes a numeric variable, does some computations, and expands that variable into multiple features that can be used to model that predictor in a nonlinear fashion.
+* a [natural spline](https://en.wikipedia.org/wiki/Spline_interpolation) (`splines::ns`) takes a numeric variable, does some computations, and expands that variable into multiple features that can be used to model that predictor in a nonlinear fashion.
 * orthogonal polynomials (`stats::poly`) is a basis expansion that takes a single predictor and produces new columns that correspond to the polynomial degree.
 
 As an example of natural splines: 
@@ -161,4 +163,5 @@ In summary, R's formula interface works by exploiting the original formula as a 
 
 Finally, it is possible to include more complex operations in the formula. For example, two techniques for imputation in predictive models are using tree ensembles and _K_-nearest neighbors. In each case, a model can be created to impute a predictor, and this model also could be embedded into `predvars` as long as the prediction function can be exploited as an expression. 
 
-In a future post, I will discuss some limitations of the standard formula interface.
+There are some severe limitations to formulas which may not be obvious and various packages have had to work around these issues. The second post on formulas ("The Bad") will illustrate these shortcomings. 
+
