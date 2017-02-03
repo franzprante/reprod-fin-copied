@@ -1,0 +1,110 @@
+---
+author: ""
+categories: []
+date: 2017-02-02T14:23:57-08:00
+draft: true
+summary: ""
+tags: []
+title: "R Views Style Guide"
+---
+**Note to the Reader: The formatting in this early version of the document is primitive. It would be very nice if the formatting of this document becomes sufficiently polished to serve as a template for writing new posts. Please contribute your expertise.** 
+   
+# Introduction
+This style guide is meant to be a comprehensive resource for authors who want to submit posts to the R Views blog. You will find sections describing the content and tone of the R Views blog, practical advice on formatting documents with R Markdown, pointers to external resources for grammatical resources and more.
+# Guidelines for Authors
+
+## Content
+R Views is the RStudio blog devoted to the R Community and the R Language. We imagine it as a place to read considered opinion about topics of interest to the R Community. Topics could include:   
+* The role of R in data science   
+* The role of the R Community in fostering critical thinking and data driven decisions   
+* The inner workings of the R language   
+* Examples of R being used to explore problems in Statistics and Data Science   
+* To learn about new R packages   
+* To learn what is happening at conferences and user group meetings around the world   
+* To see how RStudio tools can contribute to enhancing your R experience   
+
+## A Typical Post
+A typical post has about seven hundred and fifty words, two or three figures (images, pictures or plots) and some supporting R code. These are not hard and fast rules; the blogging medium permits a considerable amount of flexibility. However, we would like a typical R skilled R Viewers to be able to complete a first reading of a post in less than ten minutes. If you topic does not conform to these guidelines, consider delivering your work as a series of related posts.
+
+## Submitting a Post
+Authors submitting a post should follow one of the two workflows below. For now, authors who are not employees of RStudio must follow Workflow 1.
+
+### WORKFLOW 1: The old-fashioned way for external authors
+Prepare your post in an R Markdown file (.rmd) and send it to joseph.rickert@rstudio.com
+
+### WORKFLOW 2: The collaborative way for RStudio authors
+1. **Step1** - From your local RStudio IDE
+    i)  Install blogdown
+    ii) Make a local RStudio project that points to github/rstudio/rviews
+
+2. **Step-2** - From github/rstudio/rviews
+    i)  Make a branch for the new post
+    ii)  Name branch: date author name and "slug" e.g., 2017-01_Regenstein_moreFinance
+
+3. **Step-3** - From local repo:
+    i)  Make a new file with title of post
+    ii) use the blogdown command: `blogdown::new_post("title", rmd = TRUE)` or use the New Post Addin on the RStudio IDE
+    iii) Put the content in the file
+    iv)  Save the file
+    v)  Pull
+    vi)  Commit
+    vii)  Push
+
+4. **Step-4** - From github/rstudio/rviews
+    i) Add joseph-rickert as reviewer
+    ii) Do pull request, and assign to joseph-rickert
+    iii) Notify JBR via email: joseph.rickert@rstudio.co
+
+
+## R Markdown
+
+### Common Formatting Problems
+
+### Graphics
+The following are three different methods for including a .png file in an R Markdown Document. The first method provides the most control.
+
+Method 1    
+```{r fig.width=7, fig.height=5,echo=TRUE}
+# http://bit.ly/2kOSaw4
+library(png)
+library(grid)
+img <- readPNG("./images/madrid_advert.png")
+ grid.raster(img, x = unit(.55, "npc"))
+```
+
+Method 2    
+```{r, out.width = "400px"}
+knitr::include_graphics("./images/madrid_advert.png")
+```
+      
+Method 3    
+![](./images/madrid_advert.png)       
+
+
+# Style Manual
+
+## Common Troublesome Words and Abbreviations
+Stuff like this:
+Spell out numbers when used in text: e.g. three packages not 3 packages
+website not web site
+data science not Data Science
+
+## Tone
+How do you sound to the reader?
+Person, voice etc.
+
+## Sourcing
+
+## References
+
+* The Blogger's Style Guide: How to Write Stellar Blog Posts [Leaving Work Behind](http://leavingworkbehind.com/bloggers-style-guide/)
+
+* [The Chicago Manual of Style Online](http://www.chicagomanualofstyle.org/home.html)
+
+* How to Create a Writing Style Guide [HubSpot](https://blog.hubspot.com/blog/tabid/6307/bid/31247/The-Simple-Template-for-a-Thorough-Content-Style-Guide.aspx#sm.00013jhor2hx4e6ptm4248oqlgn3q)
+
+* MLA Style [Purdue Online Writing Lab](https://owl.english.purdue.edu/owl/section/2/11/)
+
+* Punctuation [English Oxford Living Dicgionary](https://en.oxforddictionaries.com/punctuation/)
+
+* Writing Numbers [Grammar-Monster](http://www.grammar-monster.com/lessons/numbers_how_to_write_in_full.htm)
