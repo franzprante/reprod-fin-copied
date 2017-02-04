@@ -193,7 +193,7 @@ Person, voice etc.
 * Writing Numbers [Grammar-Monster](http://www.grammar-monster.com/lessons/numbers_how_to_write_in_full.htm)   
 
 ### Technical
-* [Markdown Equation Examles](http://www.montana.edu/rotella/documents/502/MarkdownEqnExamples.Rmd)
+* [Markdown Equation Examples](http://www.montana.edu/rotella/documents/502/MarkdownEqnExamples.Rmd)
 * [Math Notation in R * Markdown](https://rstudio-pubs-static.s3.amazonaws.com/18858_0c289c260a574ea08c0f10b944abc883.html)
 * [Some examples of using LaTeX in R Markdown documents](http://www.calvin.edu/~rpruim/courses/m343/F12/RStudio/LatexExamples.html)
 * [Using R Markdown for Class Reports](http://www.stat.cmu.edu/~cshalizi/rmarkdown/) by Cosma Shalizi
