@@ -8,7 +8,7 @@ tags: []
 title: "Submit_New_Post"
 ---
 #----
-## WORKFLOW 1 The old-fashioned way for external authors
+## WORKFLOW 1: The old-fashioned way for external authors
 Prepare your post in an R Markdown file (.rmd) and send it to joseph.rickert@rstudio.com
 
 ## WORKFLOW 2: The collaborative way for RStudio authors
