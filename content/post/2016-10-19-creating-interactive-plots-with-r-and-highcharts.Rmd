@@ -37,7 +37,7 @@ Our goal is to [recreate this particular visualization](http://i2.wp.com/espnfiv
 
 Let's load the necessary packages:
 
-```r
+```{r, message=FALSE, warning=FALSE}
 library(highcharter)
 library(dplyr)
 library(tidyr)
@@ -45,13 +45,13 @@ library(tidyr)
 
 and the data
 
-```r
-births <- read.csv("data/births.csv")
+```{r}
+births <- read.csv("https://github.com/mine-cetinkaya-rundel/highcharts-in-r/raw/master/data/births.csv")
 ```
 
 Then we'll calculate the differences in births as described in the article and store the results in a new data frame called `diff13`:
 
-```r
+```{r}
 diff13 <- births %>%
   filter(date_of_month %in% c(6, 13, 20)) %>%
   mutate(day = ifelse(date_of_month == 13, "thirteen", "not_thirteen")) %>%
@@ -64,19 +64,8 @@ diff13 <- births %>%
 
 which looks like:
 
-```
-## Source: local data frame [7 x 4]
-## Groups: day_of_week [7]
-##
-##   day_of_week not_thirteen  thirteen   diff_ppt
-##         <int>        <dbl>     <dbl>      <dbl>
-## 1           1    11658.071 11431.429 -1.9440853
-## 2           2    12900.417 12629.972 -2.0964008
-## 3           3    12793.886 12424.886 -2.8841902
-## 4           4    12735.145 12310.132 -3.3373249
-## 5           5    12545.100 11744.400 -6.3825717
-## 6           6     8650.625  8592.583 -0.6709534
-## 7           7     7634.500  7557.676 -1.0062784
+```{r}
+diff13
 ```
 
 Note that the calculated percentage point differences (`diff_ppt`) may not match the ones in the visualization in the FiveThirtyEight article. There are two reasons for this:
@@ -86,15 +75,13 @@ Note that the calculated percentage point differences (`diff_ppt`) may not match
 
 Let's start by making a very simple highchart of these data using the `hchart()` function:
 
-```r
+```{r}
 hchart(diff13, "scatter", x = day_of_week, y = diff_ppt)
 ```
 
-<iframe src="https://beta.rstudioconnect.com/content/2013/" width="100%" height="400px"></iframe>
-
 This plot has some attractive features. For example, if you hover over the points you should be able to view the actual values of the plotted data. But, we need to do some customization to make the plot look like the one in the FiveThirtyEight article. We can achieve that using the `highchart()` function along with some customization functions. Note that we separate the layers with the pipe operator.
 
-```r
+```{r}
 highchart() %>%
   hc_add_series(data = round(diff13$diff_ppt, 4), type = "column",
                 name = "Difference, in ppt",
@@ -117,8 +104,6 @@ highchart() %>%
   hc_add_theme(hc_theme_538())
 ```
 
-<iframe src="https://beta.rstudioconnect.com/content/2012/" width="100%" height="400px"></iframe>
-
 Once again, an attractive feature of this visualization is the hover tooltip. Themes also make it easy to change the look of the plot (in this case using `hc_theme_538()` gets us very close to the original visualization). Additionally, we are able to easily change labels (e.g., names of days) without having to make changes in the original data.
 
 ## Example 2: US births on Friday the 13th, an interactive look
@@ -127,34 +112,28 @@ Since the highcharter package is powered by htmlwidlgets, it is also Shiny compa
 
 We have built an app that extends the visualization we created earlier, allowing for custom selection of years plotted, type of plot, and theme. You can view [the app and the source code here](https://gallery.shinyapps.io/highcharter-births/).
 
-<iframe src="https://gallery.shinyapps.io/highcharter-births/" width="100%" height="400px"></iframe>
-
 ## Things to Look Out For
 
 Highcharts' built-in and customizable hover/tooltip box and zooming functionality are among its most attractive features. However, whether or not these features would be useful for you depends on your use case.
 
 For example, the tooltip is not as useful if you are plotting data with larger sample sizes. Take a look at this plot of arrival vs. departure delays of flights headed to Los Angeles (LAX) in October 2013 from the various New York airports. The overplotting on the lower left of the plot makes the hovering functionality not that useful.
 
-```r
+```{r}
 library(nycflights13)
 oct_lax_flights <- flights %>%
 filter(month == 10, dest == "LAX")
 hchart(oct_lax_flights, "scatter", x = dep_delay, y = arr_delay, group = origin)
 ```
 
-<iframe src="https://beta.rstudioconnect.com/content/2014/" width="100%" height="400px"></iframe>
-
 However, if we aggregated the data a bit to reduce the number of points plotted, this functionality could once again come in handy. For example, below we group the flights by 15-minute intervals in departure delays, and plot the median arrival delay for these intervals.
 
-```r
+```{r}
 oct_lax_flights_agg <- oct_lax_flights %>%
   mutate(dep_delay_cat = cut(dep_delay, breaks = seq(-15, 255, 15))) %>%
   group_by(origin, dep_delay_cat) %>%
   summarise(med_arr_delay = median(arr_delay, na.rm = TRUE))
 hchart(oct_lax_flights_agg, "line", x = dep_delay_cat, y = med_arr_delay, group = origin)
 ```
-
-<iframe src="https://beta.rstudioconnect.com/content/2015/" width="100%" height="400px"></iframe>
 
 ## Summary
 
