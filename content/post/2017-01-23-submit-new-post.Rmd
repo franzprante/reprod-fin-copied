@@ -1,0 +1,36 @@
+---
+author: ""
+categories: []
+date: 2017-01-23T14:11:32-08:00
+draft: true
+summary: ""
+tags: []
+title: "Submit_New_Post"
+---
+#----
+## WORKFLOW 1: The old-fashioned way for external authors
+Prepare your post in an R Markdown file (.rmd) and send it to joseph.rickert@rstudio.com
+
+## WORKFLOW 2: The collaborative way for RStudio authors
+1. **Step1** - From your local RStudio IDE
+    i)  Install blogdown
+    ii) Make a local RStudio project that points to github/rstudio/rviews
+
+2. **Step-2** - From github/rstudio/rviews
+    i)  Make a branch for the new post
+    ii)  Name branch: date author name and "slug" e.g., 2017-01_Regenstein_moreFinance
+
+3. **Step-3** - From local repo:
+    i)  Make a new file with title of post
+    ii) use the blogdown command: `blogdown::new_post("title", rmd = TRUE)` or use the New Post Addin on the RStudio IDE
+    iii) Put the content in the file
+    iv)  Save the file
+    v)  Pull
+    vi)  Commit
+    vii)  Push
+
+4. **Step-4** - From github/rstudio/rviews
+    i) Add joseph-rickert as reviewer
+    ii) Do pull request, and assign to joseph-rickert
+    iii) Notify JBR via email: joseph.rickert@rstudio.co
+
