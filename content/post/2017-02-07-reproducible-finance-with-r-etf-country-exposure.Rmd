@@ -1,0 +1,190 @@
+---
+title: 'Reproducible Finance with R: ETF Country Exposure'
+author: 'Jonathan Regenstein
+date: '2017-02-07'
+categories: [R views]
+tags: [finance, leaflet, R]
+draft: yes
+summary: 'display ETF country exposures'
+---
+
+Today, we are going to tackle a project that has long been on my wishlist - a Shiny app to take a fund or portfolio, analyze its exposure to different countries and display those exposures on a world map. Now you know how exciting my wishlists are.
+ 
+Before describing our data importing/wrangling work here in the Notebook, it mgight be helpful to look at where we're headed.  The final Shiny app is [here](http://colorado.rstudio.com:3939/content/277/). This is similar to a [previous project](http://colorado.rstudio.com:3939/content/206/) because we are building a leaflet map, shading according to data that we add to the spatial dataframe, and including another HTML widget that is reponsive to the map. However, our current project differs in important ways and has a completely different use. 
+ 
+The previous project allowed user to click a country on the map and view the time series of returns. Our current project will allow the user to choose an ETF and view how that ETF is invested in different countries by how a world map is shaded. 
+
+From a substantive perspective, this app helps visualize country risks instead of returns - indeed, it's the first in our series that does not import stock returns in any way. From an R perspective, in our current project the map is the responsive object according to user inputs, whereas before the dygraph was the responsive object according to user clicks on a map.  They are related and require spatial dataframes but very different.
+
+If you looked closely at the Shiny app, you noticed that we do have a data object that os responsive to a map click: we display a datatable of companies held by the ETF in whatever country is clicked.  That is, if a user chooses an ETF and sees by the shading that the ETF is allocated X% to China, the user can click on the map to see which companis the ETF owns in China.  That functionality is similar to the dygraphs functionality, except of course we have to wire up a datatable and do some filtering by country instead of passing an xts object to dygraphs.  The fulcrum will still be the clicked map shape.  
+
+Alright, that app is what we're ultimately building but, by way of what we'll do in this Notebook, here's the roadmap. 
+
+First, we are going to grab the data for one fund, the MSCI Emerging Markets ETF. Note that we are not going to get return data over time. Instead, we just want a snapshot of the ETF holdings: its constituents, their weights and their home countries. Our eventual app will include several ETFs but we are going to work with one ETF in this Notebook, with the foreknowledge that we want to reuse our steps when it's time to build the Shiny app. In short, let's get it right for this Emerging Markets ETF and then we can iterate over other ETFs when we move to building our Shiny app.
+
+After we download the snapshot of the emerging markets fund, we will do some wrangling, some country weight aggregation, and then merge that data to our spatial dataframe.  Adding that data will depend on the ETF using the same country naming convention as our spatial dataframe, so we'll pay attention to that in the wrangling process. 
+
+Once we add the data to our spatial dataframe, we will recycle some old code, build a leaflet map and shade it according to the ETF's country exposure.  This is just a test to see how things will look in the Shiny app and we can even play around with different color palettes to get things just right. 
+
+Once we have the map aesthetics sorted, we'll turn to part two: displaying the details of each country holding. Really this is just filtering our dataframe by country name - whatever country the user clicks - but we'll go ahead and make sure things look how we want in this Notebook and then pass that object to our app eventually.
+
+Let's get to it!
+
+```{r setup, include = FALSE}
+library(readr)
+library(dplyr)
+library(tidyr)
+```
+
+First, let's grab the fund data from [MSCI's homepage](https://www.ishares.com/us/products/244048/ishares-core-msci-total-international-stock-etf). We will use the read_csv() function from the readr package. We will title it emerging_markets_fund since we'll be pulling in other funds later. 
+
+Note that we have to skip the first 11 rows, which is why the 'skip = 11' argument is included. That's because this csv file is loaded with oddly formatted data in the first 11 rows.  If we don't skip those 11 rows, this import will be totally unhelpful. The 'import dataset' button in the IDE saved me minutes/hours of frustration here! 
+
+```{r, message = FALSE, warning = FALSE}
+# Download the Emerging Markets ETF fund data from the ishares homepage.
+
+emerging_market_fund <- read_csv("https://www.ishares.com/us/products/239637/ishares-msci-emerging-markets-etf/1467271812596.ajax?fileType=csv&fileName=EEM_holdings&dataType=fund", 
+    skip = 11)
+
+# Take a look at the fund snapshot we just imported. 
+head(emerging_market_fund)
+```
+
+
+Alright, we have our fund data and now the wrangling begins. We are actually going to use this initial object to create two other objects: one will be merged with the spatial dataframe and one will be a standalone object to be loaded in our Shiny app. 
+
+```{r}
+
+emerging_market_fund_country_weights <- emerging_market_fund %>% 
+  select(Country, `Weight (%)`) %>%
+  mutate(Country = replace(Country, Country == "Russian Federation", "Russia"), 
+         Country = replace(Country, Country == "Korea (South)", "Korea"),
+         Country = replace(Country, Country == "KO", "Korea"),
+         Country = replace(Country, Country == "Czech Republic", "Czech Rep.")
+         ) %>%
+  group_by(Country) %>% 
+  summarise(EEM = sum(`Weight (%)`, na.rm = TRUE)) %>% 
+  rename(name = Country) %>% 
+  filter(EEM > 0) %>% 
+  filter(name != "-") %>% 
+  arrange(desc(EEM))
+
+# Let's just take a look at the data.
+
+emerging_market_fund_country_weights
+```
+
+Those country weights are pretty striking. China + Korea + Taiwan equal 51% of this fund - quite concentrated in economies that are probably closely linked. Perhaps that's by design? Perhaps the inter-economy correlation isn't as high as I believe? A cross-border investment or trade Shiny app would be helpful here. 
+
+It's worth a second to consider the definition of 'emerging market', a term that has become quite ubiquitous and has a know-it-when-we-see-it feel (if you're not into political economy, feel free to skip this paragraph). The phrase was coined in 1981 by the World Bank's Antoine Van Agtmael to help encourage investment in developing nations as he felt that 'Third World' country was both distasteful and stifling to investors.  Learn more [here](http://www.economist.com/node/15906206). Today, the phrase connotes an economy that is growing and transitioning from developed to developing, though some commentators include a political transition as well. Since we are working with an MSCI fund, we should consider their definition. It wasn't easy to track down, but according to the [Financial Times](http://lexicon.ft.com/Term?term=emerging-markets), MSCI takes into account number of listed companies of a certain size (an economic measure) and openness to foreign capital (a political measure).
+
+Back to our task at hand: we have downloaded the fund data and got it into shape to be added to our shapefile. That process is the exact same as in our previous post so before we do that, let's use the original fund data to create one other object, to store country level detail on companies, weights and sectors. If that seems a bit confusing, head back to the Shiny app and click on a country. The datatable displays company names and details, and we need to create a dataframe to extract and hold that data. 
+
+```{r}
+# Wrangle for the datatable to show company names, sector, weights.
+
+EEM <- emerging_market_fund %>% 
+  select(Name, Country, Sector, `Weight (%)`, `Market Value`) %>% 
+  mutate(Country = replace(Country, Country == "Russian Federation", "Russia"), 
+         Country = replace(Country, Country == "Korea (South)", "Korea"),
+         Country = replace(Country, Country == "Czech Republic", "Czech Rep.")
+         ) %>% 
+  filter(`Weight (%)` > 0) %>% 
+  filter(Country != "-") 
+
+# Let's test it on Brazil to make sure it works.
+
+Brazil_companies <- EEM %>%
+  filter(Country == "Brazil") %>% 
+  ungroup() %>% 
+  select(-Country)
+
+Brazil_companies
+```
+
+This is what a user of our Shiny app will see upon clicking on Brazil, it is the country level detail of how the fund is invested in Brazil. We will save that 'EEM' object in the .RDat file so it can be loaded into our Shiny app. 
+
+Okay, let's go ahead and build that map of the world and add our fund country weights to it. This process is identical to how we did it [here](https://www.rstudio.com/rviews/2016/12/14/reproducible-finance-with-r-pulling-and-displaying-etf-data/), but we'll go through the steps again.
+
+First, let's download the spatial dataframe. We will also use the ms_simplify() function from rmapshaper to reduce the size of the dataframe. This function will reduce the number of longitude and latitude coordinates used to build each country. It will make loading faster in our Shiny app but won't affect any of our logic.
+
+```{r, message = FALSE}
+library(rgdal)
+library(rmapshaper)
+library(httr)
+
+# Load the spatial dataframe
+tmp <- tempfile()
+
+httr::GET("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_0_countries.zip", write_disk(tmp))
+
+unzip(tmp, exdir = 'ne_50m_admin_0_countries')
+
+world <- readOGR("./ne_50m_admin_0_countries", 'ne_50m_admin_0_countries', verbose = FALSE)
+
+# Use ms_simplify to reduce the size of the spatial dataframe.
+world <- ms_simplify(world)
+```
+
+Now we will use the merge() function from the sp package to add our country weight data.  Remember above where we made sure to use a consistent country naming convention when wrangling the ETF data? This is where it will come in handy - we use the 'name' column to perform the merge. After the merging, ETF  exposures will be added for each country that has a match in the ‘name’ column. For those with no match, the EEM column will be filled with NA. 
+
+
+```{r}
+library(sp)
+library(leaflet)
+
+world_fund_country_weights <- merge(world, emerging_market_fund_country_weights, by = "name") 
+
+# Let's take a look and make sure that merge accomplished what we want. There will be
+# several NA values, because this fund is allocated only to emerging markets. The developed markets
+# should be mostly NAs - Australia is immediately visible to us as an NA.
+world_fund_country_weights@data[c('name', 'EEM')]
+
+```
+
+We have our data added to the shapefile. Let's go ahead and construct a map. First we'll build a popup to show some detail, then we will create a green palette and a purple palette - for no other reason than to see which is more visually appealing. 
+
+```{r}
+# Create a popup to display the exact country weight.
+EEMPopup <- paste0("<strong>Country: </strong>", 
+                world_fund_country_weights$name,
+                "<br><strong> Country Weight: </strong>", 
+                world_fund_country_weights$EEM, "%")
+
+# Let's create two palettes so we can look at two variants. This is pure aesthetics, but the Notebook is the
+# place for aesthetics.
+
+EEMPalGreens <- colorQuantile("Greens", world_fund_country_weights$EEM, n = 20)
+EEMPalPurples <- colorQuantile("Purples", world_fund_country_weights$EEM, n = 20)
+```
+
+Let's invoke leaflet! As before, we will use ‘layerId = ~name’. This is, again, massively important because when we create a Shiny app, we want to pass country names to our datatable and filter accoringly. The ‘layerId’ is how we’ll do that: when a user clicks on a country, we capture the ‘layerId’, which is a country name that can be used for filtering. 
+
+```{r}
+# Build a green shaded map.
+leaf_world_emerging_greens <- leaflet(world_fund_country_weights) %>%
+  addProviderTiles("CartoDB.Positron") %>% 
+  setView(lng =  20, lat =  15, zoom = 2) %>%
+      addPolygons(stroke = FALSE, smoothFactor = 0.2, fillOpacity = .7,
+                  
+      # The next line of code is really important for creating the map we want to use later.
+      
+      color =~EEMPalGreens(EEM), layerId = ~name, popup = EEMPopup)
+
+# Build a purple shaded map.
+leaf_world_emerging_purples <- leaflet(world_fund_country_weights) %>%
+  addProviderTiles("CartoDB.Positron") %>% 
+  setView(lng =  20, lat =  15, zoom = 2) %>%
+      addPolygons(stroke = FALSE, smoothFactor = 0.2, fillOpacity = .7,
+      color =~EEMPalPurples(EEM), layerId = ~name, popup = EEMPopup)
+
+# Let's compare our green shaded map to our purple shaded map.
+leaf_world_emerging_greens
+```
+
+```{r}
+leaf_world_emerging_purples
+
+```
+
+Both those maps look good to me but purple might be the way to go ultimately. That's a decision for next time - see you then!
