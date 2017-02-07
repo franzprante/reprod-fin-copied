@@ -7,16 +7,17 @@ tags: [finance, leaflet, R]
 draft: yes
 summary: 'display ETF country exposures'
 ---
+by Jonathan Regenstein
 
-Today, we are going to tackle a project that has long been on my wishlist - a Shiny app to take a fund or portfolio, analyze its exposure to different countries and display those exposures on a world map. Now you know how exciting my wishlists are.
+Today, we are going to tackle a project that has long been on my wish list: a Shiny app to take a fund or portfolio, analyze its exposure to different countries and display those exposures on a world map. Now you know how exciting my wishlists are.
  
-Before describing our data importing/wrangling work here in the Notebook, it mgight be helpful to look at where we're headed.  The final Shiny app is [here](http://colorado.rstudio.com:3939/content/277/). This is similar to a [previous project](http://colorado.rstudio.com:3939/content/206/) because we are building a leaflet map, shading according to data that we add to the spatial dataframe, and including another HTML widget that is reponsive to the map. However, our current project differs in important ways and has a completely different use. 
+Before describing our data importing/wrangling work here in the Notebook, it mgight be helpful to look at where we're headed.  The final Shiny app is [here](http://colorado.rstudio.com:3939/content/277/). This is similar to a [previous project](http://colorado.rstudio.com:3939/content/206/) because we are building a leaflet map, shading it according to data added to the spatial dataframe, and including another HTML widget that is reponsive to the map. However, our current project differs in important ways and has a completely different use. 
  
-The previous project allowed user to click a country on the map and view the time series of returns. Our current project will allow the user to choose an ETF and view how that ETF is invested in different countries by how a world map is shaded. 
+The previous project allowed a user to click a country on the map and view the time series of returns. Our current project will allow the user to choose an ETF and view how that ETF is invested in different countries by how a world map is shaded. 
 
 From a substantive perspective, this app helps visualize country risks instead of returns - indeed, it's the first in our series that does not import stock returns in any way. From an R perspective, in our current project the map is the responsive object according to user inputs, whereas before the dygraph was the responsive object according to user clicks on a map.  They are related and require spatial dataframes but very different.
 
-If you looked closely at the Shiny app, you noticed that we do have a data object that os responsive to a map click: we display a datatable of companies held by the ETF in whatever country is clicked.  That is, if a user chooses an ETF and sees by the shading that the ETF is allocated X% to China, the user can click on the map to see which companis the ETF owns in China.  That functionality is similar to the dygraphs functionality, except of course we have to wire up a datatable and do some filtering by country instead of passing an xts object to dygraphs.  The fulcrum will still be the clicked map shape.  
+If you looked closely at the Shiny app, you noticed that we do have a data object that is responsive to a map click: we display a datatable of companies held by the ETF in whatever country is clicked.  That is, if a user chooses an ETF and sees by the shading that the ETF is allocated X% to China, the user can click on the map to see which company the ETF owns in China.  That functionality is similar to the dygraphs functionality, except of course, we have to wire up a datatable and do some filtering by country instead of passing an xts object to dygraphs.  The fulcrum will still be the clicked map shape.  
 
 Alright, that app is what we're ultimately building but, by way of what we'll do in this Notebook, here's the roadmap. 
 
@@ -51,7 +52,7 @@ head(emerging_market_fund)
 ```
 
 
-Alright, we have our fund data and now the wrangling begins. We are actually going to use this initial object to create two other objects: one will be merged with the spatial dataframe and one will be a standalone object to be loaded in our Shiny app. 
+Now, we have our fund data and the wrangling begins. We are actually going to use this initial object to create two other objects: one will be merged with the spatial dataframe and one will be a standalone object to be loaded in our Shiny app. 
 
 ```{r}
 
@@ -74,9 +75,9 @@ emerging_market_fund_country_weights <- emerging_market_fund %>%
 emerging_market_fund_country_weights
 ```
 
-Those country weights are pretty striking. China + Korea + Taiwan equal 51% of this fund - quite concentrated in economies that are probably closely linked. Perhaps that's by design? Perhaps the inter-economy correlation isn't as high as I believe? A cross-border investment or trade Shiny app would be helpful here. 
+Those country weights are striking! China + Korea + Taiwan equal 51% of this fund. The fund is concentrated in economies that are probably closely linked. Perhaps that's by design? Perhaps the inter-economy correlation isn't as high as I believe? A cross-border investment or trade Shiny app would be helpful here. 
 
-It's worth a second to consider the definition of 'emerging market', a term that has become quite ubiquitous and has a know-it-when-we-see-it feel (if you're not into political economy, feel free to skip this paragraph). The phrase was coined in 1981 by the World Bank's Antoine Van Agtmael to help encourage investment in developing nations as he felt that 'Third World' country was both distasteful and stifling to investors.  Learn more [here](http://www.economist.com/node/15906206). Today, the phrase connotes an economy that is growing and transitioning from developed to developing, though some commentators include a political transition as well. Since we are working with an MSCI fund, we should consider their definition. It wasn't easy to track down, but according to the [Financial Times](http://lexicon.ft.com/Term?term=emerging-markets), MSCI takes into account number of listed companies of a certain size (an economic measure) and openness to foreign capital (a political measure).
+It's worth a second to consider the definition of 'emerging market', a term that has become ubiquitous and has a know-it-when-we-see-it feel (if you're not into political economy, feel free to skip this paragraph). The phrase was coined in 1981 by the World Bank's Antoine Van Agtmael to help encourage investment in developing nations as he felt that 'Third World' country was both distasteful and stifling to investors.  Learn more [here](http://www.economist.com/node/15906206). Today, the phrase connotes an economy that is growing and transitioning from developed to developing, though some commentators include a political transition as well. Since we are working with an MSCI fund, we should consider their definition. It wasn't easy to track down, but according to the [Financial Times](http://lexicon.ft.com/Term?term=emerging-markets), MSCI takes into account number of listed companies of a certain size (an economic measure) and openness to foreign capital (a political measure).
 
 Back to our task at hand: we have downloaded the fund data and got it into shape to be added to our shapefile. That process is the exact same as in our previous post so before we do that, let's use the original fund data to create one other object, to store country level detail on companies, weights and sectors. If that seems a bit confusing, head back to the Shiny app and click on a country. The datatable displays company names and details, and we need to create a dataframe to extract and hold that data. 
 
@@ -126,7 +127,7 @@ world <- readOGR("./ne_50m_admin_0_countries", 'ne_50m_admin_0_countries', verbo
 world <- ms_simplify(world)
 ```
 
-Now we will use the merge() function from the sp package to add our country weight data.  Remember above where we made sure to use a consistent country naming convention when wrangling the ETF data? This is where it will come in handy - we use the 'name' column to perform the merge. After the merging, ETF  exposures will be added for each country that has a match in the ‘name’ column. For those with no match, the EEM column will be filled with NA. 
+Now, we will use the merge() function from the sp package to add our country weight data.  Remember above where we made sure to use a consistent country naming convention when wrangling the ETF data? This is where it will come in handy - we use the 'name' column to perform the merge. After the merging, ETF  exposures will be added for each country that has a match in the ‘name’ column. For those with no match, the EEM column will be filled with NA. 
 
 
 ```{r}
@@ -142,7 +143,7 @@ world_fund_country_weights@data[c('name', 'EEM')]
 
 ```
 
-We have our data added to the shapefile. Let's go ahead and construct a map. First we'll build a popup to show some detail, then we will create a green palette and a purple palette - for no other reason than to see which is more visually appealing. 
+We have our data added to the shapefile. Let's go ahead and construct a map. First we'll build a popup to show some detail, then we will create a green palette and a purple palette for no other reason than to see which is more visually appealing. 
 
 ```{r}
 # Create a popup to display the exact country weight.
