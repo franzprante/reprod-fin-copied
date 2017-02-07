@@ -10,59 +10,69 @@ title: "R Views Style Guide"
 **Note to the Reader: The formatting in this early version of the document is primitive. It would be very nice if the formatting of this document becomes sufficiently polished to serve as a template for writing new posts. Please contribute your expertise.** 
    
 # Introduction
-This style guide is meant to be a comprehensive resource for authors who want to submit posts to the R Views blog. You will find sections describing the content and tone of the R Views blog, practical advice on formatting documents with R Markdown, pointers to external resources for grammatical resources and more.
+This style guide is meant to be a comprehensive resource for authors who want to submit posts to the R Views blog. You will find sections describing the content and tone of the R Views blog, practical advice on formatting documents with R Markdown, pointers to external resources for grammatical resources, and more.
+
 # Guidelines for Authors
 
 ## Content
-R Views is the RStudio blog devoted to the R Community and the R Language. We imagine it as a place to read considered opinion about topics of interest to the R Community. Topics could include:   
+
+R Views is the RStudio blog devoted to the R Community and the R Language. We imagine it as a place to read considered opinions about topics of interest to the R Community. Topics could include:
+
 * The role of R in data science   
-* The role of the R Community in fostering critical thinking and data driven decisions   
+* The role of the R Community in fostering critical thinking and data-driven decisions   
 * The inner workings of the R language   
 * Examples of R being used to explore problems in Statistics and Data Science   
-* To learn about new R packages   
-* To learn what is happening at conferences and user group meetings around the world   
-* To see how RStudio tools can contribute to enhancing your R experience   
+* New R packages   
+* What is happening at conferences and user group meetings around the world   
+* How RStudio tools can contribute to enhancing your R experience   
 
 ## A Typical Post
-A typical post has about seven hundred and fifty words, two or three figures (images, pictures or plots) and some supporting R code. These are not hard and fast rules; the blogging medium permits a considerable amount of flexibility. However, we would like a typical R skilled R Viewers to be able to complete a first reading of a post in less than ten minutes. If you topic does not conform to these guidelines, consider delivering your work as a series of related posts.
+
+A typical post has about 750 words, two or three figures (images, pictures, or plots) and some supporting R code. These are not hard-and-fast rules; the blogging medium permits a considerable amount of flexibility. However, we would like a typical R-skilled R Viewer to be able to complete a first reading of a post in less than ten minutes. If you topic does not conform to these guidelines, consider delivering your work as a series of related posts.
 
 ## Submitting a Post
+
 Authors submitting a post should follow one of the two workflows below. For now, authors who are not employees of RStudio must follow Workflow 1.
 
 ### WORKFLOW 1: The old-fashioned way for external authors
-Prepare your post in an R Markdown file (.rmd) and send it to joseph.rickert@rstudio.com
+
+Prepare your post in an R Markdown file (.rmd) and send it to joseph.rickert@rstudio.com.
 
 ### WORKFLOW 2: The collaborative way for RStudio authors
-1. **Step1** - From your local RStudio IDE
-    i)  Install blogdown
+
+1. From your local RStudio IDE
+    i) Install the blogdown package
     ii) Make a local RStudio project that points to github/rstudio/rviews
 
-2. **Step-2** - From github/rstudio/rviews
-    i)  Make a branch for the new post
-    ii)  Name branch: date author name and "slug" e.g., 2017-01_Regenstein_moreFinance
+2. From github/rstudio/rviews
+    i) Create a branch for the new post
+    ii) Name branch with the date, author, and post name "slug", e.g., 2017-01_Regenstein_moreFinance
 
-3. **Step-3** - From local repo:
-    i)  Make a new file with title of post
-    ii) use the blogdown command: `blogdown::new_post("title", rmd = TRUE)` or use the New Post Addin on the RStudio IDE
-    iii) Put the content in the file
-    iv)  Save the file
-    v)  Pull
-    vi)  Commit
-    vii)  Push
+3. From your local repo:
+    i) Make a new file with the title of the post
+    ii) Use the blogdown command: `blogdown::new_post("title", rmd = TRUE)`, or use the New Post Addin in the RStudio IDE
+    iii) Add content to the file
+    iv) Save the file
+    v) Pull
+    vi) Commit
+    vii) Push
 
-4. **Step-4** - From github/rstudio/rviews
+4. From github/rstudio/rviews
     i) Add joseph-rickert as reviewer
-    ii) Do pull request, and assign to joseph-rickert
-    iii) Notify JBR via email: joseph.rickert@rstudio.co
-
+    ii) Create a pull request and assign to joseph-rickert
+    iii) Notify JBR via email: joseph.rickert@rstudio.com
 
 ## R Markdown
 
-### Common Formatting Problems
+### Getting started
 
+[R Markdown tutorial](http://rmarkdown.rstudio.com/lesson-1.html)
 
+[R Markdown formatting](http://rmarkdown.rstudio.com/lesson-8.html)
 
+[R Markdown cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
 
+### Common Formatting Examples
 
 ### Emphasis
 ```   
@@ -80,7 +90,7 @@ Inequalities
 
 $$ x \leq 0 \quad or \quad x \geq 1 $$
 
-Greek leters and square roots and left justified
+Greek letters, square roots, and left-justified
 ```
 $\hat{\lambda}=1.02$ and $\alpha\sqrt{4}=2\alpha$
 ```
@@ -104,8 +114,7 @@ $$A_{m,n} =
   a_{m,1} & a_{m,2} & \cdots & a_{m,n}
  \end{pmatrix}$$
 
-Aligning equations    
-[ref](http://stackoverflow.com/questions/27081054/r-markdown-math-equation-allignment)
+[Aligning equations](http://stackoverflow.com/questions/27081054/r-markdown-math-equation-allignment)
 ```
 $$
 \begin{aligned}
@@ -120,7 +129,9 @@ $$
  Y_{i} &= c + \phi_i Y_{i-1} \dots
 \end{aligned}
 $$
+
 ### Graphics
+
 The following are three different methods for including a .png file in an R Markdown Document. The first method provides the most control.
 
 Method 1    
@@ -137,10 +148,14 @@ Method 2
 knitr::include_graphics("./images/madrid_advert.png")
 ```
       
-Method 3    
-![](./images/madrid_advert.png)       
+Method 3
+
+``` ![](./images/madrid_advert.png) ```
+
+![](./images/madrid_advert.png)
 
 ### Headers
+
 ```
 # First Level Header   
 ## Second Level Header
@@ -149,7 +164,7 @@ Method 3
 
 ### Inline Code
 ```
-I counted r `sum(c(1,2,3))` blue cars  
+I counted ` r sum(c(1,2,3))` blue cars  
 ```
 I counted `r sum(c(1,2,3))` blue cars
 
@@ -166,24 +181,26 @@ Read the [RViews](https://www.rstudio.com/rviews/) Blog
 ```
 Read the [RViews](https://www.rstudio.com/rviews/) Blog
 
-
-
 # Style Manual
 
 ## Common Troublesome Words and Abbreviations
-Stuff like this:
-Spell out numbers when used in text: e.g. three packages not 3 packages
-website not web site
-data science not Data Science
+
+* Spell out numbers lower than 10 when used in text: e.g., three packages rather than 3 packages
+* Use "website" not "web site"
+* Use "data science" not "Data Science"
 
 ## Tone
+
 How do you sound to the reader?
+
 Person, voice etc.
 
 ## Sourcing
 
 ## References
+
 ### General
+
 * [bookdown: Authoring Books and Technical Documents with R Markdown](https://bookdown.org/yihui/bookdown/) by Yihui Xie
 * The Blogger's Style Guide: How to Write Stellar Blog Posts [Leaving Work Behind](http://leavingworkbehind.com/bloggers-style-guide/)
 * [The Chicago Manual of Style Online](http://www.chicagomanualofstyle.org/home.html)
@@ -193,6 +210,7 @@ Person, voice etc.
 * Writing Numbers [Grammar-Monster](http://www.grammar-monster.com/lessons/numbers_how_to_write_in_full.htm)   
 
 ### Technical
+
 * [Markdown Equation Examples](http://www.montana.edu/rotella/documents/502/MarkdownEqnExamples.Rmd)
 * [Math Notation in R * Markdown](https://rstudio-pubs-static.s3.amazonaws.com/18858_0c289c260a574ea08c0f10b944abc883.html)
 * [Some examples of using LaTeX in R Markdown documents](http://www.calvin.edu/~rpruim/courses/m343/F12/RStudio/LatexExamples.html)
