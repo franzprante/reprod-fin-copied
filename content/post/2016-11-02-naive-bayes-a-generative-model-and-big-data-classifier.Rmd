@@ -7,6 +7,14 @@ categories: [R Views]
 tags: [Data Science, Packages, R Language, Statistics]
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(tidy = FALSE)
+# packages required for this post
+for (pkg in c('mlbench', 'e1071', 'sparklyr', 'dplyr')) {
+  if (!requireNamespace(pkg)) install.packages(pkg)
+}
+```
+
 I found my way into data science and machine learning relatively late in my career. When I began reading papers on supervised learning I was delighted to find that good old logistic regression was considered a "[go to](http://repository.cmu.edu/robotics/218/)" classifier. This was like learning that an old friend was admired for an achievement I didn't know anything about. After a couple of comfortable experiences like this, I thought I would fit in quite nicely with this new (to me) tribe of data analysts studying pattern recognition and natural language processing. It took some time however, before I realized that they were working with a conceptual framework that was a little different from my statistics worldview. You might say it's all probabilistic and statistical reasoning, but different problems and different tools lead to mindsets that shape and bias a person's thinking.
 
 For example, consider the following list of classifiers: Decision Trees, Generalized Boosted Models, Logistic Regression, Naive Bayes, Neural Networks, Random Forests and Support Vector Machine.
@@ -25,27 +33,22 @@ In his Eight to Late blog, Kalish Awati thoroughly develops [a classification ex
 
 First however, let's follow up on the idea of using a Naive Bayes model to produce synthetic data.
 
-```r
+```{r}
 library(mlbench)
 library(e1071)
 data("HouseVotes84")
 model <- naiveBayes(Class ~ ., data = HouseVotes84)
-print(model)
 ```
 
-The model object produced by the `naiveBayes()` function includes a contingency table for each vote, which is displayed by the print statement above. Here is an example of just one of the tables displayed by the print statement:
+The model object produced by the `naiveBayes()` function includes a contingency table for each vote, which is displayed by the print statement above. Here is an example of just one of the tables displayed:
 
-```
+```{r}
 model$tables$V2
-# V2
-# Y             n           y
-# democrat   0.4979079 0.5020921
-# republican 0.4932432 0.5067568
 ```
 
 Creating new, synthetic data is just a matter of using this table to drive a simulation. Suppose that we wanted to simulate data for 25 new Democratic members of the House of Representatives. This is particularly easy for our example, because we are dealing with categorical data.
 
-```r
+```{r}
 # Use the model object to create a vector of probabilities for
 # a No vote for each of the 16 variables
 
@@ -85,7 +88,7 @@ An easy way for an R user to run a Naive Bayes model on very large data set is v
 
 The first bit of code loads the data into my local R session and imputes the missing values.
 
-```r
+```{r, eval=FALSE}
 library(mlbench)
 library(e1071)
 #load HouseVotes84 dataset
@@ -130,7 +133,7 @@ for (i in 2:ncol(HouseVotes84)) {
 
 Next, since Spark and the MLlib functions do not have any notion of R's factor type, I replace the factor variables with 0 /1 indicators.
 
-```r
+```{r}
 # Get rid of factors
 votes <- HouseVotes84
 votes$Class <- ifelse(votes$Class == "democrat", 0, 1)
@@ -140,7 +143,7 @@ votes[,2:17] <- sapply(votes[,2:17],
 
 The sparlyr and dplyr packages are loaded and Spark is installed on the local computer. Next, the `spark_connect()` function establishes the Spark compute context. (Connecting to a remote cluster is a bit more involved, but the connection is established through the same mechanism.)
 
-```r
+```{r, eval=FALSE}
 library(sparklyr)
 library(dplyr)
 spark_install()
@@ -152,7 +155,7 @@ head(votes_tbl)
 
 Finally, we partition the data into training and test data sets and use the MLlib implementation of Naive Bayes to fit the model in Spark.
 
-```r
+```{r, eval=FALSE}
 # Partition into 'training', 'test'
 partitions <- votes_tbl %>%
   sdf_partition(training = 0.5,
