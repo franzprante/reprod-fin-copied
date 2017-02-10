@@ -19,6 +19,7 @@ from local repo:
          put the content in the file
          save the file
          do a Pull Request
+         Switch to the new branch
          commit the file
          change to branch you just made just made for the new post
          push the file
