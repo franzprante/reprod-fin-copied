@@ -15,6 +15,7 @@ by Merav Yuravlivker, CEO of Data Society
 
 ```{r fig.width=7, fig.height=5,echo=FALSE}
 # http://bit.ly/2kOSaw4
+if (!requireNamespace('png')) install.packages('png')
 library(png)
 library(grid)
 img <- readPNG("../../static/2017/excel_tips/excel1.png")
