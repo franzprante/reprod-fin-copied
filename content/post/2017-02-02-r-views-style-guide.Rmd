@@ -120,6 +120,7 @@ $$
  Y_{i} &= c + \phi_i Y_{i-1} \dots
 \end{aligned}
 $$
+
 ### Graphics
 The following are three different methods for including a .png file in an R Markdown Document. The first method provides the most control.
 
