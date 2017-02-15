@@ -10,7 +10,7 @@ summary: 'display ETF country exposures'
 by Jonathan Regenstein
 
 ```{r setup, include=FALSE}
-lapply(c('dplyr', 'readr', 'tidyr'), function(x) {
+lapply(c('dplyr', 'readr', 'tidyr', 'rgdal', 'rmapshaper', 'httr', 'sp', 'leaflet'), function(x) {
   if (!requireNamespace(x)) install.packages(x)
 })
 ```
