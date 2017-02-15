@@ -1,0 +1,143 @@
+---
+author: ""
+categories: []
+date: 2017-01-18T10:50:40-05:00
+draft: true
+summary: ""
+tags: []
+title: "Sector Correlations"
+---
+
+Welcome to the first installation of reproducible finance for 2017. It's a new year, a new President takes office soon, and we could be entering a new political-economic environment. What better time to think about a popular topic over the last few years: equity correlations. Elevated correlations are important for several reasons - life is hard for active managers and diversification gains are vanishing - but I personally enjoy thinking about them more from an inference or data exploration perspective. Are changning correlations telling us something about the world? Are sectors diverging? How much can be attributed to the Central Bank regime at hand? So many questions, so many hypotheses to be explored. Let's get started.
+
+Today, we will build a Notebook and start exploring the historical rolling correlations between sector ETFs and the S&P 500.  That is, we want to explore how equity returns in different sectors have been correlated with the returns of the broader index. Perhaps they are all moving in lockstep, perhaps they have been diverging. Either way, this Notebook will be the first step toward an flexdashboard that lets us do more interactive exploration - choosing different sector ETFs and rolling windows. 
+
+We are going to accomplish a few things today. We will load up the sector ETF tickers, then build a function to download their price history and calculate weekly returns. We will save this to one xts object.  Next we will build a function to calculate the rolling correlations between a chosen sector ETF and the S&P 500. Finally, dygraphs will make its usual appearance to help visualize the rolling correlation time series. 
+
+As usual, we will be living in the Rmarkdown world and, by way of disclaimer, the data import and return calculation functions here should be familiar from previous posts.  That is by design and hopefully, it won't be too boring for devotees of this series (I know you're out there somewhere!).  More importantly, I hope the usefulness of reproducible, reusable code is emerging.  Some of the code chunks in previous posts might have seemed trivially simple, containing just a simple function and little else. But, the simplicity of those code chunks made it very easy to return to those previous scripts, understand the functions, and use them in this post. 
+
+Let's load up a few packages. 
+
+```{r setup, message = FALSE}
+library(dplyr)
+library(quantmod)
+library(dygraphs)
+```
+
+Now, we need the tickers and sectors for the sector ETFs. They are copied below and available [here](http://www.sectorspdr.com/sectorspdr/). I deleted the XLRE real estate ETF because it's only been around since 2015 and I want look back several years in this Notebook. 
+
+```{r}
+# List of tickers for sector etfs. 
+# Omit XLRE because its inception is 2015. Not really enough to check out long term monthly correlations. 
+
+ticker <- c("XLY", "XLP", "XLE",	"XLF", "XLV",	
+            "XLI", "XLB", "XLK", "XLU", "SPY")	
+
+# And the accompanying sector names for those ETFs.
+
+sector <- c("Consumer Discretionary", "Consumer Staples", 
+            "Energy", "Financials", "Health Care", "Industrials", 
+            "Materials", "Information Technology", "Utilities", "Index")
+
+etf_ticker_sector <- data_frame(ticker, sector)
+
+etf_ticker_sector
+```
+
+We've got our dataframe of tickers and sectors. Let's build a function to download price history and then convert those price histories to weekly returns. We'll use a combination of getSymbols() and periodReturn() to accomplish that. If you want to change this script to use daily returns, change the argument below to period = 'daily', but be prepared to import quite a bit more data.
+
+```{r, warning = FALSE}
+
+# A function to build an xts object of etf returns.
+
+etf_weekly_returns <- function(ticker) {
+    
+symbols <- getSymbols(ticker, auto.assign = TRUE, warnings = FALSE)
+
+etf_prices <- do.call(merge, lapply(symbols, function(x) Cl(get(x))))
+    
+etf_returns <- do.call(merge, lapply(etf_prices, 
+                                     function(x) periodReturn(x, period = 'weekly', type = 'log')))
+
+#Change the column names to the sector names from our dataframe above.
+
+colnames(etf_returns) <- etf_ticker_sector$sector
+    
+etf_returns
+
+}
+
+# Let's pass in our ticker symbols and build an xts object of etf returns
+etf_returns <- etf_weekly_returns(etf_ticker_sector$ticker)
+
+head(etf_returns)
+
+```
+
+This function has done some good work for us and it was refreshingly comfortable to put in place because we used very similar functionality in this [post](https://www.rstudio.com/rviews/2016/11/09/reproducible-finance-with-r-the-sharpe-ratio/) and this [post](https://www.rstudio.com/rviews/2016/12/14/reproducible-finance-with-r-pulling-and-displaying-etf-data/).
+
+A pattern seems to be emerging in these Notebooks: grab tickers, get price history, convert to returns and save new xts object. In an ideal world, that pattern of data import and conversion is getting so familiar as to be commonplace. 
+
+That said, enough with the commonplace stuff - let's get on to something a little more dangerous: rolling correlations amongst etf returns.  Correlations are important because high correlations make it hard to find diversification opportunities and they make it hard to deliver alpha - though I suppose it's always hard to deliver alpha. Fortunately, we don't have to worry about generating alpha today so let's get to our function.  
+
+Calculating rolling correlations in R is pretty straightforward. We use the rollapply() function, along with the cor() function, pass in our data and a time window, and it's off to the races. We'll create our own function below to handle these jobs and return an xts object.
+
+```{r}
+# A function that calculates the rolling correlation between a sector ETF and the SPY SP500 ETF. 
+
+sector_index_correlation <- function(x, window) {
+  
+    merged_xts <- merge(x, etf_returns$'Index')
+
+    merged_xts$rolling_test <- rollapply(merged_xts, window, 
+                                         function(x) cor(x[,1], x[,2], use = "pairwise.complete.obs"), 
+                                         by.column = FALSE)
+    
+    names(merged_xts) <- c("Sector Returns", "SPY Returns", "Sector/SPY Correlation")
+    
+    merged_xts
+}
+
+```
+
+Notice that this function does something that seems unnecessary: it creates a new xts object that holds the sector returns, SPY returns and the rolling correlation.  We don't have much use for that separate object and could probably have just added columns to our original xts object. Indeed, if this were our final product we might spend more time eliminating its present. I choose not to do that here for two reasons. First, this Notebook is built to underlie a flexdashboard that could go into production.  I want to get the logic right here, then focus more on efficiency in the final app. 
+
+Second, and relatedly, we are prioritizing clarity of workflow in this Notebook. It should be crystal clear how we are moving from an xts object of ETF returns to creating a new XTS object of two returns plus one correlation.  The goal is for any collaborators, including my future self, to open this Notebook and see the workflow. If that collaboarator finds this step to be unnecessary and has a more clever solution - that's fantastic because it means this document is intellegible enough to serve as the basis for more sophisticated work.  
+
+Let's go ahead and use this function. We will pass in a time series of Information Technology ETF returns and a window of size 20 for the rolling correlation.  
+
+```{r}
+# Choose a sector ETF and a rolling window and pass them to the function we just build. 
+# Let's go with a 5 month window and the Information Technology sector.
+# We will now have a new xts object with 3 time series: sector returns, SPY returns
+# and the rolling correlation between those return series.
+
+IT_SPY_correlation <- sector_index_correlation(etf_returns$'Information Technology', 20)
+
+# Have a peek. The first 20 rows in the correlation column should be 
+# NAs. 
+
+head(IT_SPY_correlation, n = 25)
+
+```
+
+
+Alright, the function seems to have succeeded in building that new xts object and storing the rolling correlation.  Now we will use dygraphs to visualize this rolling correlation over time and see if anything jumps out as interesting or puzzling. 
+
+
+```{r}
+# Let's graph the sector/index rolling correlation using our old friend dygraphs. 
+# I'll add an event for the financial crisis and shade the recession of 2007-2009 with 
+# an unimposing pink hue.
+
+dygraph(IT_SPY_correlation$'Sector/SPY Correlation', main = "Correlation between SP500 and Tech ETF") %>% 
+    dyAxis("y", label = "Correlation") %>% 
+    dyRangeSelector(height = 20) %>%
+    dyShading(from = "2007-12-01", to = "2009-06-01", color = "#FFE6E6") %>% 
+    dyEvent(x = "2008-09-15", label = "Fin Crisis", labelLoc = "top", color = "red")
+```
+
+The correlation between the Tech ETF and the S&P 500 ETF seems quite high. It dipped a bit in the middle of 2009 and again towards the end of 2016. It would be interesting to see if this was true of the other sector ETFs as well. In other words, were these periods of generally declining correlations, or was it limited to the technology/SP500 relationship? 
+
+The best way to do some exploratory analysis on that is, no surprise, build a shiny app that allows users to choose their own sectors and rolling windows. We'll do that next time - see you in a few days!
+
