@@ -37,7 +37,7 @@ Once we have the map aesthetics sorted, we'll turn to Part Two: displaying the d
 
 Let's get to it!
 
-```{r setup, include = FALSE}
+```{r}
 library(readr)
 library(dplyr)
 library(tidyr)
