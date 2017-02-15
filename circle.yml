@@ -16,7 +16,7 @@ dependencies:
     - sudo apt-add-repository -y "deb https://cran.rstudio.com/bin/linux/ubuntu `lsb_release -cs`/"
     - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
     - sudo apt-get update
-    - sudo apt-get -y install r-base-dev
+    - sudo apt-get -y install r-base-dev libgdal-dev libproj-dev libv8-dev
     - R -e '.libPaths(); sessionInfo()'
     - wget https://github.com/jgm/pandoc/releases/download/1.17.2/pandoc-1.17.2-1-amd64.deb && sudo dpkg -i pandoc-1.17.2-1-amd64.deb
     - Rscript -e 'if (!requireNamespace("devtools")) install.packages("devtools"); devtools::install_github("rstudio/blogdown")'
