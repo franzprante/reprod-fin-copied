@@ -5,6 +5,8 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
+by Garrett Grolemund
+
 Would you like to teach people to use R? If so, I would like to jumpstart your efforts. 
 
 I'm one half of RStudio's education team, and I've taught thousands of people to use R, usually in face-to-face workshops. Over time, I've come to appreciate that teaching R in a short workshop is an unusual challenge that requires an unusual approach: you cannot teach a short workshop in the same way that you would teach a college course, and you should not teach R in the same way you would teach Python, UNIX or C.
