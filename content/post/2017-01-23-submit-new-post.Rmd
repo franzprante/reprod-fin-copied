@@ -13,6 +13,7 @@ Prepare your post in an R Markdown file (.rmd) and send it to joseph.rickert@rst
 
 ## WORKFLOW 2: The collaborative way for RStudio authors
 All of the steps in this workflow need to be carried out. Note that the tasks in some steps are done in the local repo and others are done on the R Views Gitbub page.   
+
 1. **Step1** - From your local RStudio IDE
     i)  Install blogdown
     ii) Make a local RStudio project that points to github/rstudio/rviews
