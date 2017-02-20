@@ -179,7 +179,7 @@ Again, it is doubtful that a model with a large number of predictors will have a
 
 ### Variable Roles
 
-Some packages have implemented extensions of the basic formula. For example, there are cases when formula are needed for specific sub-models. For example, a random coefficient model can be fit with the `lmer` function. In this case, a model is specified for a particular clustering variable (e.g. a subject in a clinical trial). The code is an example of how `lmer` syntax works:
+Some packages have implemented extensions of the basic formula. There are cases when formula are needed for specific sub-models. For example, a random coefficient model can be fit with the `lmer` function. In this case, a model is specified for a particular clustering variable (e.g. a subject in a clinical trial). The code is an example of how `lmer` syntax works:
 ```{r lmer, eval = FALSE}
 # ?lme4::lmer
 lmer(Reaction ~ Days + (Days | Subject), data = sleepstudy)
@@ -230,5 +230,5 @@ The last three items on this list are currently handled in formulas as "specials
 
 Some limitations of the current formula interface can be mitigated by writing your own or utilizing the   [`Formula`](https://cran.r-project.org/package=Formula) package. 
 
-However, there are a number of conceptual aspects (e.g. roles, sequential processing) that would require a completely different approach to defining a design matrix and this will be the focus of am upcoming tidyverse package. 
+However, there are a number of conceptual aspects (e.g. roles, sequential processing) that would require a completely different approach to defining a design matrix and this will be the focus of an upcoming tidyverse package. 
  
