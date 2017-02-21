@@ -38,13 +38,13 @@ library(tidyr)
 
 First, let's grab the fund data from [MSCI's homepage](https://www.ishares.com/us/products/244048/ishares-core-msci-total-international-stock-etf). We will use the read_csv() function from the readr package. We will title it emerging_markets_fund since we'll be pulling in other funds later. 
 
-Note that we have to skip the first 11 rows, which is why the 'skip = 11' argument is included. That's because this csv file is loaded with oddly formatted data in the first 11 rows.  If we don't skip those 11 rows, this import will be totally unhelpful. The 'import dataset' button in the IDE saved me minutes/hours of frustration here! 
+Note that we have to skip the first 10 rows, which is why the 'skip = 10' argument is included. That's because this csv file is loaded with oddly formatted data in the first 10 rows.  If we don't skip those 11 rows, this import will be totally unhelpful. The 'import dataset' button in the IDE saved me minutes/hours of frustration here! (Author's note: when this post was originally published, this argument was "skip = 11". A few weeks later, ishares changed the structure of their spreadsheet. Now it's 10 rows that need to be skipped!) 
 
 ```{r, message = FALSE, warning = FALSE}
 # Download the Emerging Markets ETF fund data from the ishares homepage.
 
 emerging_market_fund <- read_csv("https://www.ishares.com/us/products/239637/ishares-msci-emerging-markets-etf/1467271812596.ajax?fileType=csv&fileName=EEM_holdings&dataType=fund", 
-    skip = 11)
+    skip = 10)
 
 # Take a look at the fund snapshot we just imported. 
 head(emerging_market_fund)
