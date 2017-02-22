@@ -1,7 +1,7 @@
 ---
 title: "How to Teach R: Common mistakes"
 author: "Garrett Grolemund"
-date: "`r Sys.Date()`"
+date: "2017-02-22"
 output: html_document
 ---
 
