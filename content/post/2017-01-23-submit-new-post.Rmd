@@ -57,7 +57,7 @@ where c('package_1', 'package_2', 'package_3') stands for a vector containing th
     i)  Commit your post
     ii) Push your post to the R Views Github repository
 
-4. **Initiate the edit ccycle** - From github/rstudio/rviews
+4. **Initiate the edit cycle** - From github/rstudio/rviews
     i) Add joseph-rickert as reviewer
     ii) Peform a Pull request, and assign to joseph-rickert. Note that if your Pull request generates an error, then please revise your post and recommit. It is your responsibility to make sure your code runs.
     iii) Notify JBR via email: joseph.rickert@rstudio.co
