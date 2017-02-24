@@ -9,9 +9,9 @@ slug: february-17-rstudio-tips-and-tricks
 ---
 by Sean Lopp
 
-If you spend time with an excellent programmer, one thing that immediately jumps out is how quickly they can write code. It often appears to be magic, the number of keystrokes simply can't equal the number of characters on the screen. The secret: it doesn't! Most programmers use a series of tricks to save the hassle of writing boilerplate code. This month, my personal goal was to spend less time typing; even if it required slowing down to master these tricks. In this post I'll focus on one of the easiest and most flexible tools at your disposal: [code snippets](https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets). (Astute readers will note that I've mentioned code snippets [before](https://www.rstudio.com/rviews/2016/11/11/easy-tricks-you-mightve-missed/). They deserve the extra attention!)
+If you spend time with an excellent programmer, one thing that immediately jumps out is how quickly she can write code. It often appears to be magic, the number of keystrokes simply can't equal the number of characters on the screen. The secret: it doesn't! Most programmers use a series of tricks to save the hassle of writing boilerplate code. This month, my personal goal was to spend less time typing; even if it required slowing down to master these tricks. In this post I'll focus on one of the easiest and most flexible tools at your disposal: [code snippets](https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets). (Astute readers will note that I've mentioned code snippets [before](https://www.rstudio.com/rviews/2016/11/11/easy-tricks-you-mightve-missed/). They deserve the extra attention!)
 
-Code snippets are a common programming tool similar to keyboard shortcuts. A snippet of text, usually a few characters long, is used as a shortcut to create a larger piece of boilerplate code. `Tab` navigation enables jumping through the boilerplate code to locations where customizations are required. 
+Code snippets are a common programming tool similar to keyboard shortcuts. A snippet of text, usually a few characters long, is used as a shortcut to create a larger piece of boilerplate code. `Tab` navigation enables jumping through the boilerplate code to locations where customization is required. 
 
 For example, one of my favorite code snippets is for creating a function. The template of an R function looks like:
 
@@ -72,14 +72,14 @@ snippet fun
 	}
 ```
 
-The definition starts by defining the character shorcut `fun`. The definition includes the boilerplate code. The `Tab` behavior is defined using `${1}` notation. The [code snippet](https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets) help page describes the syntax in more detail.
+The definition starts by defining the character shortcut `fun`. The definition includes the boilerplate code. The `Tab` behavior is defined using `${1}` notation. The [code snippet](https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets) help page describes the syntax in more detail.
 
 
 ## A Few Examples
 
 ### `ts`
 
-Adds a timestamped comment.
+Adds a time-stamped comment.
 
 ```
 # Mon Feb 20 07:34:03 2017 ------------------------------
