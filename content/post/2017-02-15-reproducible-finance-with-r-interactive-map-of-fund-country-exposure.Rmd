@@ -1,5 +1,5 @@
 ---
-title: 'Reproducible Finance with R: Interactive Map of Fund Country Exposure'
+title: 'Interactive Maps and ETF Analysis'
 author: "Jonathan Regenstein"
 date: '2017-02-19'
 draft: yes
@@ -16,7 +16,7 @@ In this post, I'll describe a [Shiny app](http://colorado.rstudio.com:3939/conte
 
 I have done some additional work and updated the analysis to include five ETFs in the app, whereas we originally imported data on 1 ETF. The new notebook is available [here](http://colorado.rstudio.com:3939/content/322/Fund-Country-Weights-Multiple-ETFS-DataGrab.nb.html). 
 
-As we start to build our Shiny app, we will assume that our underlying Notebook has been used to build the desired ETF data objects and spatial dataframe, and that those have been saved in an appropriately named .RDat file. That's an important assumption because the first thing we'll do in the chunk below is load up that file.
+As we start to build our Shiny app, we will assume that our underlying Notebook has been used to build the desired ETF data objects and spatial data frame, and that those have been saved in an appropriately named .RDat file. That's an important assumption because the first thing we'll do in the chunk below is load up that file.
 
 A brief aside before we dive into the first code chunk: if you look at the source code for this app, you might notice that the code chunks have different 'contexts' - something we haven't had in our previous flexdashboards. For example, the first chunk has 'context = "data"', the next has 'context = "render", and so on.  That is because I am taking advantage of a new run_time option called [shiny_prerendered](http://rmarkdown.rstudio.com/authoring_shiny_prerendered.html#overview) that is still under development. This run time allows your flexdashboard to "pre-render" certain objects, meaning they are knit prior to deployment. Here, we pre-render our data and our map object. 
 
@@ -59,9 +59,9 @@ radioButtons("fund", "Fund",
                  "Europe ETF" = "europe"))
 ```
 
-Go back and look at the Notebook and, no surprise, "infrastructure" is what we titled our infrastructure fund object, as well as the column in the spatial dataframe that contains country weights for the infrastructure fund.
+Go back and look at the Notebook and, no surprise, "infrastructure" is what we titled our infrastructure fund object, as well as the column in the spatial data frame that contains country weights for the infrastructure fund.
 
-I will harp on this point again below but it was quite purposeful to choose one label - "infrastructure" - for both the fund object and the column in the spatial data frame. It allows us to use one radio button to reference both of those. The same convention holds true for the other funds: one label for the fund object and the spatial dataframe column that holds country weights.
+I will harp on this point again below but it was quite purposeful to choose one label - "infrastructure" - for both the fund object and the column in the spatial data frame. It allows us to use one radio button to reference both of those. The same convention holds true for the other funds: one label for the fund object and the spatial data frame column that holds country weights.
 
 Let's go ahead and render the default map to the user. 
 
@@ -82,7 +82,7 @@ output$fundMap <- renderLeaflet({
 
 After we have that map, finally, the fun part: we're going to allow the user to change the shading of the map according to the radio buttons. But - but! -  we don't want to rebuild a map of the world upon each radio button selection. Instead, we want to change just the shading and the pop up, and we'll use the [leafletProxy() function](https://rstudio.github.io/leaflet/shiny.html) to accomplish that. 
 
-This will be a four step process: (1) use observeEvent() to capture the input from the radio button, (2) build a new palette based on that input, (3)build a new pop up based on that input, (4) display the new map which is the original + the new palette and pop up.  
+This will be a four step process: (1) use observeEvent() to capture the input from the radio button, (2) build a new palette based on that input, (3)build a new pop up based on that input, (4) display the new map which consists of the original map plus the new palette and pop up.  
 
 Have a read through the code chunk and then we'll dissect it.
 
@@ -128,25 +128,24 @@ observeEvent(input$fund, {
 
 ```
 
-The first thing we do inside the observeEvent function is capture the radio button selection with 'input$fund', and save it to an object called 'indicator'. 
+1. Inside the observeEvent function, capture the radio button selection with 'input$fund', and save it to an object called 'indicator'. 
 
-Next, we want to create a new palette based on the indicator. I call that object 'newPal', and it is created the exact same way that we created the palette in the the first code chunk. The only different is, instead of explicitly passing in a fund like 'emerging_market', we pass in 'indicator', which has taken on a fund value from the radio button. 
+2. Create a new palette based on the indicator called 'newPal', in the same way as we created the palette in the the first code chunk, except instead of explicitly passing in a fund like 'emerging_market', pass in 'indicator', which has taken on a fund value from the radio button. 
 
-Next, we create a new pop up based on the indicator. Exact same process: call it newPopup and pass it 'indicator' instead of an explicit fund name. 
+3. Create a new pop up based on the indicator using the same process. Call it newPopup and pass it 'indicator' instead of an explicit fund name. 
 
-Those three steps are relatively straightforward and simple. Now it's time to use leafletProxy() and build out that new map. We don't want rebuild the whole map, so we tell leafletProxy() to start with the already built 'fundMap'. Next, remove the layerId so we have a clean slate. Add back the provider tiles; then add back the polygons. So far, so good. 
+4. Display the new map.
+    a) Use leafletProxy() to build out that new map. We don't want rebuild the whole map, so we tell leafletProxy() to start with the already built 'fundMap'. 
+    b) Remove the layerId so we have a clean slate. Add back the provider tiles; then add back the polygons. 
+    c) To add a palette, we do two things: use 'newPal', which is based on the radio button, and use the column from the spatial data frame that has the same name as 'indicator' (that is, shade the palette by 'world_fund_country_weights[[indicator]]'). We can do that because the column in the spatial data frame has the same name as the fund object. 
 
-When it comes time to add a palette, we do two things: use 'newPal', which is based on the radio button, and use the column from the spatial dataframe that has the same name as 'indicator' (that is, shade the palette by 'world_fund_country_weights[[indicator]]'). We can do that because the column in the spatial dataframe has the same name as the fund object. 
+In the original [the Notebook](http://colorado.rstudio.com:3939/content/322/Fund-Country-Weights-Multiple-ETFS-DataGrab.nb.html) where we created the data frame emerging_market_country_weights, we made a decision that makes interactive shading smoother: we named the column in the data frame that holds the country weights 'emerging_market'. Then we added that data frame to the spatial data frame and the spatial data frame got a new column called 'emerging_market'. 
 
-In the original [the Notebook](http://colorado.rstudio.com:3939/content/322/Fund-Country-Weights-Multiple-ETFS-DataGrab.nb.html) where we created the dataframe emerging_market_country_weights, we made a decision that makes interactive shading smoother: we named the column in the dataframe that holds the country weights 'emerging_market'. Then we added that dataframe to the spatial dataframe and the spatial dataframe got a new column called 'emerging_market'. 
+Notice that because he column in the spatial data frame emerging_market, has the same name as our fund object We can reference both from one selection of the radio button. Convenient! 
 
-Notice that because he column in the spatial dataframe emerging_market, has the same name as our fund object We can reference both from one selection of the radio button. Convenient! 
+Just to finish off the new map, we use 'popup = newPopup' to add the popup object we created from the radio input. Our app now has an interactively shaded map!
 
-Just to finish off the new map, we use 'popup = newPopup' to add the popup object we created from the radio input. 
-
-And, our app now has an interactively shaded map!
-
-Before we head to happy hour, though, let's finish up with a relatively simple, but helpful, addition to the app. When a user clicks a country, not only does the user see a popup but also country level detail in a datatable. The datatable shows the individual companies that the ETF holds in the clicked country, and the weight to each of those companies. 
+Before we head to happy hour, though, let's finish up with a relatively simple addition to the app. When a user clicks a country, not only does the user see a popup but also country level detail in a data table. The data table shows the individual companies that the ETF holds in the clicked country, and the weight to each of those companies. 
 
 Again, the hard work was done in the Notebook. When we loaded the .RDat file, it contained an object for each fund, with that convenient label I have belabored, with a column for countries and a column for companies.  All we need do is filter that object by the clicked country. Our friend eventReactive() again allows us to capture the clicked country's id, and we subset by that id. For example, if a user clicks on China, we subset and display only the companies with 'China' in the country column.   
 
@@ -198,13 +197,5 @@ output$table <- renderDataTable({
 })
 ```
 
-And, we're done! 
-
-I learned a lot just toggling around the app e.g., the global infrastructure fund is 39% invested in the USA, and 9% invested in Canada. Not too shocking, but the next largest concentration is in Spain, which I was not expectingm and only 3% allocated China! 
-
-The total international fund is most concentrated in Japan at 17%; for the emerging markets and Asia ex Japan fund, China is a big piece at 26% and 36%, respectively, and the largest holdings in China are Tencent and Alibaba - but China Mobile and China Construction Bank are big holdings as well.  
-
-The Europe fund? France is the largest holding, at 32%, and the largest company holding is Total. Germany is a close second, but I would have figured it the other way around. 
-
-Finally, note that the techniques employed in this map can be used to map country exposures of mutual funds, bespoke stock/bond portfolios, currency and commodities holdings, etc. Enjoy!
+And, we're done! Please note, however, that the techniques employed in this map can be used to map country exposures of mutual funds, bespoke stock/bond portfolios, currency and commodities holdings, etc. Enjoy!
 
