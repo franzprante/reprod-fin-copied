@@ -29,7 +29,7 @@ The boilerplate - not worth typing - is:
 }
 ```
 
-In RStudio, the code snippet for functions is `fun`. Typing `fun` and clicking `Tab` will provide an auto-complete suggestion for the snippet. Typing `fun` and clicking `Shift + Tab` inserts the snippet directly.
+In RStudio, the code snippet for functions is `fun`. Typing `fun` and clicking `Tab` will provide an auto-complete suggestion for the snippet. Typing `fun` and clicking `Shift + Tab` inserts the snippet directly. As a general typing rule, keeping your hands on the middle row of the keyboard will speed things up. I hit `Shift` with my right pinky and `Tab` with my left. 
 
 After inserting the boilerplate code, the cursor is placed to left of the `<-`. You can then quickly type the name of the function. Pressing `Tab` places the cursor in between the parenthesis. Pressing `Tab` again places the cursor in between the brackets. This allows you to quickly fill in the remaining portions of the function template.
 
