@@ -12,15 +12,15 @@ tags:
 categories: R Views
 ---
 
-In a previous post, we used a Notebook to import a snapshot of the ishares Emerging Markets ETF so we could map how it is invested in different countries. It was a useful exercise but what we really want is a Shiny app that allows a user to choose from a multitude of ETFs (or funds or portfolios) and see their country exposures on a world map. That's what we'll tackle today! In case it's helpful to have a picture of where we are headed, the finished app is available at [this link](http://colorado.rstudio.com:3939/content/277/). 
+In this post, I'll describe a [Shiny app](http://colorado.rstudio.com:3939/content/277/) to support the Emerging Markets ETF Country Exposure analysis developed in a [previous post](https://www.rstudio.com/rviews/2017/02/08/reproducible-finance-with-r-etf-country-exposure/)
 
-I have done some extra work that was not in the original Notebook because there is now data on 5 ETFs in the app, whereas we originally imported data on 1 ETF.  If you want to have a look at the updated Notebook where I repeat the data import, wrangling and saving for the 4 additional ETFs, it is available [here](http://colorado.rstudio.com:3939/content/322/Fund-Country-Weights-Multiple-ETFS-DataGrab.nb.html). I took a brute force approach in that Notebook and simply repeated my steps 4 times. There is almost surely a more efficient approach that would allow us to pass in ETF information to a function or functions, take the snapshot, create our objects and then save the results. I will leave it to smarter people to code that up but I'll also say that grinding it out wasn't so bad - it forced me to look at each fund as I was importing the data and learn a little something about them. 
+I have done some additional work and updated the analysis to include five ETFs in the app, whereas we originally imported data on 1 ETF. The new notebook is available [here](http://colorado.rstudio.com:3939/content/322/Fund-Country-Weights-Multiple-ETFS-DataGrab.nb.html). 
 
 As we start to build our Shiny app, we will assume that our underlying Notebook has been used to build the desired ETF data objects and spatial dataframe, and that those have been saved in an appropriately named .RDat file. That's an important assumption because the first thing we'll do in the chunk below is load up that file.
 
-A brief aside before we dive into the first code chunk: if you look at the source code for this app, you might notice that the code chunks have different 'contexts' - something we haven't had in our previous flexdashboards. For example, the first chunk has 'context = "data"', the next has 'context = "render", and so on.  That is because I am taking advantage of a new run_time option called "shiny_prerendered". This run time allows your flexdashboard to "pre-render" certain objects, meaning they are knit prior to deployment. Here, we pre-render our data and our map object. Check out the documentation [here](http://rmarkdown.rstudio.com/authoring_shiny_prerendered.html#overview). Suffice it to say, it can help speed up your Shiny apps and when you're building a map of the world, that's a good thing. It it still under development but I have found it really useful. Definitely spend some time on the documentation page. 
+A brief aside before we dive into the first code chunk: if you look at the source code for this app, you might notice that the code chunks have different 'contexts' - something we haven't had in our previous flexdashboards. For example, the first chunk has 'context = "data"', the next has 'context = "render", and so on.  That is because I am taking advantage of a new run_time option called [shiny_prerendered](http://rmarkdown.rstudio.com/authoring_shiny_prerendered.html#overview) that is still under development. This run time allows your flexdashboard to "pre-render" certain objects, meaning they are knit prior to deployment. Here, we pre-render our data and our map object. 
 
-Alright, let's get to it. First, we'll load up our data and build a map of the world, shaded by our original emerging markets fund. That is what a user will see when first arriving to the app. We can think of it as the default map and shading before the user has done anything. We didn't have to use emerging markets as the default, but it was the first fund we imported in the Notebook.  
+First, we'll load up our data and build a map of the world, shaded by our original emerging markets fund. That is what a user will see when first arriving to the app. We can think of it as the default map and shading before the user has done anything. We didn't have to use emerging markets as the default, but it was the first fund we imported in the Notebook.  
 
 
 ```{r, context = "data", cache = TRUE, include = FALSE, eval = FALSE}
@@ -43,7 +43,7 @@ leaf_world_emerging <- leaflet(world_fund_country_weights) %>%
       color =~emerging_marketPal(emerging_market), layerId = ~name, popup = emerging_marketPopup)
 ```
 
-That code should look boringly familiar from our Notebook. When we load the .RDat file, all of the saved objects go the global environment, and after the chunk has been run (or pre-rendered), the data and map object are available to us. 
+This code should look familiar. When we load the .RDat file, all of the saved objects go the global environment, and after the chunk has been run (or pre-rendered), the data and map object are available. 
 
 Now we want to set up some radio buttons so that the user can eventually change the shading of the map. This is pure UI work and is a simple selection of radio buttons. Note, in particular, how we give the user a choice of radio buttons with a nice intuitive label but then assign each button with a string value that matches the name of our fund objects. For example, we label the second button as "Global Infrastructure ETF", which is what the user sees. But, upon choosing that button, we assign an input value equal to "infrastructure". 
 
@@ -80,7 +80,7 @@ output$fundMap <- renderLeaflet({
   })
 ```
 
-After we have that map, finally, the fun part: we're going to allow the user to change the shading of the map according to the radio buttons. But - but! -  we don't want to rebuild a map of the world upon each radio button selection. Instead, we want to change just the shading and the pop up, and we'll use the leafletProxy() function to accomplish that. To learn more about leafletProxy(), have a look at the documentation [here](https://rstudio.github.io/leaflet/shiny.html). In short, it allows us to change the shading and pop ups, and not have to redraw the entire map.
+After we have that map, finally, the fun part: we're going to allow the user to change the shading of the map according to the radio buttons. But - but! -  we don't want to rebuild a map of the world upon each radio button selection. Instead, we want to change just the shading and the pop up, and we'll use the [leafletProxy() function](https://rstudio.github.io/leaflet/shiny.html) to accomplish that. 
 
 This will be a four step process: (1) use observeEvent() to capture the input from the radio button, (2) build a new palette based on that input, (3)build a new pop up based on that input, (4) display the new map which is the original + the new palette and pop up.  
 
@@ -136,13 +136,11 @@ Next, we create a new pop up based on the indicator. Exact same process: call it
 
 Those three steps are relatively straightforward and simple. Now it's time to use leafletProxy() and build out that new map. We don't want rebuild the whole map, so we tell leafletProxy() to start with the already built 'fundMap'. Next, remove the layerId so we have a clean slate. Add back the provider tiles; then add back the polygons. So far, so good. 
 
-When it comes time to add a palette, we do two things: use 'newPal', which is based on the radio button, and use the column from the spatial dataframe that has the same name as 'indicator' (that is, shade the palette by 'world_fund_country_weights[[indicator]]'). 
+When it comes time to add a palette, we do two things: use 'newPal', which is based on the radio button, and use the column from the spatial dataframe that has the same name as 'indicator' (that is, shade the palette by 'world_fund_country_weights[[indicator]]'). We can do that because the column in the spatial dataframe has the same name as the fund object. 
 
-Why can we do that? The column in the spatial dataframe has the same name as the fund object. I promised I would harp on this and here it is:   
+In the original [the Notebook](http://colorado.rstudio.com:3939/content/322/Fund-Country-Weights-Multiple-ETFS-DataGrab.nb.html) where we created the dataframe emerging_market_country_weights, we made a decision that makes interactive shading smoother: we named the column in the dataframe that holds the country weights 'emerging_market'. Then we added that dataframe to the spatial dataframe and the spatial dataframe got a new column called 'emerging_market'. 
 
-Remember way back when we were working in our Notebook and calculating country weights - if not open up [the Notebook](http://colorado.rstudio.com:3939/content/322/Fund-Country-Weights-Multiple-ETFS-DataGrab.nb.html) and have a look at where we created the dataframe called 'emerging_market_country_weights'. We made one simple but important decision there that made this interactive shading smoother: we named the column in the dataframe that holds the country weights 'emerging_market'. Then we added that dataframe to the spatial dataframe and the spatial dataframe got a new column called 'emerging_market'. 
-
-Then we titled our dataframe that holds the snapshot of the fund 'emerging_market'. The column in the spatial dataframe, which we use for shading, has the same name as our fund object We can reference both from one selection of the radio button. Convenient! 
+Notice that because he column in the spatial dataframe emerging_market, has the same name as our fund object We can reference both from one selection of the radio button. Convenient! 
 
 Just to finish off the new map, we use 'popup = newPopup' to add the popup object we created from the radio input. 
 
@@ -202,11 +200,11 @@ output$table <- renderDataTable({
 
 And, we're done! 
 
-This is an interesting app to use and I learned a lot just toggling around 
-- e.g., the global infrastructure fund is 39% invested in the USA, and 9% invested in Canada. Not too shocking, but the next largest concentration is in Spain, which I was not expecting. Only 3% allocated China. 
+I learned a lot just toggling around the app e.g., the global infrastructure fund is 39% invested in the USA, and 9% invested in Canada. Not too shocking, but the next largest concentration is in Spain, which I was not expectingm and only 3% allocated China! 
 
 The total international fund is most concentrated in Japan at 17%; for the emerging markets and Asia ex Japan fund, China is a big piece at 26% and 36%, respectively, and the largest holdings in China are Tencent and Alibaba - but China Mobile and China Construction Bank are big holdings as well.  
 
 The Europe fund? France is the largest holding, at 32%, and the largest company holding is Total. Germany is a close second, but I would have figured it the other way around. 
 
-In any event, easy to while away an afternoon with this app but more fun to while away an afternoon working on extensions. This structure need not be limited to ETFs - ideally we would like to map country exposures of mutual funds, bespoke stock/bond portfolios, currency and commodities holdings, etc. Enjoy!
+Finally, note that the techniques employed in this map can be used to map country exposures of mutual funds, bespoke stock/bond portfolios, currency and commodities holdings, etc. Enjoy!
+
