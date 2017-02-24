@@ -9,7 +9,7 @@ slug: february-17-rstudio-tips-and-tricks
 ---
 by Sean Lopp
 
-If you spend time with an excellent programmer, one thing that immediately jumps out is how quickly she can write code. It often appears to be magic, the number of keystrokes simply can't equal the number of characters on the screen. The secret: it doesn't! Most programmers use a series of tricks to save the hassle of writing boilerplate code. This month, my personal goal was to spend less time typing; even if it required slowing down to master these tricks. In this post I'll focus on one of the easiest and most flexible tools at your disposal: [code snippets](https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets). (Astute readers will note that I've mentioned code snippets [before](https://www.rstudio.com/rviews/2016/11/11/easy-tricks-you-mightve-missed/). They deserve the extra attention!)
+If you spend time with an excellent programmer, one thing that immediately jumps out is how quickly she can write code. It often appears to be magic, the number of keystrokes simply can't equal the number of characters on the screen. The secret: it doesn't! Most programmers use a series of tricks to save the hassle of writing boilerplate code. This month, my personal goal was to spend less time typing, even if it required slowing down to master these tricks. In this post, I'll focus on one of the easiest and most flexible tools at your disposal: [code snippets](https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets). (Astute readers will note that I've mentioned code snippets [before](https://www.rstudio.com/rviews/2016/11/11/easy-tricks-you-mightve-missed/). They deserve the extra attention!)
 
 Code snippets are a common programming tool similar to keyboard shortcuts. A snippet of text, usually a few characters long, is used as a shortcut to create a larger piece of boilerplate code. `Tab` navigation enables jumping through the boilerplate code to locations where customization is required. 
 
@@ -29,9 +29,9 @@ The boilerplate - not worth typing - is:
 }
 ```
 
-In RStudio, the code snippet for functions is `fun`. Typing `fun` and clicking `Tab` will provide an auto-complete suggestion for the snippet. Typing `fun` and clicking `Shift + Tab` inserts the snippet directly. As a general typing rule, keeping your hands on the middle row of the keyboard will speed things up. I hit `Shift` with my right pinky and `Tab` with my left. 
+In RStudio, the code snippet for functions is `fun`. Typing `fun` and pressing `Tab` will provide an auto-complete suggestion for the snippet. Typing `fun` and pressing `Shift + Tab` inserts the snippet directly. As a general typing rule, keeping your hands on the middle row of the keyboard will speed things up. I hit `Shift` with my right pinky and `Tab` with my left. 
 
-After inserting the boilerplate code, the cursor is placed to left of the `<-`. You can then quickly type the name of the function. Pressing `Tab` places the cursor in between the parenthesis. Pressing `Tab` again places the cursor in between the brackets. This allows you to quickly fill in the remaining portions of the function template.
+After inserting the boilerplate code, the cursor is placed to left of the `<-`. You can then quickly type the name of the function. Pressing `Tab` places the cursor in between the parenthesis. Pressing `Tab` again places the cursor in between the brackets. This allows you to fill in the remaining portions of the function template quickly.
 
 **Type `fun` and `Shift + Tab`:**
 
@@ -59,7 +59,7 @@ HERE <- function() {
 
 ## Accessing Snippets
 
-RStudio comes with many built-in snippets. To access these snippets navigate to `Tools` -> `Global Options` -> `Code` and press `Edit Snippets`.
+RStudio comes with many built-in snippets. To access these snippets, navigate to `Tools` -> `Global Options` -> `Code` and press `Edit Snippets`.
 
 ![](/images/SL_code_snippets.png)
 
@@ -72,7 +72,7 @@ snippet fun
 	}
 ```
 
-The definition starts by defining the character shortcut `fun`. The definition includes the boilerplate code. The `Tab` behavior is defined using `${1}` notation. The [code snippet](https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets) help page describes the syntax in more detail.
+The snippet starts by defining the character shortcut `fun`. The definition includes the boilerplate code. The `Tab` behavior is defined using `${1}` notation. The [code snippet](https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets) help page describes the syntax in more detail.
 
 
 ## A Few Examples
