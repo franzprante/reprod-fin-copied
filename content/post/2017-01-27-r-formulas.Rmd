@@ -11,7 +11,7 @@ title: "The R Formula Method: The Good Parts"
 ```{r setup, include=FALSE}
 options(width = 80, digits = 3)
 # packages required for this post
-for (pkg in 'splines') {
+for (pkg in c('splines','caret')) {
   if (!requireNamespace(pkg)) install.packages(pkg)
 }
 ```
