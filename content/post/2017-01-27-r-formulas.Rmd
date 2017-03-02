@@ -9,14 +9,11 @@ title: "The R Formula Method: The Good Parts"
 ---
 
 ```{r setup, include=FALSE}
-library(knitr)
 options(width = 80, digits = 3)
-knit_theme$set("bclear")
-
-library(caret)
-library(rpart)
-library(randomForest)
-library(splines)
+# packages required for this post
+for (pkg in c('splines','caret')) {
+  if (!requireNamespace(pkg)) install.packages(pkg)
+}
 ```
 
 

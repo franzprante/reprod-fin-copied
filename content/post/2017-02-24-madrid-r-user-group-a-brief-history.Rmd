@@ -1,0 +1,68 @@
+---
+author: "Carlos Ortega"
+categories: []
+date: 2017-02-24T16:07:18-08:00
+draft: true
+summary: ""
+tags: []
+title: "Madrid R User Group, A Brief History"
+---
+by Carlos Ortega
+
+*(Editors note: A Spanish verison of the post follows the English text)*
+
+In the first meeting we were 5, now we are consistently over 60. It was not difficult for us to start up the group of users of R of Madrid. Gregorio Serrano, Carlos Gil Bellosta, Pedro Concejero and I started our own help list [R-help-es](https://stat.ethz.ch/mailman/listinfo/r-help-es) to regurlarly answers questions within this new community. It was in March 2012, when we first got together in a classroom of the Faculty of Economics of one of the Madrid’s public Universities. We discussed: a) How to model different trading strategies with R b) How to model the number of bugs present in the R code and c) the presentation of a library to create spatial graphs of the map of Spain.
+
+The group of Users of R of Madrid, was born as a group promoted by the [Association of R of Spain](http://r-es.org/). The Association allowed us to host the agendas of new calls and the content generated in the meetings in a space of its online portal, this helped to provide initial credibility to the group. From then on, we have held a monthly meeting on a regular basis. Except the months of July and August and December - a total of about forty-five meetings in these five years.
+
+In the beginning, we changed our headquarters several times. Then we found a place where we could meet in a regular basis, which was a classroom of the School of Sciences of the UNED. There we spent the first three years, approximately. It was there where the group forged its future in terms of creating a stable core team of members and to establish a cadence for the meetings. We covered many of the emerging issues that were being addressed in the Community of R: Social Network Analysis, Spatial representation (maps) and different types of analysis on open sets.
+
+From the first meeting, we agreed to record all the meetings in video and be very consistent in making accessible the presented material ([video and presentations](https://www.meetup.com/es-ES/Grupo-de-Usuarios-de-R-de-Madrid/)). 
+
+After this initial period, the leap that allowed us to achieve greater visibility and notoriety was to use the [meetup.com portal](https://www.meetup.com/es-ES/Grupo-de-Usuarios-de-R-de-Madrid/) and get a more central venue in Madrid. This put us in immediate contact with other people having similar interests in holding meetings in a space dedicated to new technologies. [MediaLab Prado](http://medialab-prado.es/), promoted by the Madrid City Council put us in touch with other groups with the same type of interest in everything related to the data: Data Journalists, Analytics, Python Users, etc. Interestingly, joining a Meetup was a must when we introduced ourselves to Revolution Anallytics, a company that helped many other R user groups. This sponsorship has helped us keep the group in Meetup and be able to host all the videos on Vimeo.
+
+Now that R has become a language of great success and traction, the group continues to evolve: The BigData is here, we are sharing the experiences of having participated in Kaggle, Bayesian statistics, etc. This evolution has also occurred in the profile of the attendees: we started to see presentations of companies and fortunately there are a lot of young people among the attendees and those who present.
+
+Based on experience we've accumulated over the years, to those who want to create their own group, we would give these recommendations from [Cultivating Communities of Practice](http://cpcoaching.it/wp-content/uploads/2012/05/WengerCPC.pdf):   
+*   Keep the consistency, the monthly periodicity is the most valuable. Attendees appreciate maintaining regularity.   
+*   Using Meetup has been shown to be a key element of success by the visibility it offers and by reaching out to other groups and users with the same interests.   
+*   Another key element to become known and expand the scope of the group has been to participate in meetings of other communities: Data Journalists, Machine Learning, Python, SQLSaturdays, etc.   
+*   Be rigorous in announcing the meetings in advance and sharing the material presented.   
+*   Record the video sessions (we use a tripod and a Smartphone) has also helped to maintain a loyal community.   
+
+We have accomplished a lot, but certainly the best is yet to come. Long life to R.
+
+**EL GRUPO DE USUARIOS DE R DE MADRID (ESPAÑA)**
+
+En la primera reunión éramos 5, ahora somos más de 60 y de forma consistente. No nos costó mucho poner en marcha el grupo de usuarios de R de Madrid. A través de la propia lista de ayuda [R-help-es](https://stat.ethz.ch/mailman/listinfo/r-help-es) los que solíamos responder de forma más habitual a las dudas de esta nueva comunidad (Gregorio Serrano, Carlos Gil Bellosta, Pedro Concejero y Carlos Ortega), acordamos juntarnos por primera vez. Fue en marzo de 2012, nos juntamos en un aula de la Facultad de Economia de uno de los Campus de Madrid. Hablamos de: a) Cómo modelizar diferentes estrategias de trading con R b) Cómo modelizar el número de bugs presentes en el código R y c) la presentación de una librería para crear gráficos espaciales del mapa de España.
+
+El grupo de Usuarios de R de Madrid, nació como grupo promovido por la Asociación de R de España. La Asociación nos permitió alojar las agendas de nuevas convocatorias y el contenido generado en las reuniones en un espacio de su portal online. Este punto ayudó a dotar de un punto inicial de credibilidad sobre el grupo.
+
+A partir de este momento, hemos mantenido una reunión mensual de forma constante. Excepto los meses de julio y agosto y diciembre. Un total de unas 45 reuniones.
+
+Inicialmente cambiamos de sede varias veces, hasta que encontramos un sitio en donde reunirnos de forma estable en un aula de la Escuela de Ciencias de la UNED, donde estuvimos los tres primeros años aproximadamente. Fue aquí donde el grupo forjó su futuro. Cubrimos muchos de los temas emergentes que en la Comunidad de R se venían tratando: análisis de redes sociales, representación espacial (mapas) y diferentes tipos de análisis sobre conjuntos abiertos.
+
+Desde un primer momento acordamos grabar todas las reuniones en video y ser muy consistentes en hacer accesible el material presentado ([video y presentaciones](https://www.meetup.com/es-ES/Grupo-de-Usuarios-de-R-de-Madrid/)).
+
+Después de esta primera época, el salto que nos permitió conseguir mayor visibilidad y notoriedad fue el utilizar [el portal de Meetup](https://www.meetup.com/es-ES/Grupo-de-Usuarios-de-R-de-Madrid/)y conseguir una sede más céntrica en Madrid.
+
+Meetup por un lado, nos puso en contacto inmediato con otras personas con el mismo tipo de interés y el celebrar las reuniones en un espacio dedicado a las nuevas tecnologías ([MediaLab Prado](http://medialab-prado.es/)), promovido por el Ayuntamiento de Madrid nos puso en contacto con otros grupos con el mismo tipo de interés en todo lo relativo a los datos: Periodistas de Datos, Analytics, Usuarios de Python, etc. 
+
+Curiosamente, el entrar en Meetup fue también una necesidad cuando nos presentamos para conseguir la ayuda que a los diferentes grupos de de usuarios de R recibían de Revolution Analytics. Esta esponsorización nos ha ayudado a mantener el grupo en Meetup y el poder alojar todos los videos en Vimeo.
+
+Ahora que R se ha convertido en un lenguaje de gran éxito y tracción, el grupo sigue evolucionando: El BigData ya está con nosotros, compartir las experiencias de haber participado en Kaggle, la estadística bayesiana, etc. 
+
+Igualmente esta evolución se ha producido en el perfil de los asistentes: comenzamos a ver presentaciones de empresas y afortunadamente es mucha la gente joven entre los asistentes y los que presentan.
+
+De la experiencia acumulada en estos años, a aquellos que quieran crear su propio grupo, les daríamos estas recomendaciones:  
+*  Mantener la consistencia, la periodicidad mensual es la más ajustada. Los asistentes valoran mantener la regularidad.   
+*  Utilizar Meetup se ha demostrado como un elemento clave del éxito por la visibilidad que ofrece y por el alcance a otros grupos y usuarios con los mismos intereses.  
+*  Otro elemento clave para darse a conocer y ampliar el alcance del grupo ha sido el participar en reuniones de otras comunidades: Periodistas de Datos, Analytics, Usuarios de Python, etc.
+*  Ser rigurosos en el anuncio de las reuniones con cierta antelación y en compartir el material presentado.   
+*  El grabar las sesiones en video (usamos para ello un trípode y un Smartphone) también ha ayudado a mantener una comunidad fiel.   
+
+Hemos hecho mucho, pero sin duda lo mejor está todavía por llegar.
+
+
+
+

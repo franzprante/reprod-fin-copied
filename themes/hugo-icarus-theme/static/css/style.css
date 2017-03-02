@@ -820,11 +820,12 @@ code {
   height: auto;
 }
 .article-header {
-  padding: 20px 20px 0;
+  padding: 4em 4em 1em 4em;
 }
 .article-header .article-title {
   display: block;
   margin-bottom: 14px;
+  font-size: 2.25em;
 }
 .article-title {
   font-size: 2em;
@@ -880,7 +881,7 @@ a.article-title:hover {
 }
 .article-entry {
   color: #565a5f;
-  padding: 0 20px;
+  padding: 0 4em;
   line-height: 1.6em;
 }
 .article-entry:before,
@@ -902,7 +903,7 @@ a.article-title:hover {
 .article-entry h4,
 .article-entry h5,
 .article-entry h6 {
-  font-weight: bold;
+  font-weight: normal;
 }
 .article-entry h1,
 .article-entry h2,
@@ -911,7 +912,7 @@ a.article-title:hover {
 .article-entry h5,
 .article-entry h6 {
   line-height: 1.3em;
-  margin: 1.3em 0;
+  margin: 1.5em 0 .5em 0;
 }
 .article-entry a {
   color: #38b7ea;
@@ -931,7 +932,7 @@ a.article-title:hover {
   max-width: 100%;
   height: auto;
   display: block;
-  margin: auto;
+  margin: 1.5em auto;
 }
 .article-entry iframe {
   border: none;
