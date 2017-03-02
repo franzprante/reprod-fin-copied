@@ -1,8 +1,7 @@
 ---
-title: "How to Teach R: Common mistakes"
-author: "Garrett Grolemund"
-date: "2017-02-22"
-output: html_document
+title: 'How to Teach R: Common mistakes'
+date: '2017-02-22'
+draft: yes
 ---
 
 by Garrett Grolemund
@@ -30,4 +29,3 @@ We'll begin in this post by identifying common mistakes that ensnare new R teach
     Whatever you do, remember that the hour immediately before class is less than ideal for installing software. You have other tasks to attend to, and inevitably some students will come late and bring bugs.
     
 I'll have more to say about each of these topics in the posts that follow. In those posts, I'll try to layout a fun, inspiring vision for how an R workshop works; no more "thou shall nots." See you there!
-
