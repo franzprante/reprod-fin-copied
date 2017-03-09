@@ -13,71 +13,28 @@ by Merav Yuravlivker, CEO of Data Society
 
 1. **Start simple**. My first time training up a group of instructors to teach R programming was a great experience (especially given that these R trainings will train up under-served adults), but it wasn’t without its challenges. Anyone with a non-programming background can feel intimidated when they get started, and it’s critical to start off by using R as a glorified calculator. Start with basic operations to get your students comfortable with the interface of RStudio (an awesome and intuitive interface for R), then you can move on to more advanced functions.
 
-```{r fig.width=7, fig.height=5,echo=FALSE}
-# http://bit.ly/2kOSaw4
-if (!requireNamespace('png')) install.packages('png')
-library(png)
-library(grid)
-img <- readPNG("../../static/2017/excel_tips/excel1.png")
- grid.raster(img, x = unit(.55, "npc"))
- # alternate method
-#```{r, out.width = "400px"}
-#knitr::include_graphics("../../static/2017/excel_tips/excel3.png")
-```
-
-[//]: ![](/2017-01-30-three-tips-for-training-excel-users-in-r/excel1.png)
-$\qquad$ See? This doesn’t look so complicated.
+![](/2017-01-30-three-tips-for-training-excel-users-in-r/excel1.png)
+See? This doesn’t look so complicated.
 
 2. **Show the similarities**. Excel and R do have many similarities in syntax that makes it easier for Excel users to transfer their skills over to R. For example, RStudio has a tabular data view that may look very familiar to spreadsheet users:
 
-[//]: ![](/2017-01-30-three-tips-for-training-excel-users-in-r/excel2.png)
-
-```{r fig.width=7, fig.height=5,echo=FALSE}
-library(png)
-library(grid)
-img <- readPNG("../../static/2017/excel_tips/excel2.png")
- grid.raster(img, x = unit(.55, "npc"))
-```  
+![](/2017-01-30-three-tips-for-training-excel-users-in-r/excel2.png)
      
-$\qquad$  This looks like another program I’ve used before...
+This looks like another program I’ve used before...
 
-\vspace*{\stretch{2}} And this is not just limited to viewing data. There is a lot of syntax from Excel that is easily transferable to R. For example, using if-else statements in Excel looks like this:
+And this is not just limited to viewing data. There is a lot of syntax from Excel that is easily transferable to R. For example, using if-else statements in Excel looks like this:
 
-```{r fig.width=7, fig.height=2,echo=FALSE}
-# http://bit.ly/2kOSaw4
-#library(png)
-#library(grid)
-img <- readPNG("../../static/2017-01-30-three-tips-for-training-excel-users-in-r/excel3.png")
- grid.raster(img, x = unit(.55, "npc"))
-```
+![](/2017-01-30-three-tips-for-training-excel-users-in-r/excel3.png)
 
-$\qquad$ And here is what it looks like in R:
+And here is what it looks like in R:
 
-[//]: ![](/2017-01-30-three-tips-for-training-excel-users-in-r/excel4.png)
-
-```{r fig.width=7, fig.height=2,echo=FALSE}
-# http://bit.ly/2kOSaw4
-#library(png)
-#library(grid)
-img <- readPNG("../../static/2017-01-30-three-tips-for-training-excel-users-in-r/excel4.png")
- grid.raster(img, x = unit(.55, "npc"))
-```  
-
+![](/2017-01-30-three-tips-for-training-excel-users-in-r/excel4.png)
 
 The learning curve for R is a fast one, especially for Excel users. Highlighting those similarities puts new users at ease and gives them a way to connect R functionality to the functionality they already use in Excel. 
  
 3. **Bring out the wow factor**. One of the main advantages of R is its amazing visualizations and advanced analysis that are not even possible in many more basic tools. Our “wow factor” is the collaboration project we did with the White House initiative, The Opportunity Project, which aimed to connect federal agencies with tech companies to build out tools with their open data. In a couple of short weeks, our team combined several disparate open data sources and built an interactive application entirely in R to provide schools and superintendents with a community resource mapper. 
 
-[//]: ![](../../static/2017/excel_tips/excel5.png)
-
-
-```{r fig.width=7, fig.height=5,echo=FALSE}
-# http://bit.ly/2kOSaw4
-#library(png)
-#library(grid)
-img <- readPNG("../../static/2017-01-30-three-tips-for-training-excel-users-in-r/excel5.png")
- grid.raster(img, x = unit(.55, "npc"))     
-```  
+![](../../static/2017/excel_tips/excel5.png)
 
 Showing students how to eliminate duplicates from data sets with 1 – 2 lines of code or quickly manipulating data into a different format is a wow factor in the amount of time it can save regular Excel users. The applications are immediately apparent for those who have struggled to go through thousands of rows manually or upload a data set with millions of records. 
 
