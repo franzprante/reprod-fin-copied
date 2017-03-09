@@ -1,11 +1,9 @@
 ---
 title: 'Reproducible Finance with R: ETF Country Exposure'
-author: 'Jonathan Regenstein
+author: 'Jonathan Regenstein'
 date: '2017-02-07'
-categories: [R views]
 tags: [finance, leaflet, R]
-draft: yes
-summary: 'display ETF country exposures'
+draft: no
 ---
 
 Today, we are going to tackle a project that has long been on my wishlist - a Shiny app to take a fund or portfolio, analyze its exposure to different countries and display those exposures on a world map. Now you know how exciting my wishlists are.
@@ -114,13 +112,14 @@ library(rmapshaper)
 library(httr)
 
 # Load the spatial dataframe
-tmp <- tempfile()
+tmp_zipped <- tempfile()
+tmp_unzipped <- tempfile()
 
-httr::GET("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_0_countries.zip", write_disk(tmp))
+httr::GET("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_0_countries.zip", write_disk(tmp_zipped))
 
-unzip(tmp, exdir = 'ne_50m_admin_0_countries')
+unzip(tmp_zipped, exdir = tmp_unzipped)
 
-world <- readOGR("./ne_50m_admin_0_countries", 'ne_50m_admin_0_countries', verbose = FALSE)
+world <- readOGR(tmp_unzipped, 'ne_50m_admin_0_countries', verbose = FALSE)
 
 # Use ms_simplify to reduce the size of the spatial dataframe.
 world <- ms_simplify(world)
