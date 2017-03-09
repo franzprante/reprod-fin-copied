@@ -25,12 +25,12 @@ img <- readPNG("../../static/2017/excel_tips/excel1.png")
 #knitr::include_graphics("../../static/2017/excel_tips/excel3.png")
 ```
 
-[//]: ![](../../static/2017/excel_tips/excel1.png)
+[//]: ![](/2017-01-30-three-tips-for-training-excel-users-in-r/excel1.png)
 $\qquad$ See? This doesn’t look so complicated.
 
 2. **Show the similarities**. Excel and R do have many similarities in syntax that makes it easier for Excel users to transfer their skills over to R. For example, RStudio has a tabular data view that may look very familiar to spreadsheet users:
 
-[//]: ![](../../static/2017/excel_tips/excel2.png)
+[//]: ![](/2017-01-30-three-tips-for-training-excel-users-in-r/excel2.png)
 
 ```{r fig.width=7, fig.height=5,echo=FALSE}
 library(png)
@@ -47,19 +47,19 @@ $\qquad$  This looks like another program I’ve used before...
 # http://bit.ly/2kOSaw4
 #library(png)
 #library(grid)
-img <- readPNG("../../static/2017/excel_tips/excel3.png")
+img <- readPNG("../../static/2017-01-30-three-tips-for-training-excel-users-in-r/excel3.png")
  grid.raster(img, x = unit(.55, "npc"))
 ```
 
 $\qquad$ And here is what it looks like in R:
 
-[//]: ![](../../static/2017/excel_tips/excel4.png)
+[//]: ![](/2017-01-30-three-tips-for-training-excel-users-in-r/excel4.png)
 
 ```{r fig.width=7, fig.height=2,echo=FALSE}
 # http://bit.ly/2kOSaw4
 #library(png)
 #library(grid)
-img <- readPNG("../../static/2017/excel_tips/excel4.png")
+img <- readPNG("../../static/2017-01-30-three-tips-for-training-excel-users-in-r/excel4.png")
  grid.raster(img, x = unit(.55, "npc"))
 ```  
 
@@ -75,7 +75,7 @@ The learning curve for R is a fast one, especially for Excel users. Highlighting
 # http://bit.ly/2kOSaw4
 #library(png)
 #library(grid)
-img <- readPNG("../../static/2017/excel_tips/excel5.png")
+img <- readPNG("../../static/2017-01-30-three-tips-for-training-excel-users-in-r/excel5.png")
  grid.raster(img, x = unit(.55, "npc"))     
 ```  
 
