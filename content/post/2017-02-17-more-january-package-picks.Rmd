@@ -24,7 +24,7 @@ In a [recent post](https://www.rstudio.com/rviews/2017/02/17/january-new-data-pa
 * [BayesS5](https://cran.rstudio.com/web/packages/BayesS5/) v1.22: Implements Bayesian Variable Selection Using Shotgun Stochastic Search with Screening (S5) useful in settings where p >> n. For details, see the [paper](http://www.stat.tamu.edu/~minsuk/publications/nonlocal_sinica7.pdf)
 
 * [classifierplots](https://cran.rstudio.com/web/packages/classifierplots/) v1.3.2: Provides functions to generate a grid of binary classifier and diagnostic plots with a single function call. See the [README](https://github.com/ambiata/classifierplots) for details.
-![](./images/classifier_plots.png)
+![](/2017-02-17-more-january-package-picks/classifier_plots.png)
 * [eclust](https://cran.rstudio.com/web/packages/eclust/) v0.1.0: Provides an algorithm for clustering high-dimensional data that can be affected by an environmental factor. See the [paper](http://biorxiv.org/content/early/2017/01/23/102475) for details.
 
 * [EnsCat](https://cran.rstudio.com/web/packages/EnsCat/) v1.1: Implements various clustering methods for categorical data. See the [website](https://github.com/jlp2duke/EnsCat/wiki/How-To-with-Examples) for examples and the [paper](https://arxiv.org/pdf/1506.07930.pdf) for the details.
@@ -52,7 +52,7 @@ In a [recent post](https://www.rstudio.com/rviews/2017/02/17/january-new-data-pa
 * [flifo](https://cran.rstudio.com/web/packages/flifo/) v0.1.4: Provides functions to create and manipulate FIFO (First In First Out), LIFO (Last In First Out), and NINO (Not In or Never Out) stacks in R. See the [vignette](https://cran.rstudio.com/web/packages/flifo/vignettes/flifo-vignette.html) for examples.
 
 * [fst](https://cran.rstudio.com/web/packages/fst/) v0.7.2: Provides functions to read and write data frames at high speed, and compress data with type-optimized algorithms that allow random access of stored data frames.
-![](./images/fst_bench.png)
+![](/2017-02-17-more-january-package-picks/fst_bench.png)
 
 * [manipulateWidget](https://cran.rstudio.com/web/packages/manipulateWidget/) v0.5.1: Provides helper functions to add controls like sliders, pickers, checkboxes, etc. to interactive charts created with package [htmlwidgets](https://cran.r-project.org/web/packages/htmlwidgets/index.html). The animated [vignette](https://cran.rstudio.com/web/packages/manipulateWidget/vignettes/manipulateWidgets.html) will get you started.
 
@@ -75,4 +75,4 @@ In a [recent post](https://www.rstudio.com/rviews/2017/02/17/january-new-data-pa
 * [unpivotr](https://cran.rstudio.com/web/packages/unpivotr/) v0.1.0: Provides tools for converting data from complex or irregular layouts into a columnar structure. There is one [vignette](https://cran.rstudio.com/web/packages/unpivotr/vignettes/compass-directions.html) showing how to unpivot pivot tables from a spreadsheet, and [another](https://cran.rstudio.com/web/packages/unpivotr/vignettes/small-multiples.html) that shows how to work with multiple, similar tables.
 
 * [WVPlots](https://cran.rstudio.com/web/packages/WVPlots/) v0.2.2: Provides examples of ggplot plots that can be generated from a standard calling interface. Here is the explanation of the [concept](https://cran.rstudio.com/web/packages/WVPlots/vignettes/WVPlots_concept.html), and here are some nice [examples](https://cran.rstudio.com/web/packages/WVPlots/vignettes/WVPlots_examples.html).
-![](./images/WVPlot.png)
+![](/2017-02-17-more-january-package-picks/WVPlot.png)
