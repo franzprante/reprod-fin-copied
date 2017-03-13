@@ -62,10 +62,13 @@ When you execute a code chunk in an R Notebook, the output is cached and rendere
 ### Number 1: R Notebooks make it easy to create and share reports
 
 My favorite part of R Notebooks is having the ability to easily share my work. With R notebooks a high quality report is an automatic byproduct of a completed analysis. If I write down my thoughts while I analyze my code chunks, then all I have to do is push a button to render a report. I can share this report by publishing it to the web, emailing it to my colleagues, or presenting it with slides. This video shows how easy it is to create a report from an R Notebook.
+<br>
 
 <center><iframe src="https://player.vimeo.com/video/208170015?loop=1&color=ffffff&byline=0&portrait=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></center>
 
 ## R Notebooks for data science
+
+The following table summarizes the differences between notebooks and scripts.
 
 Activity            | R Notebook          | R Script
 ------------------- | ------------------- | -------------------
