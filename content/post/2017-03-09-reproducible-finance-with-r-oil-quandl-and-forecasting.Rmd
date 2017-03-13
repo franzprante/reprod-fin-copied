@@ -1,9 +1,9 @@
 ---
-title: 'Reproducible Finance with R: Oil, Quandl and Forecasting'
+title: 'Quandl and Forecasting'
 author: "Jonathan Regenstein"
 date: '2017-03-09'
 categories: [R Views]
-tags: [Finance, R Language, Data Science]
+tags: [Reproducibel Finance with R, R Language, Data Science]
 draft: yes
 summary: 'A Notebook for importing oil prices from Quandl, making a 6 months forecast and visualizig the results'
 ---
@@ -17,19 +17,20 @@ library(forecast)
 library(dygraphs)
 ```
 
-Welcome to another installment of Reproducible Finance. Today we are going to shift focus in recognition of the fact that there's more to finance than stock prices and there's more to data download than quantmod/getSymbols. In this post, we will explore commodity prices and we will grab data from [Quandl](www.quandl.com), which has lots of free and paid data sources. We will also get into the forecasting game a bit and think about how best to use dygraphs when visualizing predicted time series as an extension of historical data.  We are not going to do anything too complex but we will expand our toolkit by getting familiar with Quandl, commodity prices, the forecast() function and some advanced dygraph work. 
+*A Reproducible Finance in R Post*
+by Jonathan Regenstein
 
-Before we dive in, a few thoughts to frame this Notebook. 
+Welcome to another installment of Reproducible Finance. Today we are going to shift focus in recognition of the fact that there's more to Finance than stock prices and there's more to data download than quantmod/getSymbols. In this post, we will explore commodity prices using data from [Quandl](www.quandl.com), a repository for both free and paid data sources. We will also get into the forecasting game a bit and think about how best to use dygraphs when visualizing predicted time series as an extension of historical data.  We are not going to do anything too complex but we will expand our toolkit by getting familiar with Quandl, commodity prices, the forecast() function and some advanced dygraph work. 
 
-First, we are using oil data from Quandl, but the original data is from [FRED](https://fred.stlouisfed.org/).  There's nothing wrong with grabbing the data directly from FRED, of course, and I browse FRED frequently to check out economic data, but I tend to download the data into my RStudio environment using Quandl.  I wanted to introduce Quandl today because t's a nice resource and will be involved in the next few posts in this series. Plus, it's gaining in popularity and if you work in the financial industry you might start to encounter it in your work. 
+Before we dive in, a few thoughts to frame the notebook underlying this post.      
 
-Second, this post marks our foray into the world of predictive modeling, albeit in a very simple way. But, the complexity and accuracy of the forecasting methodology we use here is almost irrelevant since I expect that most R coders, whether in industry or otherwise, will have their own proprietary models. Rather, what I want to accomplish here is a framework where models can be inserted, visualized and scrutinized in the future.  I harp on reproducible workflows a lot and that's not going to change today: one goal of this Notebook is to house a forecast that can be reproduced in the future (at which point, we will know if the forecast was accurate or not) and then tweaked/criticized/updated/heralded. 
+*   We are using oil data from Quandl, but the original data is from [FRED](https://fred.stlouisfed.org/).  There's nothing wrong with grabbing the data directly from FRED, of course, and I browse FRED frequently to check out economic data, but I tend to download the data into my RStudio environment using Quandl.  I wanted to introduce Quandl today because t's a nice resource and will be involved in the next few posts in this series. Plus, it's gaining in popularity and if you work in the financial industry you might start to encounter it in your work. 
 
-Lastly, this post walks through a detailed example of importing, forecasting and visualizing oil prices. In the near future, I will repeat those steps for gold and copper, and we will examine the relationship between the copper/gold price ratio and interest rates. We are starting simple but stay tuned.
+*   This post marks our foray into the world of predictive modeling, albeit in a very simple way. But, the complexity and accuracy of the forecasting methodology we use here is almost irrelevant since I expect that most R coders, whether in industry or otherwise, will have their own proprietary models. Rather, what I want to accomplish here is a framework where models can be inserted, visualized and scrutinized in the future.  I harp on reproducible workflows a lot and that's not going to change today: one goal of this Notebook is to house a forecast that can be reproduced in the future (at which point, we will know if the forecast was accurate or not) and then tweaked/criticized/updated/heralded. 
 
-Now, let's get to the data download! 
+*   This post walks through a detailed example of importing, forecasting and visualizing oil prices. In the near future, I will repeat those steps for gold and copper, and we will examine the relationship between the copper/gold price ratio and interest rates. We are starting simple but stay tuned.
 
-In the chunk below, as we import WTI oil prices, notice that Quanld makes it easy to choose types of objects (raw/dataframe or xts or zoo), periods (daily, weekly, monthly) and start/end dates.   
+Now, let's get to the data download! In the chunk below, as we import WTI oil prices, notice that Quanld makes it easy to choose types of objects (raw/dataframe or xts or zoo), periods (daily, weekly, monthly) and start/end dates.   
 
 ```{r, eval = FALSE}
 # Start with daily data. Note that "type = raw" will download a data frame.
@@ -48,7 +49,7 @@ str(oil_weekly)
 str(oil_monthly)
 ```
 
-Note that I specified an end date as February 2017. If I did not specify an end date, the purpose of this Notebook would be completely different. With the end date, this Notebook houses a model that was built and run using data as of February 2017. Without the end date, this Notebook houses a model that was built and run using data as of time t. It depends how this Notebook is functioning for your team.
+Also note that I specified the end date of February 2017. This indicates that the notebook houses a model that was built and run using data as of February 2017. Without the end date, this notebook would house a model that was built and run using data as of time t. Which you choose depends how you want the notebook to function for your team.
 
 Looking back at those oil price objects, each would work well for the rest of this project but let's stick with the monthly data.  We will be dealing with the date index quite a bit below, so let's use the seq() function and mdy() from the lubridate package to put the date into a nicer format. 
 
@@ -57,9 +58,7 @@ index(oil_monthly) <- seq(mdy('01/01/2006'), mdy('02/01/2017'), by = 'months')
 head(index(oil_monthly))
 ```
 
-Now we have a cleaner date format. Our base data object is in good shape.
-
-As always, we like to have a look at the data in graphical format so let's fire up dygraphs. Since we imported an xts object directly from Quandl, we can just plug it straight into the dygraph() function.
+Now we have a cleaner date format. Our base data object is in good shape. As always, we like to have a look at the data in graphical format so let's fire up dygraphs. Since we imported an xts object directly from Quandl, we can just plug it straight into the dygraph() function.
 
 ```{r, eval = FALSE}
 dygraph(oil_monthly, main = "Monthly oil Prices")
@@ -144,6 +143,6 @@ dygraph(oil_combined_xts, main = "Oil Prices: Historical and Forecast") %>%
 
 Take a quick look back at our previous graph using the plot() function and at first glance, the dygraph might not seem so different. But, we can now make use of hovering/tooltips and, more importantly, we can zoom in on the forecasted numbers see them much more clearly. Plus, the whole world of dygraph functionality is now available to us! 
 
-Alright, that's all for today. We have got some familiarity with Quandl, used forecast() to predict the next 6 months of oil prices and done some wrangling so we can use our old friend dygraphs. Next time, we will wrap this into a Shiny app so that users can choose their own parameters and maybe even choose different commodities. See you then!
+That's all for today. We have got some familiarity with Quandl, used forecast() to predict the next 6 months of oil prices and done some wrangling so we can use our old friend dygraphs. Next time, we will wrap this into a Shiny app so that users can choose their own parameters and maybe even choose different commodities. See you then!
 
 
