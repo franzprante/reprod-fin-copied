@@ -13,21 +13,16 @@ by Nathan Stephens
 
 I'm a big fan of the R console. During my early years with R, that's all I had, so I got very comfortable with pasting my code into the console. Since then I've used many code editors for R, but they all followed the same paradigm -- script in one window and get output in another window. Notebooks on the other hand combine code, output, and narrative into a single document. Notebooks allow you to interactively build narratives around small chunks of code and then publish the complete notebook as a report.
 
-<center><table class="image">
-<caption align="bottom">R Notebooks are a method of [literate programming](https://en.wikipedia.org/wiki/Literate_programming) that allows for direct interaction with R while producing a reproducible document with publication-quality output.</caption>
-<tr><td><img src="/2017-05-13-why-i-love-r-notebooks/notebook-demo.png" alt="labnotebook" style="width: 400px;"/></td></tr>
-</table></center>
+<img src="/2017-05-13-why-i-love-r-notebooks/notebook-demo.png" alt="R Notebooks are a method of Literate Programming that allows for direct interaction with R while producing a reproducible document with publication-quality output." style="width: 400px;"/>
 
 R Notebooks is a new feature of RStudio which combines the benefits of other popular notebooks (such as Jupyter, Zeppelin, and Beaker) with the benefits of R Markdown documents. As a long time R user I was skeptical that I would like this new paradigm, but after a few months I became a big fan. Here are my top three reasons why I love R Notebooks.
+
 
 ### Number 3: Notebooks are for doing science
 
 If scripting is for writing software then notebooks are for doing data science. In high school science class I used a laboratory notebook that contained all my experiments. When I conducted an experiment, I drew sketches and wrote down my results. I also wrote down my ideas and thoughts. The process had a nice flow which helped me improve my thinking. Doing science with physical notebooks is an idea that is centuries old.
 
-<center><table class="image">
-<caption align="bottom">Leonardo da Vinci was a prolific user of notebooks, creating thousands of pages that are still around today. This page from the <a href="https://en.wikipedia.org/wiki/Codex_Atlanticus">Codex Atlanticus</a> shows notes and images about water wheels and Archimedean Screws.</caption>
-<tr><td><img src="/2017-05-13-why-i-love-r-notebooks/labnotebook4.png" alt="labnotebook" style="width: 400px;"/></td></tr>
-</table></center>
+<img src="/2017-05-13-why-i-love-r-notebooks/labnotebook4.png" alt="Leonardo da Vinci was a prolific user of notebooks, creating thousands of pages that are still around today. This page from the Codex Atlanticus shows notes and images about water wheels and Archimedean Screws." style="width: 400px;"/>
 
 Electronic notebooks follow the same pattern as physical notebooks but applies the pattern to code. With notebooks you break your script into manageable code chunks. You add narrative and output around the code chunk which puts it into context and makes it reproducible. When you are done, you have an elegant report that can be shared with others. Here is the thought process for doing data science with notebooks:
 
@@ -40,6 +35,7 @@ If you do data science with R scripts, on the other hand, you develop your code 
 * I have a thousand lines of code and you get to read my amazing comments!
 * Hold onto your hats while I batch execute this entire script!
 * You can find my code and about 50 plots under the project directory (I hope you have permissions).
+
 
 ### Number 2: R Notebooks have great features
 
@@ -60,10 +56,7 @@ Emphasized execution model | Interactive & Batch | Interactive
 
 When you execute a code chunk in an R Notebook, the output is cached and rendered inside the IDE. When you save the notebook, the same cache is rendered inside a document. The HTML output of R Notebooks is a dual file format that contains both the HTML and the R Markdown source code. The dual format gives you a single file that can be viewed in a browser or opened in the RStudio IDE.
 
-<center><table class="image">
-<caption align="bottom">Notebooks store output in a local cache. The cache is used for the IDE and for saved output. Notebooks save their output to a dual file format that contains both HTML and the source code.</caption>
-<tr><td><img src="/2017-05-13-why-i-love-r-notebooks/nbWorkings.png" alt="labnotebook" style="width: 640px;"/></td></tr>
-</table></center>
+<img src="/2017-05-13-why-i-love-r-notebooks/nbWorkings.png" alt="Notebooks store output in a local cache. The cache is used for the IDE and for saved output. Notebooks save their output to a dual file format that contains both HTML and the source code." style="width: 640px;"/>
 
 
 ### Number 1: R Notebooks make it easy to create and share reports
@@ -74,8 +67,8 @@ My favorite part of R Notebooks is having the ability to easily share my work. W
 
 ## R Notebooks for data science
 
-Activity | R Notebook | R Script
--------------- | ------------------- | -------------------
+Activity            | R Notebook          | R Script
+------------------- | ------------------- | -------------------
 Building a narrative | Rich text is added throughout the analytic process describing the motivation and the conclusions for each chunk of the code. | Comments are added to the script, and a report that describes the entire analysis is drafted after the script is completed.
 Organizing plots, widgets, and tables | All output is embedded in a single document and collocated with the narrative and code chunk to which it belongs. | Each individual output is sent to file and is collected later into a report.
 Creating reports | Rendering the final report is instant. The same document can be published to multiple formats (e.g. HTML, PDF, Word). Since the document is based on code, future changes are easy to implement and the document is reproducible by others.| Creating a report is a separate, time consuming step. Any changes to the report can be time consuming and prone to error. Since the report is not tied to code, it is not reproducible.
