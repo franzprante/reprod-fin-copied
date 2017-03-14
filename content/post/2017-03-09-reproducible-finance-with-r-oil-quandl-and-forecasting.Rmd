@@ -3,7 +3,7 @@ title: 'Quandl and Forecasting'
 author: "Jonathan Regenstein"
 date: '2017-03-09'
 categories: [R Views]
-tags: [Reproducibel Finance with R, R Language, Data Science]
+tags: [Reproducible Finance with R, R Language, Data Science]
 draft: yes
 summary: 'A Notebook for importing oil prices from Quandl, making a 6 months forecast and visualizig the results'
 ---
@@ -94,8 +94,8 @@ First, let's move the mean forecast and 95% confidence bands to a dataframe, alo
 
 
 ```{r, eval = FALSE}
-oil_forecast_data <- data.frame(date = seq(mdy('03/01/2017'), mdy('08/01/2017'), 
-                                           by = 'months'),
+oil_forecast_data <- data.frame(date = seq(mdy('03/01/2017'), 
+                                           by = 'months', length.out = 6),
                                 Forecast = oil_6month$mean,
                                 Hi_95 = oil_6month$upper[,2],
                                 Lo_95 = oil_6month$lower[,2])
