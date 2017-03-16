@@ -8,15 +8,6 @@ draft: yes
 summary: 'A Notebook for importing oil prices from Quandl, making a 6 months forecast and visualizig the results'
 ---
 
-```{r setup, eval = FALSE}
-library(Quandl)
-library(dplyr)
-library(xts)
-library(lubridate)
-library(forecast)
-library(dygraphs)
-```
-
 *A Reproducible Finance in R Post*
 by Jonathan Regenstein
 
@@ -33,6 +24,12 @@ Before we dive in, a few thoughts to frame the notebook underlying this post.
 Now, let's get to the data download! In the chunk below, as we import WTI oil prices, notice that Quanld makes it easy to choose types of objects (raw/dataframe or xts or zoo), periods (daily, weekly, monthly) and start/end dates.   
 
 ```{r, eval = FALSE}
+library(Quandl)
+library(dplyr)
+library(xts)
+library(lubridate)
+library(forecast)
+library(dygraphs)
 # Start with daily data. Note that "type = raw" will download a data frame.
 oil_daily <- Quandl("FRED/DCOILWTICO", type = "raw", collapse = "daily",  
                     start_date="2006-01-01", end_date="2017-02-28")

@@ -13,12 +13,6 @@ summary: 'A Notebook for importing oil prices from Quandl, making a 6 months for
 
 <!-- BLOGDOWN-BODY-BEFORE -->
 <!-- /BLOGDOWN-BODY-BEFORE -->
-<pre class="r"><code>library(Quandl)
-library(dplyr)
-library(xts)
-library(lubridate)
-library(forecast)
-library(dygraphs)</code></pre>
 <p><em>A Reproducible Finance in R Post</em> by Jonathan Regenstein</p>
 <p>Welcome to another installment of Reproducible Finance. Today we are going to shift focus in recognition of the fact that there’s more to Finance than stock prices and there’s more to data download than quantmod/getSymbols. In this post, we will explore commodity prices using data from <a href="www.quandl.com">Quandl</a>, a repository for both free and paid data sources. We will also get into the forecasting game a bit and think about how best to use dygraphs when visualizing predicted time series as an extension of historical data. We are not going to do anything too complex but we will expand our toolkit by getting familiar with Quandl, commodity prices, the forecast() function and some advanced dygraph work.</p>
 <p>Before we dive in, a few thoughts to frame the notebook underlying this post.</p>
@@ -28,7 +22,13 @@ library(dygraphs)</code></pre>
 <li><p>This post walks through a detailed example of importing, forecasting and visualizing oil prices. In the near future, I will repeat those steps for gold and copper, and we will examine the relationship between the copper/gold price ratio and interest rates. We are starting simple but stay tuned.</p></li>
 </ul>
 <p>Now, let’s get to the data download! In the chunk below, as we import WTI oil prices, notice that Quanld makes it easy to choose types of objects (raw/dataframe or xts or zoo), periods (daily, weekly, monthly) and start/end dates.</p>
-<pre class="r"><code># Start with daily data. Note that &quot;type = raw&quot; will download a data frame.
+<pre class="r"><code>library(Quandl)
+library(dplyr)
+library(xts)
+library(lubridate)
+library(forecast)
+library(dygraphs)
+# Start with daily data. Note that &quot;type = raw&quot; will download a data frame.
 oil_daily &lt;- Quandl(&quot;FRED/DCOILWTICO&quot;, type = &quot;raw&quot;, collapse = &quot;daily&quot;,  
                     start_date=&quot;2006-01-01&quot;, end_date=&quot;2017-02-28&quot;)
 # Now weekely and let&#39;s use xts as the type.
