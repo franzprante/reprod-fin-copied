@@ -70,7 +70,7 @@ One Hundred forty-five new packages were added to CRAN in February. Here are for
 
 *   [sppmix](https://cran.rstudio.com/web/packages/sppmix/) v1.0.0.0: Implements classes and methods for modeling spatial point patterns using inhomogeneous Poisson point processes, where the intensity surface is assumed to be analogous to a finite additive mixture of normal components and the number of components is a finite, fixed or random integer. 
 
-![](/static/2017-03-22-Feb-Pkg-Picks/sppmix.png)
+![](/2017-03-22-Feb-Pkg-Picks/sppmix.png)
 Look [here](http://www.stat.missouri.edu/~amicheas/sppmix/sppmix_tutorial_links.html) for documentation.
 
 *   [walkr](https://cran.rstudio.com/web/packages/walkr/) v0.3.4: Provides functions to sample from the interaction of a hyperplane and an[N Simplex](https://en.wikipedia.org/wiki/Simplex). The [vignette](https://cran.rstudio.com/web/packages/walkr/vignettes/walkr.pdf) describes the math and the algorithms involved.
