@@ -1,0 +1,104 @@
+---
+author: "Max Kuhn"
+categories: []
+date: 2017-02-13
+draft: true
+summary: "Limitations to the model formula method are discused."
+tags: [R, Formulas]
+title: "The R Formula Method: The Bad Parts"
+---
+
+
+<p>R’s model formula infrastructure was discussed in <a href="https://www.rstudio.com/rviews/2017/02/01/the-r-formula-method-the-good-parts/">my previous post</a>. Despite the elegance and convenience of the formula method, there are some aspects that are limiting.</p>
+<div id="limitations-to-extensibility" class="section level2">
+<h2>Limitations to Extensibility</h2>
+<p>The model formula interface does have some limitations:</p>
+<ul>
+<li>It can be kludgy with many operations on many variables (e.g., log transforming 50 variables via a formula without using <code>paste</code>)</li>
+<li>The <code>predvars</code> aspect (discussed in <a href="https://www.rstudio.com/rviews/2017/02/01/the-r-formula-method-the-good-parts/">my previous post</a>) limits the utility of the operations. Suppose a formula had: <code>knn_impute(x1) + knn_impute(x2)</code>. Do we embed the training set twice in <code>predvars</code>?</li>
+<li>Operations are constrained to single columns or features (excluding interaction specifications). For example, you cannot do</li>
+</ul>
+<pre class="r"><code>lm(y ~ pca(x1, x2, x3), data = dat)
+## or nested functions 
+lm(y ~ pca(scale(x1), scale(x2), scale(x3)), data = dat)</code></pre>
+<p>I’ll use PCA feature extraction a few times here since it is probably familiar to many readers.</p>
+</div>
+<div id="everything-happens-at-once" class="section level2">
+<h2>Everything Happens at Once</h2>
+<p>Some of our data operations might be sequential. For example, it is not unreasonable to have predictors that require:</p>
+<ol style="list-style-type: decimal">
+<li>imputation of a missing value</li>
+<li>centering and scale</li>
+<li>conversion to PCA scores</li>
+</ol>
+<p>Given that the formula method operations happen (in effect) at once, this workflow requires some sort of custom solution. While <a href="https://topepo.github.io/caret/pre-processing.html#pp"><code>caret::preProcess</code></a> was designed for this sequence of operations, it does so in a single call, as opposed to a progression of steps exemplified by <a href="https://cran.r-project.org/package=ggplot2"><code>ggplot2</code></a>, <a href="https://cran.r-project.org/package=dplyr"><code>dplyr</code></a>, or <a href="https://cran.r-project.org/package=magrittr"><code>magrittr</code></a>.</p>
+<p>Allowing a series of steps to be defined in order is more consistent with how data analysis is conducted. However, it does raise the complexity of the underlying implementation. For example, <a href="https://topepo.github.io/caret/pre-processing.html#pp"><code>caret::preProcess</code></a> dictates the possible sequence of tasks to be: filters, single-variable transformations, normalizations, imputation, signal extraction, and spatial sign. This avoids nonsensical sequences that center the data before applying a Box-Cox calculation (which requires positive data).</p>
+<div id="no-recycling" class="section level3">
+<h3>No Recycling</h3>
+<p>As a corollary to the point above, there is no way to recycle the <code>terms</code> between models that share the same formula and data/environment. For example, if I fit a CART model to a data set with many predictors, the random forest model (theoretically) shouldn’t need to recreate the same <code>terms</code> information about the design matrix. If the model function has the non-formula interface (e.g., <code>mod_func(x, y)</code>), this can make it easier. However, many do not.</p>
+<p>Also, suppose that one of the pre-processing steps is computationally expensive. We’d like to be able to store the state of the results and then <em>add</em> another layer of computations (perhaps as a separate object).</p>
+</div>
+<div id="formulas-and-wide-datasets" class="section level3">
+<h3>Formulas and Wide Datasets</h3>
+<p>The <code>terms</code> object saves a matrix with as many rows as formula variables and at least as many columns (depending on interactions, etc). Most of this data is zero and a non–sparse representation is used. The current framework was built in a time where there was more focus on interactions, nesting and other operations on a small scale.</p>
+<p>It is unlikely that models would have hundreds of interaction terms, but now it is not uncommon to have hundreds or thousands of main effects. As the number of predictors increases, this takes up an inordinate amount of execution time. For simple <a href="https://cran.r-project.org/package=randomForest"><code>randomForest</code></a> or <a href="https://cran.r-project.org/package=rpart"><code>rpart</code></a> calls, the formula/<code>terms</code> work can account for most of the execution time. For example, we can calculate how much time functions spend generating the model matrix relative to the total execution time. For <code>rpart</code> and <code>randomForest</code>, we used the default arguments and did the calculations with a simulated data set of 200 data points and varying numbers of predictors:</p>
+<p><img src="/post/2017-02-14-r-formulas-bad_files/figure-html/large_p-1.png" width="672" /></p>
+<p>This is especially problematic for ensemble models. For example, <code>ipred:::ipredbagg</code> creates an ensemble of <code>rpart</code> trees. Since <code>rpart</code> only has a formula method, the footprint of the bagged model object can become very large if <em>X</em> trees are contained in the ensemble. Alternatively, <code>randomForest.formula</code> takes the approach of generating the <code>terms</code> once and feeding the model frame to <code>randomForest.default</code>. This does not work for <code>rpart</code> since there is no non-formula method exposed. Some functions (e.g., <code>lm</code>, <code>survival::coxph</code>) have arguments that can be used to prevent the <code>terms</code> and similar objects from being returned. This saves space but prevents new samples from being predicted. A little more detail can be found <a href="https://developer.r-project.org/model-fitting-functions.html">here</a>.</p>
+<p>One issue is the <code>&quot;factors&quot;</code> attribute of the <code>terms</code> object (discussed in the previous post). This is a non-sparse matrix that has a row for each predictor in the formula and a column for each model term (e.g. main effects, interactions, etc.). The purpose of this object is to know which predictors are involved in which terms.</p>
+<p>The issue is that this matrix can get very large and usually has a high proportion of zeros. For example:</p>
+<pre class="r"><code>mod3 &lt;- lm(Sepal.Width ~ Petal.Width + Petal.Length*Species, data = iris)
+fact_mat &lt;- attr(mod3$terms, &quot;factors&quot;)
+fact_mat</code></pre>
+<pre><code>##              Petal.Width Petal.Length Species Petal.Length:Species
+## Sepal.Width            0            0       0                    0
+## Petal.Width            1            0       0                    0
+## Petal.Length           0            1       0                    1
+## Species                0            0       1                    1</code></pre>
+<p>As the number of predictors increases, the rate of ones is likely to approach a value close to zero very quickly. For example:</p>
+<p><img src="/post/2017-02-14-r-formulas-bad_files/figure-html/sparse-1.png" width="672" /></p>
+<p>Again, it is doubtful that a model with a large number of predictors will have a correspondingly large number of high-level interactions (see the <a href="https://en.wikipedia.org/wiki/Sparsity-of-effects_principle">Pareto principle applied to modeling</a>).</p>
+</div>
+<div id="variable-roles" class="section level3">
+<h3>Variable Roles</h3>
+<p>Some packages have implemented extensions of the basic formula. There are cases when formula are needed for specific sub-models. For example, a random coefficient model can be fit with the <code>lmer</code> function. In this case, a model is specified for a particular clustering variable (e.g., a subject in a clinical trial). The code is an example of how <code>lmer</code> syntax works:</p>
+<pre class="r"><code># ?lme4::lmer
+lmer(Reaction ~ Days + (Days | Subject), data = sleepstudy)</code></pre>
+<p>Here <code>Subject</code> is important to the model-fitting routine, but not as a predictor. Similarly, the <a href="https://www.jstatsoft.org/article/view/v012i01/v12i01.pdf">Bradley-Terry model</a> can be used to model competitions and contests. A model on a set of boxers in a series of contests can include terms for their reach:</p>
+<pre class="r"><code>BTm(outcome = 1, player1 = winner, player2 = loser, 
+    formula = ~reach[..] + (1 | ..), 
+    data = boxers)</code></pre>
+<p>Another extension of basic formulas comes from the <a href="https://cran.r-project.org/package=modeltools"><code>modeltools</code></a> and <a href="https://cran.r-project.org/package=mboost"><code>mboost</code></a> packages. The function <code>mboost::mob</code> fits a tree-based model with regression models in the terminal nodes. For this model, a separate list of predictors are used as <em>splitting</em> variables (to define the tree structure) and another set of <em>regression</em> variables that are modeled in the terminal nodes. An example of this call is:</p>
+<pre class="r"><code># mboost::mob (using the modeltools package for formulas)
+mob(diabetes ~ glucose | pregnant + mass +  age,
+    data = PimaIndiansDiabetes)</code></pre>
+<p>The commonality between these three examples is that there are variables that are critical to the model but do not play the role of standard regression terms. For <code>lmer</code>, <code>Subject</code> is the independent experimental unit. For <code>mob</code>, we have variables to be used for splitting, etc.</p>
+<p>There are similar issues on the left-hand side of the formula. When there are multivariate outcomes, different packages have different approaches:</p>
+<pre class="r"><code># ?aggregate the mean of two variables by month
+aggregate(cbind(Ozone, Temp) ~ Month, data = airquality, mean)
+
+# grouped binomial data:
+glm(cbind(events, nonevents) ~ x, family = binomial)
+
+# pls::plsr, 
+pls(sensory ~ chemical, data = oliveoil)
+# sensory and chemical are 2D arrays in the oliveoil data frame</code></pre>
+<p>The overall point here is that, for the most part, the formula method assumes that there is one variable on the left-hand side of the tilde and that the variables on the right-hand side are predictors (exceptions are discussed below). One can envision other roles that columns could play in the analysis of data. Besides the examples given above, variables could be used for</p>
+<ul>
+<li>outcomes</li>
+<li>predictors</li>
+<li>stratification</li>
+<li>data for assessing model performance (e.g., loan amount to compute expected loss)</li>
+<li>conditioning or faceting variables (e.g., <a href="https://cran.r-project.org/package=lattice"><code>lattice</code></a> or <a href="https://cran.r-project.org/package=ggplot2"><code>ggplot2</code></a>)</li>
+<li>random effects or hierarchical model ID variables</li>
+<li>case weights</li>
+<li>offsets</li>
+<li>error terms (limited to <code>Error</code> in the <code>aov</code> function)</li>
+</ul>
+<p>The last three items on this list are currently handled in formulas as “specials” or have existing functions. For example, when the model function has a <code>weights</code> argument, the current formula/<code>terms</code> frame work uses a function (<code>model.weights</code>) to extract the weights, and also makes sure that the weights are not included as covariates. The same is true for offsets.</p>
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>Some limitations of the current formula interface can be mitigated by writing your own or utilizing the <a href="https://cran.r-project.org/package=Formula"><code>Formula</code></a> package.</p>
+<p>However, there are a number of conceptual aspects (e.g., roles, sequential processing) that would require a completely different approach to defining a design matrix, and this will be the focus of an upcoming tidyverse package.</p>
+</div>

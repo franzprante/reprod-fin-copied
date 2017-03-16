@@ -1,15 +1,8 @@
 ---
 title: 'Interactive Maps and ETF Analysis'
-author: "Jonathan Regenstein"
+author: 'Jonathan Regenstein'
 date: '2017-02-19'
-draft: yes
-summary: Shiny app to select ETFs and visualize their exposure to different countries
-tags:
-- Data Science
-- Finance
-- R Language
-- Maps
-categories: R Views
+draft: no
 ---
 
 In this post, I'll describe a [Shiny app](http://colorado.rstudio.com:3939/content/277/) to support the Emerging Markets ETF Country Exposure analysis developed in a [previous post](https://www.rstudio.com/rviews/2017/02/08/reproducible-finance-with-r-etf-country-exposure/)

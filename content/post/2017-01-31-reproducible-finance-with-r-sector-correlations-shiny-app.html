@@ -1,0 +1,146 @@
+---
+author: "Jonathan Regenstein"
+categories: [R views]
+date: 2017-01-31T00:54:51Z
+draft: true
+summary: "interactive rolling correlations sectors and SP500"
+tags: [Data Science, Finance, R Language, Time Series]
+title: "Reproducible Finance with R: Sector Correlations Shiny App"
+---
+
+<!-- BLOGDOWN-HEAD -->
+<!-- /BLOGDOWN-HEAD -->
+
+<!-- BLOGDOWN-BODY-BEFORE -->
+<!-- /BLOGDOWN-BODY-BEFORE -->
+<p>In a <a href="https://www.rstudio.com/rviews/2017/01/18/reproducible-finance-with-r-sector-correlations/">previous post</a>, we built an R Notebook that pulled in data on sector ETFs and allowed us to calculate the rolling correlation between a sector ETF and the S&amp;P 500 ETF, whose ticker is SPY. Today, we’ll wrap that into a Shiny app that allows the user to choose a sector, a returns time period such as ‘daily’ or ‘weekly’, and a rolling window. For example, if a user wants to explore the 60-day rolling correlation between the S&amp;P 500 and an energy ETF, our app will show that. As is customary, we will use the flexdashboard format and reuse as much as possible from our Notebook.</p>
+<p>The final app is <a href="http://colorado.rstudio.com:3939/content/264/">here</a>, with the code available in the upper right-hand corner. Let’s step through this script.</p>
+<p>The first code chunk is where we do the heavy lifting in this app. We will build a function that takes as parameters an ETF ticker, a returns period, and a window of time, and then calculates the desired rolling correlation between that ETF ticker and SPY.</p>
+<pre class="r"><code>library(flexdashboard)
+library(quantmod)
+library(dygraphs)
+library(dplyr)
+
+# A function to build an xts object to hold both sector and index returns.
+sector_correlations &lt;- function(sector, period = &quot;weekly&quot;, window = 10) {
+
+# Make a data frame of the sector and S&amp;P 500 ETF.
+etf_ticker_sector &lt;- data_frame(c(sector, &quot;SPY&quot;))
+
+colnames(etf_ticker_sector) &lt;- &quot;tickers&quot;
+
+# Use getSymbols and Ad to get adjusted prices.
+
+symbols &lt;- getSymbols(etf_ticker_sector$tickers, auto.assign = TRUE, warnings = FALSE)
+
+etf_prices &lt;- do.call(merge, lapply(symbols, function(x) Ad(get(x))))
+
+# We want log returns by the period chosen by the user. 
+
+etf_returns &lt;- do.call(merge, lapply(etf_prices, 
+                                     function(x) periodReturn(x, period = period, type = &#39;log&#39;)))
+
+# Create one xts object we can pass to rollapply.
+merged_xts &lt;- merge(etf_returns[, 1], etf_returns[, 2])
+
+merged_xts$rolling_cor &lt;- rollapply(merged_xts, window, 
+                                         function(x) cor(x[, 1], x[, 2], use = &quot;pairwise.complete.obs&quot;), 
+                                         by.column = FALSE)
+# We care about the name because it will be displayed in the dygraph when a user hovers.
+
+names(merged_xts) &lt;- c(paste(sector, &quot;Returns&quot;, sep = &quot;&quot;), &quot;SPY Returns&quot;, paste(sector, &quot;/SPY Correlation&quot;, sep = &quot;&quot;))
+
+    
+assign(&quot;sector_correlations&quot;, merged_xts, .GlobalEnv)
+}</code></pre>
+<p>That function uses <code>getSymbols()</code> to pull in prices and <code>periodReturns()</code> to convert to log returns, either daily, weekly or monthly. Then we merge into one xts object and calculate rolling correlations, depending on the window parameter. It should look familiar from the Notebook, but honestly, the transition from the previous Notebook to this code chunk wasn’t as smooth as would be ideal. I broke this into two functions in the Notebook, but thought it flowed more smoothly as one function in the app since I don’t need the intermediate results stored in a persistent way. Combining the two functions wasn’t difficult, but it did break the reproducible chain in a way that I don’t love. In the real world, I would (and, in my IDE, I did) refactor the Notebook to line up with the app better. Enough self-shaming, back to it.</p>
+<p>Next, we need to create a sidebar where our users can select a sector, a returns period and a rolling window. Nothing fancy here, but one thing to note is how we use <code>selectInput</code> to translate from the sector to the ETF ticker symbol. This means our users don’t have to remember those three-letter codes; they just choose the name of the desired sector from a drop-down menu.</p>
+<pre class="r"><code>helpText(&quot;Choose a sector&quot;)
+
+# Don&#39;t make the user memorize the ETF ticker symbols! 
+# Let them choose the intuitive sector name and then translate to the 
+# ticker symbol in the background.
+
+fluidRow(
+  column(9,
+  selectInput(&quot;sector&quot;, &quot;Sector ETF&quot;,
+                c(
+                  &quot;Energy&quot; = &quot;XLE&quot;,
+                  &quot;Financials&quot; = &quot;XLF&quot;,
+                  &quot;Health Care&quot; = &quot;XLV&quot;,
+                  &quot;Industrials&quot; = &quot;XLI&quot;, 
+                  &quot;Materials&quot; = &quot;XLB&quot;, 
+                  &quot;Technology&quot; = &quot;XLK&quot;, 
+                  &quot;Utilities&quot; = &quot;XLU&quot;,
+                  &quot;Cons Discretionary&quot; = &quot;XLY&quot;, 
+                  &quot;Cons Staples&quot; = &quot;XLP&quot;)))
+)  
+
+helpText(&quot;Choose a returns time period and a rolling window&quot;)
+
+fluidRow(
+  column(7,
+  selectInput(&quot;period&quot;, &quot;Time Period&quot;, c(&quot;daily&quot;, &quot;weekly&quot;, &quot;monthly&quot;))),
+  column(7,
+  numericInput(&quot;window&quot;, &quot; Rolling Window&quot;, 10, min = 5, max = 50, step = 5))
+)
+
+# I like giving the user the option of whether to display the mean, min and max. 
+# It doesn&#39;t make a huge difference, of course, but at least enables the user to 
+# notice the lines more consistently. 
+checkboxInput(&quot;max&quot;, label = &#39;Display Max Rolling Correlation&#39;, value = FALSE)
+checkboxInput(&quot;mean&quot;, label = &#39;Display Mean Rolling Correlation&#39;, value = FALSE)
+checkboxInput(&quot;min&quot;, label = &#39;Display Min Rolling Correlation&#39;, value = FALSE)</code></pre>
+<p>Have a close look at the last three lines of code in that chunk. These are a new addition that let the user determine if the mean, max and/or min rolling correlation should be included in the dygraph. We haven’t built any way of calculating those values yet, but we will shortly. This is the UI component.</p>
+<p>Those three lines of code create checkboxes and are set to default as FALSE, meaning they won’t be plotted unless the user chooses to do so. I wanted to force the user to actively click a control to include these, but that’s a purely stylistic choice. Perhaps you don’t want to give them a choice at all here?</p>
+<p>Next, we create our reactive values that will form the substance of this app. First, we need to calculate and store an object of rolling correlations, and we’ll use a reactive that passes user inputs to our <code>sector_correlations</code> function.</p>
+<p>Then, we build reactive objects to store mean, minimum and maximum rolling correlations. These values will help contextualize our final dygraph.</p>
+<pre class="r"><code># Build our correlation time series object here
+# so we can access it throughout the rest of the app.
+
+sector_correlation &lt;- reactive({
+  sector_corr &lt;- sector_correlations(input$sector, input$period, input$window)
+  sector_corr[, 3]
+})
+
+# Let&#39;s calculate mean, minimum and maximum rolling correlations. 
+# We&#39;ll use these on the graph and in the value boxes.
+avg &lt;- reactive({ 
+  avg &lt;- round(mean(sector_correlation(),  na.rm=T), 2)
+  })
+mini &lt;- reactive({
+  mini &lt;- round(min(sector_correlation(),  na.rm=T), 2)
+  })
+maxi &lt;- reactive({
+  maxi &lt;- round(max(sector_correlation(),  na.rm=T), 2)
+  })</code></pre>
+<p>At this point, we have done some good work: built a function to calculate rolling correlations based on user input, built a sidebar to take that user input, and coded reactives to hold the values and some helpful statistics. The hard work is done, and really we did most of the hard work in the Notebook, where we toiled over the logic of arriving at this point. All that’s left now is to display this work in a compelling way. Dygraphs plus value boxes has worked in past; let’s stick with it!</p>
+<pre class="r"><code># Dygraph time!
+
+dygraphOutput(&quot;dygraphCorrelation&quot;)
+
+output$dygraphCorrelation &lt;- renderDygraph({
+  
+  dygraph(sector_correlation(), 
+          main = paste(&quot;rolling&quot;, input$period, &quot;correlation &quot;, input$sector, &quot;/SPY&quot;, sep = &quot; &quot;)) %&gt;% 
+  # A new wrinkle that hasn&#39;t been included in previous flexdashboards: let the user add lines to the 
+  # dygraph.   
+  dyLimit(if(input$mean == TRUE) {avg()}, color = &#39;black&#39;) %&gt;% 
+  dyLimit(if(input$min == TRUE) {mini()}, color = &#39;red&#39;) %&gt;% 
+  dyLimit(if(input$max == TRUE) {maxi()}, color = &#39;blue&#39;)
+  
+})</code></pre>
+<p>That dygraph code should look familiar from the Notebook and previous posts, except we have added a little interactive feature. By including <code>if(input$mean == TRUE) {avg()}</code>, we allow the user to change the graph by checking or unchecking the ‘mean’ input box in the sidebar. We are going to display this same information numerically in a value box, but the lines make this graph a bit more compelling.</p>
+<p>Speaking of those value boxes, they rely on the reactives we built above, but, unlike the graph lines, they are always going to be displayed. The user doesn’t have a choice here.</p>
+<pre class="r"><code>valueBoxOutput(&quot;approvalBox1&quot;)
+output$approvalBox1&lt;-renderValueBox({
+ 
+  # Display the mean we calculated in &#39;avg&#39; reactive function above.
+  
+  valueBox(value = avg(), icon = &quot;fa-line-chart&quot;, color = &quot;primary&quot;)
+  
+})</code></pre>
+<p>Again, this just adds a bit of context to the graph. Note that the lines and the value boxes take their value from the same reactives. If we were to change those reactives, both UI components would be affected.</p>
+<p>Our job is done! This a simple but powerful app: the user can choose to see the 60-day rolling correlations between the S&amp;P 500 and an energy ETF, or the 10-month rolling correlations between the S&amp;P 500 and a utility ETF, etc. I played around with this a little bit and was surprised that the 10-week rolling correlation between the S&amp;P 500 and health care stocks plunged in April of 2016. Someone smarter than I can probably explain, or at least hypothesize, as to why that happened.</p>
+<p>A closing thought about how this app might have been different: we are severely limiting what the user can do here, and intentionally so. The user can choose only from the sector ETFs that we are offering in the <code>selectInput</code> dropdown. This is a sector correlations app, so I included only a few sector ETFs. But, we could just as easily have made this a <code>textInput</code> and allowed the users to enter whatever ticker symbol struck their fancy. In that case, this would not longer be a sector correlations app; it would be a general stock correlations app. We could go even further and make this a general asset correlations app, in which case we would allow the user to select things like commodity, currency and housing returns and see how they correlate with stock market returns. Think about how that might change our data import logic and time series alignment.</p>
+<p>Thanks for reading, enjoy the app, happy coding, and see you next time!</p>

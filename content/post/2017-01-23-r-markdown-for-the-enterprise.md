@@ -16,7 +16,7 @@ In this post, I would like to examine a scenario that represents some experience
 
 ## “The report is great but…” Scenario
 </BR>
-![](../../static/2017/01/23/r-markdown-for-the-enterprise/new_analysis.png)
+![](/2017-01-23-r-markdown-for-the-enterprise/new_analysis.png)
 
 A new R analysis is delivered in a PowerPoint presentation, and everyone thinks that the insights are very valuable. They all want more associates to see it, so almost immediately, the following three requests are made:
  
@@ -30,7 +30,7 @@ Because we exported the findings into a presentation, sharing results becames mo
 
 ## How can R Markdown help? 
 
-![](../../static/2017/01/23/r-markdown-for-the-enterprise/rmarkdown.png)
+![](/2017-01-23-r-markdown-for-the-enterprise/rmarkdown.png)
 
 R Markdown combines the creation and sharing steps. The three requests can be satisfied using the following features of R Markdown:
 

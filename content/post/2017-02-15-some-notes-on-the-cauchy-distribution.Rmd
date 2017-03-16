@@ -1,0 +1,73 @@
+---
+title: Some Notes on the Cauchy Distribution
+date: '2017-02-15'
+draft: no
+---
+
+by Joseph Rickert
+
+I have always been attracted to the capricious. So, it was no surprise that I fell for the [Cauchy distribution](https://en.wikipedia.org/wiki/Cauchy_distribution) at first sight. I had never seen such unpredictability! You might say that every distribution has its moments of unpredictability, but the great charm of Cauchy is that it has no moments. (No finite moments, anyway.)
+
+Before discussing why momentlessness (not being in the moment :) ) leads to unpredictability, let's derive the Cauchy distribution. A common conceit for doing this is to consider a blindfolded archer trying to hit a target directly in front of him. He randomly shoots towards the wall at an angle $\theta$ that can sometimes be so large he shoots parallel to the wall!
+
+Where on the wall is any given arrow likely to land? The following diagram maps out the situation. 
+![](/2017-02-15-some-notes-on-the-cauchy-distribution/Archer.png) 
+
+The archer is standing at the point (0, 0). The point on the wall directly in front of him is (x, 0), and the arrow will land at (x, y), (x, -y), or not at all. After changing to polar coordinates, a moments reflection will give you the equation $y = xtan(\theta)$. 
+
+Assuming that theta is uniformly distributed on the interval $I = (- \pi/2, \pi/2)$, a direct substitution into the equation for the CDF of the uniform distribution will yield the CDF for the Cauchy distribution. 
+
+$$P(Y \leq y) = P(xtan(\theta) \leq y) = P(\theta \leq arctan(y/x)) = arctan(y/x) / \pi + 1/2$$
+
+Differentiating this gives the Cauchy density function: 
+$$f(y) = \frac{x}{\pi(x^{2} + y^{2})}$$
+This looks tame, but a short argument showing that the [necessary integrals do not converge](https://www.youtube.com/watch?v=Q7n7EPacAu8) demonstrates that neither the mean nor the variance exist. Hence, neither the Law of Large Numbers, nor the Central Limit Theorem apply. Taking lots of samples and computing averages doesn't buy you anything. The averages just don't settle down. This behavior is apparent in the following simulation that computes means of Cauchy samples for sample sizes of one to five thousand. The plots that show the same data at different scales dramatize the erratic behavior.   
+
+```{r}
+set.seed(pi)
+N <- 5000
+shots <- 1:N
+arrows <- rcauchy(N)
+means <- cumsum(arrows) / shots
+summary(means)
+plot(shots, arrows, pch = ".", ylim = c(-10, 10))
+points(shots, means, type = "l", col = "red")
+plot(shots, arrows, pch = ".", ylim = c(-10, 100))
+points(shots, means, type = "l", col = "red")
+
+
+```  
+
+Not only don't the samples converge, it is not that difficult to show that the distribution of the sample mean:
+
+$$Y =\frac{Y_{1} + Y_{2} . . . + Y_{n} }{n}$$
+of n independent Cauchy random variables has the same distribution as a single Cauchy random variable! The proof is straightforward. Let $\phi(t)$ be the characteristic function. Then  
+$$ \phi_{Y}(t) = [\phi_{Y1}(t)]^n= e^{-n|t|}$$
+which is the characteristic function of nY.
+
+The extreme values that dominate the Cauchy distribution make it the prototypical heavy-tailed distribution. Informally, a distribution is often described as having heavy or "fat" tails if the probability of events in the tails of the distribution are greater than what would be given by a Normal distribution. While there seems to be more than one formal definition of a [heavy-tailed distribution] (https://en.wikipedia.org/wiki/Heavy-tailed_distribution), the following diagram, which compares the right tails of the Normal, Exponential and Cauchy distributions, gets the general idea across.
+```{r}
+# Plot right tails of distributions
+low <- 0; high <- 6
+curve(dnorm,from = low, to = high, ylim = c(0, .05), col = "blue", ylab = " ", add = FALSE) 
+curve(dcauchy,from = low, to = high, col = "red", add = TRUE) 
+curve(dexp,from = low, to = high, col = "black", add = TRUE) 
+
+legend(0,0.03, c("Normal", "Exp", "Cauchy"), 
+  lty=c(1,1,1), # symbols (lines)
+  lwd=c(2,2,2), col=c("blue", "black", "red"))
+```
+
+As exotic as the Cauchy distribution may seem, it is not all that difficult to come face-to-face with the Cauchy Distribution in every-day modeling work. A student t distribution with one degree of freedom is Cauchy, as is the [ratio of two independent standard normal random variables](http://www.math.wm.edu/~leemis/chart/UDR/PDFs/StandardnormalStandardcauchy.pdf).
+
+Additionally, the Cauchy distribution, also called the Breit-Wigner, or Lorentz distribution, has applications in [particle physics](http://www.hep.phy.cam.ac.uk/~thomson/lectures/partIIIparticles/Handout14_2009.pdf), [spectroscopy](https://en.wikipedia.org/wiki/Spectral_line_shape#Line_shape_functions), [finance](http://www.scienpress.com/Upload/TMA/Vol%201_1_7.pdf), and medicine. In his 2006 [JSS paper](file:///Users/JBRickert/Downloads/v16i04.pdf), Geroge Marsaglia elaborates on early work he did on transforming the ratio of two jointly Normal random variables into something tractable. The original problem arose from an attempt to estimate the intercept in a linear model giving the life span of red blood cells.
+
+The real fun, and maybe the real world, seems to happen when things are not normal.
+
+### Further Reading
+
+* The [Introduction to Probability with R](https://www.crcpress.com/Introduction-to-Probability-with-R/Baclawski/p/book/9781420065213) by Kenneth Baclawski, based on a course he developed with Gian-Carlo Rota, is a delightful introduction to probability theory. The idea of plotting the sample means above comes from Section 5.7 of this book.
+
+* For some good reading on heavy-tailed distributions, have a look at the extended presentation on the [Fundamentals of Heavy Tails](http://users.cms.caltech.edu/~adamw/papers/2013-SIGMETRICS-heavytails.pdf) by Nair et al.; [Chapter 2](http://www.springer.com/cda/content/document/cda_downloaddocument/9781461487876-c1.pdf?SGWID=0-0-45-1443310-p175370772) of [The Statistical Analysis of Financial Data in R](http://www.springer.com/us/book/9781461487876); and [Chapter 2](http://www.springer.com/cda/content/document/cda_downloaddocument/9781461471004-c1.pdf?SGWID=0-0-45-1395304-p175250259) of [An Introduction to Heavy-Tailed and Sucexponential Distributions](http://www.springer.com/us/book/9781461471004#otherversion=9781489988324) by Foss et al.
+
+* For a sophisticated but accessible look at general Stable Distributions, have a look at this [recent paper](https://en.wikipedia.org/wiki/Heavy-tailed_distribution) on Stable Distributions, by John Nolan. 
