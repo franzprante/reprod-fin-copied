@@ -8,6 +8,12 @@ draft: yes
 summary: 'A Notebook for importing oil prices from Quandl, making a 6-month forecast, and visualizig the results'
 ---
 
+```{r setup, include=FALSE}
+# packages required for this post
+for (pkg in c('Quandl', 'dplyr', 'xts', 'lubridate', 'forecast', 'dygraphs')) 
+  if (!requireNamespace(pkg)) install.packages(pkg)
+```
+
 *A Reproducible Finance in R Post*
 by Jonathan Regenstein
 
@@ -23,7 +29,7 @@ Before we dive in, a few thoughts to frame the notebook underlying this post.
 
 Now, let's get to the data download! In the chunk below, as we import WTI oil prices, notice that Quanld makes it easy to choose types of objects (raw/dataframe, xts, or zoo), periods (daily, weekly, or monthly) and start/end dates.   
 
-```{r, eval = FALSE}
+```{r, message=FALSE, warning=FALSE}
 library(Quandl)
 library(dplyr)
 library(xts)
@@ -51,14 +57,14 @@ Also note that I specified the end date of February 2017. This indicates that th
 
 Looking back at those oil price objects, each would work well for the rest of this project, but let's stick with the monthly data.  We will be dealing with the date index quite a bit below, so let's use the `seq()` function and `mdy()` from the lubridate package to put the date into a nicer format.
 
-```{r, eval = FALSE}
+```{r}
 index(oil_monthly) <- seq(mdy('01/01/2006'), mdy('02/01/2017'), by = 'months')
 head(index(oil_monthly))
 ```
 
 Now we have a cleaner date format. Our base data object is in good shape. As always, we like to have a look at the data in graphical format, so let's fire up dygraphs. Since we imported an xts object directly from Quandl, we can just plug it straight into the `dygraph()` function.
 
-```{r, eval = FALSE}
+```{r}
 dygraph(oil_monthly, main = "Monthly oil Prices")
 ```
 
@@ -66,7 +72,7 @@ Alright, nothing too shocking here. We see a peak in mid-2008, followed by a pre
 
 Now we'll make things a bit more interesting and try to extract some meaning from that data. Let's use the `forecast()` function to predict what oil prices will look like over the next six months. This is the part of the code where you might want to insert whatever model your team has built or wish to test. We can think of it as a placeholder for any proprietary model or models that could be dropped into this Notebook. For our purposes, we will simply pass in the monthly oil prices object and supply a `lookahead` parameter of 6. The `forecast()` function will then supply some interesting numbers about the next six months of oil prices.
 
-```{r, eval = FALSE}
+```{r}
 oil_6month <- forecast(oil_monthly, h = 6)
 
 # Let's have a quick look at the 6-month forecast and the 80%/95% confidence levels. 
@@ -78,8 +84,8 @@ The mean forecast is right around \$54. It looks like the 95% confidence level h
 
 Let's move on to visualizing the results of the forecast along with the historical data. The base `plot()` function does a decent job here.
 
-```{r, eval = FALSE}
-plot(oil_weekly_6month, main = "Oil Forecast")
+```{r}
+plot(oil_6month, main = "Oil Forecast")
 ```
 
 That plot looks OK, but it's not great. We can see that the mean forecast is to stay around \$50, with the 95% bands stretching all the way to around \$80 and \$30, but honestly, I have to squint to really see those 95% intervals. We don't like squinting, so let's put in some extra work to make use of dygraphs, which will have the benefit of allowing a reader to zoom on the predicted portion of the graph. 
@@ -91,7 +97,7 @@ We already have our monthly prices in the xts object we imported from Quandl, bu
 First, let's move the mean forecast and 95% confidence bands to a dataframe, along with a date column. We predicted oil out six months, so we will need a date column for the six months after February.
 
 
-```{r, eval = FALSE}
+```{r}
 oil_forecast_data <- data.frame(date = seq(mdy('03/01/2017'), 
                                            by = 'months', length.out = 6),
                                 Forecast = oil_6month$mean,
@@ -103,14 +109,14 @@ head(oil_forecast_data)
 
 The data we want is now housed in its own dataframe. Let's convert that to an xts object.
 
-```{r, eval = FALSE}
+```{r}
 
 oil_forecast_xts <- xts(oil_forecast_data[,-1], order.by = oil_forecast_data[,1])
 ```
 
 Now we can combine the historical xts object with the forecasted xts object using `cbind()`.
 
-```{r, eval = FALSE}
+```{r}
 # Combine the xts objects with cbind.
 
 oil_combined_xts <- cbind(oil_monthly, oil_forecast_xts)
@@ -118,9 +124,6 @@ oil_combined_xts <- cbind(oil_monthly, oil_forecast_xts)
 # Add a nicer name for the first column.
 
 colnames(oil_combined_xts)[1] <- "Actual"
-```
-
-```{r, eval = FALSE}
 
 # Have a look at both the head and the tail of our new xts object. Make sure the
 # NAs are correct.
@@ -130,7 +133,7 @@ tail(oil_combined_xts)
 
 It looks as it should. From January 2006 to February 2017 we have our actual data and NAs for the forecasted data. From March 2017 to August  2017, we have our mean forecast and 95% confidence levels and NAs for actual data. Said another way, we have four time series with observations at different dates, some of which are in the future. Most fortunately, dygraph provides a nice way to plot our actual time series versus our three forecasted time series because it simply does not plot the NAs.
 
-```{r, eval = FALSE}
+```{r}
 
 dygraph(oil_combined_xts, main = "Oil Prices: Historical and Forecast") %>%
   # Add the actual series
@@ -142,5 +145,3 @@ dygraph(oil_combined_xts, main = "Oil Prices: Historical and Forecast") %>%
 Take a quick look back at our previous graph using the `plot()` function.  At first glance, the dygraph might not seem so different. But, we can now make use of hovering/tooltips and, more importantly, we can zoom in on the forecasted numbers see them much more clearly. Plus, the whole world of dygraph functionality is now available to us! 
 
 That's all for today. We have gotten some familiarity with Quandl, used `forecast()` to predict the next six months of oil prices, and done some data wrangling so we can use our old friend dygraphs. Next time, we will wrap this into a Shiny app so that users can choose their own parameters, and maybe even choose different commodities. See you then!
-
-
