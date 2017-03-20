@@ -61,7 +61,7 @@ HERE <- function() {
 
 RStudio comes with many built-in snippets. To access these snippets, navigate to `Tools` -> `Global Options` -> `Code` and press `Edit Snippets`.
 
-![](/2017-02-16-feb-17-tips-and-tricks/SL_code_snippets.png)
+![](/post/2017-02-16-feb-17-tips-and-tricks_files/SL_code_snippets.png)
 
 The menu will show all of the defined snippets. Consider the definition for the function snippet:
 
