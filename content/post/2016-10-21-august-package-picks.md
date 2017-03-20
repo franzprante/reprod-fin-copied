@@ -1,11 +1,13 @@
 ---
 title: "August Package Picks"
 author: "Joseph Rickert"
-date: 2016-10-21T18:17:25+00:00
+date: 2016-10-21
 slug: august-package-picks
 categories: [R Packages, R Language]
 tags: [R]
 ---
+
+by Joseph Rickert
 
 141 new packages landed on CRAN in August. The following are my picks for the most interesting packages in four categories. My selection criteria were brutally simple: to make the list, a package had to have enough documentation for me to have some idea about what it does, and also, in my judgment, provide some functionality that is likely to appeal to a broad class of users. I am sure that through my ignorance and biases I have overlooked some really good work; for this, I apologize.
 

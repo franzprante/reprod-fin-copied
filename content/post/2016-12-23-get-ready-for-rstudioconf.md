@@ -1,10 +1,12 @@
 ---
 title: "Get Ready for RStudio::Conf"
 author: "Joseph Rickert"
-date: 2016-12-23T17:45:58+00:00
+date: 2016-12-23
 categories: [RStudio, R Language]
 tags: [R]
 ---
+
+by Joseph Rickert
 
 The 2017 R Conference season will get off to an early start on January 13th and 14th with [RStudio::Conf 2017](https://www.rstudio.com/conference/) in Orlando, Florida. The [schedule](https://www.rstudio.com/conference/#speakers) promises an intense but collegial experience with plenty of hands-on practice working with R and the RStudio tool chain of packages and products. To prepare for the conference, I thought I would try to extract the major themes from the list of talks and workshops and point out some resources to study ahead of time. Even if you are not going to the conference, you may find these themes and resources helpful in improving your R experience.
 

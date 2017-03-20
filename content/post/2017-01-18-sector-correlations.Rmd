@@ -1,8 +1,8 @@
 ---
-author: ""
+author: "Jonathan Regenstein"
 categories: [Reproducible Finance with R, Visualizations, Time Series, Applications, R Language]
-date: 2017-01-18T10:50:40-05:00
-draft: true
+date: 2017-01-18
+draft: false
 summary: ""
 tags: [R]
 title: "Sector Correlations"
@@ -13,6 +13,8 @@ lapply(c('dplyr', 'quantmod', 'dygraphs'), function(x) {
   if (!requireNamespace(x)) install.packages(x)
 })
 ```
+
+by Jonathan Regenstein
 
 Welcome to the first installation of reproducible finance for 2017. It's a new year, a new President takes office soon, and we could be entering a new political-economic environment. What better time to think about a popular topic over the last few years: equity correlations. Elevated correlations are important for several reasons - life is hard for active managers and diversification gains are vanishing - but I personally enjoy thinking about them more from an inference or data exploration perspective. Are changning correlations telling us something about the world? Are sectors diverging? How much can be attributed to the Central Bank regime at hand? So many questions, so many hypotheses to be explored. Let's get started.
 

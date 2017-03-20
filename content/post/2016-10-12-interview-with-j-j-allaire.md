@@ -1,11 +1,13 @@
 ---
 title: "Interview with J.J. Allaire"
 author: "Joseph Rickert"
-date: 2016-10-12T16:03:59+00:00
+date: 2016-10-12
 slug: interview-with-j-j-allaire
 categories: [Interview, RStudio, R Language]
 tags: [R]
 ---
+
+by Joseph Rickert
 
 Welcome to "R Views", the new R Community blog from RStudio. For this first post, I sat down with J.J. Allaire, RStudio's founder and CEO, to discuss RStudio's history, its mission and JJ's vision for its future. In a short time, we touched on a wide range of subjects including RStudio's business, the growth of the R language, the importance of the R Consortium to the R Community and J.J.'s advice to anyone coming to R for the first time. We hope you enjoy this "snapshot" of RStudio's place in the R world.
 

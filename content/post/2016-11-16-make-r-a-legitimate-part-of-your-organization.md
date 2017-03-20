@@ -1,11 +1,13 @@
 ---
 title: "Make R a Legitimate Part of Your Organization"
 author: "Nathan Stephens"
-date: 2016-11-16T12:12:21+00:00
+date: 2016-11-16
 slug: make-r-a-legitimate-part-of-your-organization
 categories: [R for the Enterprise, Finance, Applications, R Language]
 tags: [R]
 ---
+
+by Nathan Stephens
 
 # How R Enters Through the Back Door
 

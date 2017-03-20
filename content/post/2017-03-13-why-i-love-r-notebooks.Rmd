@@ -1,13 +1,14 @@
 ---
 title: Why I love R Notebooks
 date: 2017-03-15
-draft: yes
+draft: no
 author: "Nathan Stephens"
 summary: "Data science with R Notebooks"
 categories: [R Language]
-tags: [R]
+tags: [R, R Markdown]
 slug: why-i-love-r-notebooks
 ---
+
 by Nathan Stephens
 
 *Note: [R Notebooks](https://blog.rstudio.org/2016/10/05/r-notebooks/) requires [RStudio Version 1.0](https://www.rstudio.com/products/rstudio/download/) or later*

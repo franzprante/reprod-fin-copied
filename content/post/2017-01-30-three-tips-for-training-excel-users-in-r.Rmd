@@ -1,8 +1,8 @@
 ---
-author: ""
+author: "Merav Yuravlivker"
 categories: [Education, R Language]
-date: 2017-01-30T16:46:33-08:00
-draft: true
+date: 2017-02-10
+draft: false
 summary: ""
 tags: [Excel, R]
 title: "Three Tips for Training Excel Users in R"

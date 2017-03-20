@@ -1,11 +1,13 @@
 ---
 title: 'Reproducible Finance with R: ETF Country Exposure'
 author: 'Jonathan Regenstein'
-date: '2017-02-07'
-categories: [Reproducble Finance with R, Visualizations, Finance, Applications, R Language]
+date: '2017-02-08'
+categories: [Reproducible Finance with R, Visualizations, Finance, Applications, R Language]
 tags: [R]
 draft: no
 ---
+
+by Jonathan Regenstein
 
 Today, we are going to tackle a project that has long been on my wishlist - a Shiny app to take a fund or portfolio, analyze its exposure to different countries and display those exposures on a world map. Now you know how exciting my wishlists are.
  

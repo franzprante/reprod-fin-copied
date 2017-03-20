@@ -4,7 +4,7 @@ author: 'Garrett Grolemund'
 date: '2017-02-22'
 categories: [Education, R Language]
 tags: [R]
-draft: yes
+draft: no
 ---
 
 by Garrett Grolemund

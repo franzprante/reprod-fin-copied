@@ -1,7 +1,7 @@
 ---
 title: "Naive Bayes: A Generative Model and Big Data Classifier"
 author: "Joseph Rickert"
-date: 2016-11-02T12:22:21+00:00
+date: 2016-11-02
 slug: naive-bayes-a-generative-model-and-big-data-classifier
 categories: [Data Science, Statistics, R Language]
 tags: [R]
@@ -14,6 +14,8 @@ for (pkg in c('mlbench', 'e1071', 'sparklyr', 'dplyr')) {
   if (!requireNamespace(pkg)) install.packages(pkg)
 }
 ```
+
+by Joseph Rickert
 
 I found my way into data science and machine learning relatively late in my career. When I began reading papers on supervised learning I was delighted to find that good old logistic regression was considered a "[go to](http://repository.cmu.edu/robotics/218/)" classifier. This was like learning that an old friend was admired for an achievement I didn't know anything about. After a couple of comfortable experiences like this, I thought I would fit in quite nicely with this new (to me) tribe of data analysts studying pattern recognition and natural language processing. It took some time however, before I realized that they were working with a conceptual framework that was a little different from my statistics worldview. You might say it's all probabilistic and statistical reasoning, but different problems and different tools lead to mindsets that shape and bias a person's thinking.
 

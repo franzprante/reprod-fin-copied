@@ -1,7 +1,7 @@
 ---
 title: "Creating Interactive Plots with R and Highcharts"
 author: "Mine Cetinkaya-Rundel"
-date: 2016-10-19T14:20:17+00:00
+date: 2016-10-19
 slug: creating-interactive-plots-with-r-and-highcharts
 categories: [R Packates, Visualizations, R Language]
 tags: [R]
@@ -14,6 +14,8 @@ for (pkg in c('highcharter', 'dplyr', 'tidyr')) {
   if (!requireNamespace(pkg)) install.packages(pkg)
 }
 ```
+
+by Mine Cetinkaya-Rundel
 
 Sometimes great ideas come from trying to solve simple problems. This seems to be especially true for software developers who are willing to put in an unreasonable amount of effort to solve a simple problem to their satisfaction. So the [story](http://www.highcharts.com/about) goes that Torstein Hønsi, the founder and Chief Product Officer of [Highcharts](http://www.highcharts.com/). was looking for a simple charting tool for updating his homepage with snow depth measurements from Vikjafjellet, the local mountain where his family keeps a cabin. Frustrated with the common flash plug-ins, and other proprietary solutions available at the time, he decided to build a standards-based solution of his own and then, of course, share it.
 

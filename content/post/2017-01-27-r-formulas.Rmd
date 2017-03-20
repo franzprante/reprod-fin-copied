@@ -1,8 +1,8 @@
 ---
 author: "Max Kuhn"
 categories: [R Language]
-date: 2017-01-27T14:19:41-08:00
-draft: true
+date: 2017-02-01
+draft: false
 summary: ""
 tags: [R]
 title: "The R Formula Method: The Good Parts"
@@ -16,6 +16,7 @@ for (pkg in c('splines','caret')) {
 }
 ```
 
+by Max Kuhn
 
 ## Introduction
 

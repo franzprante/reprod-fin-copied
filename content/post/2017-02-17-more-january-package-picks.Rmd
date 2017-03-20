@@ -1,8 +1,8 @@
 ---
 author: "Joseph Rickert"
 categories: [R Packages, R Language]
-date: 2017-02-17T09:48:58-08:00
-draft: true
+date: 2017-02-24
+draft: false
 summary: ""
 tags: [R]
 title: "More January Package Picks"

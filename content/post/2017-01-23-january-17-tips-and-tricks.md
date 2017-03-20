@@ -1,7 +1,7 @@
 ---
 title: "January '17 Tips and Tricks"
 author: "Sean Lopp"
-date: 2017-01-23T17:53:20+00:00
+date: 2017-01-27
 slug: january-17-rstudio-tips-and-tricks
 tags: [RStudio, R Language]
 categories: [R]
