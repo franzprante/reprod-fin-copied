@@ -3,8 +3,8 @@ title: "Reproducible Finance with R: The Sharpe Ratio"
 author: "Jonathan Regenstein"
 date: 2016-11-09T00:29:10+00:00
 slug: reproducible-finance-with-r-the-sharpe-ratio
-categories: [R Views]
-tags: [Data Science, Finance, R Language, Time Series]
+categories: [Reproducible Finance with R, Finance, Applications, R Language]
+tags: [Sharpe Ratio, R]
 ---
 
 ```{r setup, include=FALSE}

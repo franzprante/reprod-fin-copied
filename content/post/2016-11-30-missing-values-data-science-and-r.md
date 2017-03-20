@@ -3,8 +3,8 @@ title: "Missing Values, Data Science and R"
 author: "Joseph Rickert"
 date: 2016-11-30T18:26:15+00:00
 slug: missing-values-data-science-and-r
-categories: [R Views]
-tags: [Data Science, Packages, R Language, Statistics]
+categories: [Packages, Data Science, R Language]
+tags: [Missing Values, R]
 ---
 
 One great advantages of working in R is the quantity and sophistication of the statistical functions and techniques available. For example, R's `quantile()` function allows you to select one of the nine [different methods](https://www.amherst.edu/media/view/129116/original/Sample+Quantiles.pdf) for computing quantiles. Who would have thought there could be so many ways to do something that seems to be so simple? The issue here is not unnecessary complication, but rather an appreciation of the nuances associated with inference problems gained over the last hundred years of modern statistical practice. Much of this knowledge is reflected in R. As I imagine it, if R's functions were laid out like city streets there would be many broad avenues displaying commonly used algorithms, but these would flow into many thousands of small, rarely-visited alleys, containing treasures for those who seek them out.

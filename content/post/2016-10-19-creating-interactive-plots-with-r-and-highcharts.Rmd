@@ -3,8 +3,8 @@ title: "Creating Interactive Plots with R and Highcharts"
 author: "Mine Cetinkaya-Rundel"
 date: 2016-10-19T14:20:17+00:00
 slug: creating-interactive-plots-with-r-and-highcharts
-categories: [R Views]
-tags: [Applications, Data Science, Open Source, Packages, R Language, Statistics, Visualizations]
+categories: [R Packates, Visualizations, R Language]
+tags: [R]
 ---
 
 ```{r setup, include=FALSE}

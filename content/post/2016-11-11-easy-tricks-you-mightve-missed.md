@@ -3,8 +3,8 @@ title: "RStudio IDE Easy Tricks You Might've Missed"
 author: "Sean Lopp"
 date: 2016-11-11T16:17:16+00:00
 slug: easy-tricks-you-mightve-missed
-categories: [R Views]
-tags: [Community, Data Science, Education, Open Source]
+categories: [RStudio, R Language]
+tags: [R]
 ---
 
 The RStudio IDE reached version 1.0 this month. The IDE has come a long way since the initial release 5 and a half years ago. Many major features have been built: projects, package building tools, notebooks. During that same period, often hidden in the shadows, a growing list of smaller features has been changing lives. In celebration of version 1.0 this post hopes to spread fanfare for a few of these easy-to-miss tools.

@@ -1,10 +1,10 @@
 ---
 author: "Jonathan Regenstein"
-categories: [R views]
+categories: [Reproducible Finance with R, Finance, R Language]
 date: 2017-01-31T00:54:51Z
 draft: true
 summary: "interactive rolling correlations sectors and SP500"
-tags: [Data Science, Finance, R Language, Time Series]
+tags: [Shiny, R]
 title: "Reproducible Finance with R: Sector Correlations Shiny App"
 ---
 

@@ -2,8 +2,8 @@
 title: "R for Enterprise: How to Scale Your Analytics Using R"
 author: "Sean Lopp"
 date: 2016-12-21T14:06:49+00:00
-categories: [Enterprise]
-tags: [Case Studies, Data Science, R for the Enterprise, R Language]
+categories: [R for the Enterprise, R Language]
+tags: [R]
 ---
 
 At RStudio, we work with many companies interested in scaling R. They typically want to know:

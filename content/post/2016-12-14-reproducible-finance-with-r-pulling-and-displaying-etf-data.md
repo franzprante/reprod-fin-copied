@@ -2,8 +2,8 @@
 title: "Reproducible Finance with R: Pulling and Displaying ETF Data"
 author: "Jonathan Regenstein"
 date: 2016-12-14T13:17:05+00:00
-categories: [Finance]
-tags: [Data Science, Finance, R Language]
+categories: [Reproducibile Finance with R, Finance, Applications, R Language]
+tags: [R]
 ---
 
 It's the holiday season, and that can mean only one thing: time to build a leaflet map as an interface to country Exchange Traded Fund ([ETF](https://en.wikipedia.org/wiki/Exchange-traded_fund)) data!

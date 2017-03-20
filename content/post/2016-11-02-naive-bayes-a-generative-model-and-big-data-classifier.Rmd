@@ -3,8 +3,8 @@ title: "Naive Bayes: A Generative Model and Big Data Classifier"
 author: "Joseph Rickert"
 date: 2016-11-02T12:22:21+00:00
 slug: naive-bayes-a-generative-model-and-big-data-classifier
-categories: [R Views]
-tags: [Data Science, Packages, R Language, Statistics]
+categories: [Data Science, Statistics, R Language]
+tags: [R]
 ---
 
 ```{r setup, include=FALSE}

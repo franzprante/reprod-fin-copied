@@ -3,8 +3,8 @@ title: "Make R a Legitimate Part of Your Organization"
 author: "Nathan Stephens"
 date: 2016-11-16T12:12:21+00:00
 slug: make-r-a-legitimate-part-of-your-organization
-categories: [R Views]
-tags: [Data Science, Open Source, R for the Enterprise, R Language]
+categories: [R for the Enterprise, Finance, Applications, R Language]
+tags: [R]
 ---
 
 # How R Enters Through the Back Door

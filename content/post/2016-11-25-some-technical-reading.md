@@ -3,8 +3,8 @@ title: "Some Technical Reading"
 author: "Joseph Rickert"
 date: 2016-11-25T15:37:23+00:00
 slug: some-technical-reading
-categories: [R Views]
-tags: [Book Review, R Language]
+categories: [Feuilleton, R Language]
+tags: [R]
 ---
 
 I am ever-optimistic that on the weekend I will have enough time and brainpower to do some serious technical reading. The following are five articles on my list. I hope that at least one of them resonates with you too. Happy reading.

@@ -1,11 +1,11 @@
 ---
 title: "R Markdown for the Enterprise"
 author: "Edgar Ruiz"
-categories: []
+categories: [R for the Enterprise, R Language]
 date: 2017-01-23T00:03:02Z
 draft: true
 summary: ""
-tags: [Dashboards, R Markdown, Open Source, R for the Enterprise, R Language]
+tags: [R, R Markdown]
 ---
 </BR>
 In the corporate world, spreadsheets and PowerPoint presentations still dominate as the tools used for analyzing and sharing information. So, it is not at all surprising that even when business analysts use R for the analytical heavy lifting, they frequently revert to using spreadsheets and slide decks to share their results. This may seem like the easiest way to communicate with colleagues, but any modestly complicated project is likely to be error-prone and generate hours of unnecessary rework.

@@ -3,8 +3,8 @@ title: "Writing Good R Code and Writing Well"
 author: "Joseph Rickert"
 date: 2016-12-02T16:28:18+00:00
 slug: writing-good-r-code-and-writing-well
-categories: [R Views]
-tags: [Education, Opinions, R Language]
+categories: [Education, R Language]
+tags: [R]
 ---
 
 If you are aspiring to write good R code, you may find it helpful to occasionally spend some time reading about writing: reading about writing R code, and reading about writing about R code that you've written. (If you write some excellent R code, you will likely have the opportunity to write about it.)

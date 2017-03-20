@@ -3,8 +3,8 @@ title: "Book Review: Computer Age Statistical Inference"
 author: "Joseph Rickert"
 date: 2016-10-28T19:29:55+00:00
 slug: book-review-computer-age-statistical-inference
-categories: [R Views]
-tags: [Book Review, Data Science, Packages, R Language, Statistics]
+categories: [Book Review, Statistics, R Language]
+tags: [R]
 ---
 
 [_Computer Age Statistical Inference_](https://www.cambridge.org/core/books/computer-age-statistical-inference/E32C1911ED937D75CE159BBD21684D37): Algorithms, Evidence and Data Science by Bradley Efron and Trevor Hastie is a brilliant read. If you are only ever going to buy one statistics book, or if you are thinking of updating your library and retiring a dozen or so dusty stats texts, this book would be an excellent choice. In 475 carefully crafted pages, Efron and Hastie examine the last 100 years or so of statistical thinking from multiple viewpoints. In the nominal approach implied by the book's title, they describe the impact of computing on statistics, and point out where powerful computers opened up new territory. On the first page of the preface they write:

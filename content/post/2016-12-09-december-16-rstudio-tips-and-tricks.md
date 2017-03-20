@@ -3,8 +3,8 @@ title: "December '16 RStudio Tips and Tricks"
 author: "Sean Lopp"
 date: 2016-12-09T17:53:20+00:00
 slug: december-16-rstudio-tips-and-tricks
-categories: [R Views]
-tags: [Community, Data Science, Education, Open Source, RStudio]
+categories: [RStudio, R Language]
+tags: [R]
 ---
 
 Here is this month's collection of RStudio Tips and Tricks. Thank you to those who responded to [last month's post](https://www.rstudio.com/rviews/2016/11/11/easy-tricks-you-mightve-missed/); many of your tips are included below! Be sure to subscribe to [@rstudiotips](https://twitter.com/rstudiotips) on Twitter for more.

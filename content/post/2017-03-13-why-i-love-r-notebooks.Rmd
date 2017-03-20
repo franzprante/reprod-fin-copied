@@ -4,7 +4,8 @@ date: 2017-03-15
 draft: yes
 author: "Nathan Stephens"
 summary: "Data science with R Notebooks"
-tags: [RStudio, Notebooks, Data Science]
+categories: [R Language]
+tags: [R]
 slug: why-i-love-r-notebooks
 ---
 by Nathan Stephens

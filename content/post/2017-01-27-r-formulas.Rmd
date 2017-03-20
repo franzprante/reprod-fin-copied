@@ -1,10 +1,10 @@
 ---
 author: "Max Kuhn"
-categories: []
+categories: [R Language]
 date: 2017-01-27T14:19:41-08:00
 draft: true
 summary: ""
-tags: [R, Formulas]
+tags: [R]
 title: "The R Formula Method: The Good Parts"
 ---
 

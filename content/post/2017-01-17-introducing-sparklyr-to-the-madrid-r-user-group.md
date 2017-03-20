@@ -4,7 +4,8 @@ categories: []
 date: 2017-01-18T12:00:00-05:00
 draft: true
 summary: ""
-tags: []
+categories: [Community, R Packages, R Language]
+tags: [sparklyr, R]
 title: "Introducing sparklyr to the Madrid R User Group"
 ---
 by Carlos Ortega

@@ -1,10 +1,10 @@
 ---
 author: ""
-categories: []
+categories: [Reproducible Finance with R, Visualizations, Time Series, Applications, R Language]
 date: 2017-01-18T10:50:40-05:00
 draft: true
 summary: ""
-tags: []
+tags: [R]
 title: "Sector Correlations"
 ---
 
