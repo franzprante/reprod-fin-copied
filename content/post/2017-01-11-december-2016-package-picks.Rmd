@@ -1,0 +1,116 @@
+---
+title: December 2016 Package Picks
+author: Joseph Rickert
+date: '2017-01-11'
+categories: [R Packages, R Language]
+tags: [R]
+draft: no
+---
+
+by Joseph Rickert
+
+Last month, 217 new packages were submitted to CRAN. By [my count](https://www.rstudio.com/rviews/2017/01/06/10000-cran-packages/) this was the highest monthly value recorded for the past nine years. Below, are brief descriptions of fifty-two of these new-for-December packages grouped into six categories: Data, Data Science, Financial Analysis, Statistics, Utilities and Visualizations. The Financial Analysis category is noteworthy. It is unusual to have six interesting packages centered on some financial application in a given month.
+
+It is also unusual for me to be able to identify a favorite package. However, this month I am comfortable pointing out [deconvolveR](https://cran.rstudio.com/web/packages/deconvolveR/) from Bradley Efron and Balasubramanian Narasimhan which implements Empirical Bayes methods for learning prior distributions from data. I expect that this package will become important to many Bayesian and "Almost Bayesian" statisticians.
+
+## Data
+
+*   [bea.R](https://cran.rstudio.com/web/packages/bea.R/) v1.0.1: Provides an R interface for the Bureau of Economic Analysis ([BEA](https://www.bea.gov/)) API.
+
+*   [BETS](https://cran.rstudio.com/web/packages/BETS/) v0.0.98: Provides access to Brazilian economic time series from the Getulio Vargas Foundation, the Central Bank of Brazil and the Brazilian Institute of Geography and Statistics.
+
+*   [censys](https://cran.rstudio.com/web/packages/censys/) v0.1.0: Enables researchers to query the Censys public search engine about the hosts and networks that compose the Internet. [README](https://cran.rstudio.com/web/packages/censys/README.html) provides an example.
+
+*   [lingtypology](https://cran.rstudio.com/web/packages/lingtypology/) v1.0.0: Allows users to access [Glottolog](http://glottolog.org/) database of world languages. The [vignette](https://cran.rstudio.com/web/packages/lingtypology/vignettes/lingtypology.html) contains several examples including how to use the map.feature function to produce maps similar to those used in [Cross-Linguistic Linked Data](http://clld.org/) projects.
+
+<iframe src="https://beta.rstudioconnect.com/content/2347/december_package_picks_block1.html" width="1000px" height="550px"></iframe>
+*   [natserv](https://cran.rstudio.com/web/packages/natserv/) v0.1.4: Allows users to access [NatureServe](http://www.natureserve.org/) to fetch data, search taxonomic names, and make maps. [README](https://cran.rstudio.com/web/packages/natserv/README.html) contains examples.
+
+*   [pleiades](https://cran.rstudio.com/web/packages/pleiades/) v0.1.0 Provides an interface to the [Pleiades](https://pleiades.stoa.org/) Archaeological Database. The [vignette](https://cran.rstudio.com/web/packages/pleiades/vignettes/pleiades_vignette.html) shows how to get started.
+
+*   [rclimateca](https://cran.rstudio.com/web/packages/rclimateca/) v0.1: Provides access to the Canadian [climate archives](http://climate.weather.gc.ca/). [README](https://cran.rstudio.com/web/packages/rclimateca/README.html) has examples.
+
+*   [rWind](https://cran.rstudio.com/web/packages/rWind/) v0.1.3: Provides tools for downloading, editing and transforming wind data from the [National Weather Services](http://www.weather.gov/)’ [Global Forecast System](https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/global-forcast-system-gfs)
+
+*   [SkyWatchr](https://cran.rstudio.com/web/packages/SkyWatchr/) v0.5-0: Provides functions to query and download satellite imagery and climate/atmospheric datasets using the [SkyWatch API](https://github.com/skywatchspaceapps/api).
+
+## Data Science
+
+*   [extshape](https://cran.rstudio.com/web/packages/textshape/) v0.2.0: Provides functions for reshaping text data. See [README](https://cran.rstudio.com/web/packages/textshape/README.html).
+
+*   [pipeliner](https://cran.rstudio.com/web/packages/pipeliner/) v0.1.1: Defines a framework for defining 'pipelines' of functions for data transformations, model estimation and inverse-transformations that results model-scoring functions that automatically apply the entire pipeline. The [vignette](https://cran.rstudio.com/web/packages/pipeliner/vignettes/Introduction.html) explains the concept and provides examples.
+
+*   [sqlscore](https://cran.rstudio.com/web/packages/sqlscore/) v0.1.0: Provides utilities for generating SQL queries from R model objects. It generates the SQL to score a generalized linear model. See README.
+
+## Financial Analysis
+
+*   [FinancialMath](https://cran.rstudio.com/web/packages/FinancialMath/) v0.1.1: Provides function to help prepare for the Society of Actuaries and Casualty Actuarial Society 'Financial Mathematics' exam.
+
+*   [KraljicMatrix](https://cran.rstudio.com/web/packages/KraljicMatrix/) v0.1.0: Implements the [Kraljic Matrix](https://hbr.org/1983/09/purchasing-must-become-supply-management) approach for strategically analyzing a firm’s purchasing portfolio. The [vignette](https://cran.rstudio.com/web/packages/KraljicMatrix/vignettes/kraljic.html) offers some theory and examples.
+
+*   [InfoTrad](https://cran.rstudio.com/web/packages/InfoTrad/) v1.0: Provides functions to estimate the probability of informed trading (PIN) initially introduced by [Easley et. al.](http://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1996.tb04074.x/abstract) using both [Easley et al.](https://www.cambridge.org/core/journals/journal-of-financial-and-quantitative-analysis/article/div-classtitlefactoring-information-into-returnsdiv/FC4FEE7F0262023056E690253644A960) factorization and [LK factorization](http://www.sciencedirect.com/science/article/pii/S1386418111000176).
+
+*   [ReIns](https://cran.rstudio.com/web/packages/ReIns/) v1.0.1: Contains functions used in the new book Reinsurance: Actuarial and Statistical Aspects. The [vignette](https://cran.rstudio.com/web/packages/ReIns/vignettes/ReIns.html) contains several interesting examples.
+
+*   [tidyquant](https://cran.rstudio.com/web/packages/tidyquant/) v0.1.0: Bringing quantitative financial analysis to the 'tidyverse' this package provides wrappers for various xts, quantmod and TTR package functions and returns the objects in the tidy tibble format. The [vignette](https://cran.rstudio.com/web/packages/tidyquant/vignettes/tidyquant.html) provides an introduction.
+
+*   [valuer](https://cran.rstudio.com/web/packages/valuer/) v1.1.0: Implementing the pricing framework described in [Bacinello et al.](http://www.sciencedirect.com/science/article/pii/S0167668711000618) and the fee structure discussed in [Bernard et al.](https://www.cambridge.org/core/journals/astin-bulletin-journal-of-the-iaa/article/div-classtitlestate-dependent-fees-for-variable-annuity-guaranteesdiv/2A2D06F0A56B24B7E284379174257ECC), this package provides to price variable annuity life insurance contracts by means of Monte Carlo methods. See the [vignette](https://cran.rstudio.com/web/packages/valuer/vignettes/Introduction.html) for an introduction.
+
+## Statistics
+
+*   [arsenal](https://cran.rstudio.com/web/packages/arsenal/) v0.1.2: Provides functions for large-scale statistical summaries which take advantage of work RStudio reporting tools. There are vignettes describing the [freqlist](https://cran.rstudio.com/web/packages/arsenal/vignettes/freqlist.pdf), [modelsum](https://cran.rstudio.com/web/packages/arsenal/vignettes/modelsum.html), and [tableby](https://cran.rstudio.com/web/packages/arsenal/vignettes/tableby.html) functions.
+
+*   [ashr](https://cran.rstudio.com/web/packages/ashr/) v2.0.5: Implements an Empirical Bayes approach for large-scale hypothesis testing and false discovery rate (FDR) estimation based on the methods of [M. Stephens, 2016](doi:10.1093/biostatistics/kxw041).
+
+*   [bayesloglin](https://cran.rstudio.com/web/packages/bayesloglin/) v1.0.1: Provides functions for the Bayesian analysis of contingency table data. The [vignette](https://cran.rstudio.com/web/packages/bayesloglin/vignettes/bayesloglin-R-package.pdf) provides some theory as well as examples.
+
+*   [BTYDplus](https://cran.rstudio.com/web/packages/BTYDplus/) v1.01: Implements advanced statistical methods to describe and predict customers' purchase behavior in a non-contractual setting. The [vignette](https://cran.rstudio.com/web/packages/BTYDplus/vignettes/BTYDplus-HowTo.pdf) provides an extended example.
+
+*   [colf](https://cran.rstudio.com/web/packages/colf/) v0.1.2: Provides functions to perform least squares constrained optimization on a linear objective function using a formula syntax similar to lm(). There is a [tutorial](https://cran.rstudio.com/web/packages/colf/vignettes/colf.html).
+
+*   [deconvolveR](https://cran.rstudio.com/web/packages/deconvolveR/) v1.0-3: Provides Empirical Bayes methods for learning prior distributions from data using deconvolution and Empirical Bayes methods. The vignette on [Empirical Bayes Deconvolution](https://cran.rstudio.com/web/packages/deconvolveR/vignettes/deconvolution.html) by Balasubramanian Narasimhan and Bradley Efron is really good reading.
+
+*   [dynamichazard](https://cran.rstudio.com/web/packages/dynamichazard/) v0.1.0: Contains functions for fitting dynamic hazard models with binary outcomes using state space models using methods described in [Fahrmeir (1992)](doi:10.1080/01621459.1992.10475232) and [Fahrmeir (1994)](doi:10.1093/biomet/81.2.317). There are vignettes on [Comparing methods for time varying logistic models](https://cran.rstudio.com/web/packages/dynamichazard/vignettes/Comparing_methods_for_logistic_models.pdf) and the theory behind the [ddhazard](https://cran.rstudio.com/web/packages/dynamichazard/vignettes/ddhazard.pdf) function.
+
+*   [expint](https://www.rstudio.com/wp-admin/edit.php) v0.1-2: Provides functions that implement exponential integrals and the incomplete gamma function defined for negative values of its first argument. The [vignette](https://cran.rstudio.com/web/packages/expint/vignettes/expint.pdf) describes the math, the underlying C routines and alternative methods of calculation.
+
+*   [joinRML](https://cran.rstudio.com/web/packages/joineRML/) v0.1.1: Provides functions to fit joint models of longitudinal data and time to event outcomes as proposed by [Henderson et. al.](doi:10.1093/biostatistics/1.4.465), but extended to the case of multiple continuous longitudinal measures. There is an [introduction](https://cran.rstudio.com/web/packages/joineRML/vignettes/joineRML.html) to the package and a [vignette](https://cran.rstudio.com/web/packages/joineRML/vignettes/technical.pdf) with the technical details.
+
+*   [mixlink](https://cran.rstudio.com/web/packages/mixlink/) v0.1.4: The [Mixture Link model](http://arxiv.org/abs/1612.03302) is a proposed extension to generalized linear models, where the outcome distribution is a finite mixture of densities.
+
+*   [rrr](https://cran.rstudio.com/web/packages/rrr/) v1.0.0: Provides functions for fitting reduced-rank regression, diagnostics and graphics. The [vignette](https://cran.rstudio.com/web/packages/rrr/vignettes/rrr.html) shows the math along with worked examples.
+
+## Utilities
+
+*   [aws.ec2metadata](https://cran.rstudio.com/web/packages/aws.ec2metadata/) v0.1.1, [aws.polly](https://cran.rstudio.com/web/packages/aws.polly/) v0.1.2, [aws.ses](https://cran.rstudio.com/web/packages/aws.ses/) v0.1.4, [aws.sns](https://cran.rstudio.com/web/packages/aws.sns/) v0.1.5, [aws.sqs](https://cran.rstudio.com/web/packages/aws.sqs/) v0.1.8 are a series of packages for working with Amazon EC2 instances.
+
+*   [binman](https://cran.rstudio.com/web/packages/binman/) v0.0.7: Provides tools and functions for managing the download of binary files. The [vignette](https://cran.rstudio.com/web/packages/binman/vignettes/binman-Basics.html) shows how to use them.
+
+*   [blob](https://cran.rstudio.com/web/packages/blob/) v1.0.0: Provides an S3 class for representing vectors of binary data.
+
+*   [cleanr](https://cran.rstudio.com/web/packages/cleanr/) v1.1.2: Povides functions to check R code for some of the most common layout flaws. The [vignette](https://cran.rstudio.com/web/packages/cleanr/vignettes/cleanr_Introduction.html) shows how to use them.
+
+*   [nanotime](https://cran.rstudio.com/web/packages/nanotime/) v0.0.1: Provides Full 64-bit resolution date and time support with resolution up to nanosecond granularity. See [README](https://cran.rstudio.com/web/packages/nanotime/README.html).
+
+*   [narray](https://www.r-pkg.org/pkg/narray) v0.0.1: Provides functions to query and manipulate arrays of arbitrary dimensions. See the [vignette](https://cran.rstudio.com/web/packages/narray/vignettes/narray.html) for examples.
+
+*   [replyr](https://cran.rstudio.com/web/packages/replyr/) v0.2.0: Provides methods for working with remote 'tbl' sources ('SQL' databases, 'Spark') through 'dplyr'. There is an [introduction](https://cran.rstudio.com/web/packages/replyr/vignettes/letExample.html) and vignettes for [NA removal](https://cran.rstudio.com/web/packages/replyr/vignettes/NArm.html), [parametric programming](https://cran.rstudio.com/web/packages/replyr/vignettes/ParametricExample.html), and [using the let function](https://cran.rstudio.com/web/packages/replyr/vignettes/letExample.html).
+
+*   [rtrends](https://cran.rstudio.com/web/packages/rtrends/) v0.1.0: Provides functions for analyzing the RStudio CRAN mirror [logs](http://cran.rstudio.com/).
+
+*   [xaringan](https://cran.rstudio.com/web/packages/xaringan/) v0.1: Provides functions for creating HTML5 slides with R Markdown and the JavaScript library [remark.js](https://remarkjs.com)
+
+## Visualization
+
+*   [ggiraphExtra](https://cran.rstudio.com/web/packages/ggiraphExtra/) v0.1.0: Enhances ggplot2 and ggiraph with static and interactive exploratory plots. The [vignette](https://cran.rstudio.com/web/packages/ggiraphExtra/vignettes/introduction.html) provides several examples.
+
+*   [ggmosaic](https://cran.rstudio.com/web/packages/ggmosaic/) v0.1.0: Implements mosaic plots for ggplot2\. The [vignette](https://cran.rstudio.com/web/packages/ggmosaic/vignettes/ggmosaic.html) provides examples.
+
+*   [pals](https://cran.rstudio.com/web/packages/pals/) v1.0: Provides a comprehensive collection of color pallettes, colormaps along with tools to evaluate them. There an [overview](https://cran.rstudio.com/web/packages/pals/vignettes/pals_examples.html) and a vignette showing a [Color Caused Optical Illusion](https://cran.rstudio.com/web/packages/pals/vignettes/illusion.html).
+
+<iframe src="https://beta.rstudioconnect.com/content/2348/december_package_picks_block2.html" width="1000px" height="570px"></iframe>
+*   [Radviz](https://cran.rstudio.com/web/packages/Radviz/) v0.7.0: Implements the radviz projection, enabling the visualization of multidimensional data while maintaining the relation to the original dimensions. The [vignette](https://cran.rstudio.com/web/packages/Radviz/vignettes/single_cell_projections.html) shows how it works.
+
+*   [scatterpie](https://cran.rstudio.com/web/packages/scatterpie/) v0.0.5: Enhances ggplot2 with functions to put piecharts on maps. The [vignette](https://cran.rstudio.com/web/packages/scatterpie/vignettes/scatterpie.html) gives examples.
+
+*   [simmer.plot](https://cran.rstudio.com/web/packages/simmer.plot/) v0.1.5; Provides plots for the [simmer](https://cran.rstudio.com/web/packages/simmer/index.html) Discrete Event Simulation package. There are vignettes for plotting [statistics](https://cran.rstudio.com/web/packages/simmer.plot/vignettes/plot.simmer.html) and [diagrams](https://cran.rstudio.com/web/packages/simmer.plot/vignettes/plot.trajectory.html) of trajectories.
