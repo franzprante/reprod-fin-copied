@@ -1,0 +1,100 @@
+---
+title: February 2017 New Package Picks
+author: Joseph Rickert
+date: '2017-03-22'
+slug: february-2017-new-package-picks
+draft: yes
+---
+by Joseph Rickert
+
+One hundred and forty-five new packages were added to CRAN in February. Here are 47 interesting packages organized into five categories; Biostatistics, Data, Data Science, Statistics and Utilities. 
+
+
+#### Biostatistics   
+
+*   [BaTFLED3D](https://cran.rstudio.com/web/packages/BaTFLED3D/) v0.1.7: Implements a machine learning algorithm to make predictions and determine interactions in data that varies along three independent modes. It was developed to predict the growth of cell lines when treated with drugs at different doses. The [vignette](https://cran.rstudio.com/web/packages/BaTFLED3D/vignettes/BaTFLED3D_vignette.html) shows an example with simulated data.
+
+*   [DClusterm](https://cran.rstudio.com/web/packages/DClusterm/) v0.1: Implements methods for the model-based detection of disease clusters. Look at the [JSS paper](https://cran.rstudio.com/web/packages/DClusterm/vignettes/jss_paper.pdf) for details.
+
+#### Data    
+
+*   [ccafs](https://cran.rstudio.com/web/packages/ccafs/) v0.1.0: Provides access to data stored in Amazon S3 collected by the research program on [Climate Change, Agriculture and Food Security](https://ccafs.cgiar.org/es/news/data-better-understanding-changing-climate#.WML6tBLyvy0). There is an [introduction](https://cran.rstudio.com/web/packages/ccafs/vignettes/ccafs_vignette.html).
+
+*   [dataseries](https://cran.rstudio.com/web/packages/dataseries/) v0.1.0: Provides access to Swiss data series from [dataseries.org](http://www.dataseries.org/).
+
+*   [fpp2](https://cran.rstudio.com/web/packages/fpp2/) v2.0: Provides all of the data sets used in the online book [Forecasting: Principles and Practice](https://www.otexts.org/fpp2/).
+
+*   [rnaturalearthdata](https://cran.rstudio.com/web/packages/rnaturalearthdata/) v0.1.0: Contains the world vector map data used in [Natural Earth](http://www.naturalearthdata.com/).
+
+#### Data Science   
+*   [autothresholdr](https://cran.rstudio.com/web/packages/autothresholdr/) v0.2.0: Is an R port of the [ImageJ](https://imagej.nih.gov/ij//) image processing program. The [vignette](https://cran.rstudio.com/web/packages/autothresholdr/vignettes/autothresholdr.html) shows how to use it.
+
+*   [dlib](https://cran.rstudio.com/web/packages/dlib/) v1.0: Provides an Rcpp interface to [dlib](http://dlib.net/), the C++ toolkit containing machine learning algorithms and computer vision tools.
+
+*   [liquidSVM](https://cran.rstudio.com/web/packages/liquidSVM/) v1.0.1: Provides several functions to support a fast support vector machine implementation. There is a [demo vignette](https://cran.rstudio.com/web/packages/liquidSVM/vignettes/demo.html) and supplemental installation [documentation](https://cran.rstudio.com/web/packages/liquidSVM/vignettes/documentation.html).
+
+*   [OOBCurve](https://cran.rstudio.com/web/packages/OOBCurve/) v0.1: Provides a function to calculate the out-of-bag learning curve for random forest models built with the [randomForest](https://cran.r-project.org/web/packages/randomForest/index.html) or [ranger](https://cran.r-project.org/web/packages/ranger/index.html) packages. 
+
+*   [opusminer](https://cran.rstudio.com/web/packages/opusminer/) v0.1-0: Provides an interface to the [OPUS Miner](http://i.giwebb.com/index.php/research/association-discovery/) algorithm for finding the top-k, non-redundant itemsets from transaction data.
+
+#### Statistics   
+
+*   [BayesCombo](https://cran.rstudio.com/web/packages/BayesCombo/) v1.0: Implements Bayesian meta-analysis methods to combine diverse evidence from multiple studies. The [vignette](https://cran.rstudio.com/web/packages/BayesCombo/vignettes/BayesCombo_vignette.html) provides a detailed example.
+
+*   [BayesianTools](https://cran.rstudio.com/web/packages/BayesianTools/) v0.1.0: Implements various Metropolis MCMC variants (including adaptive and/or delayed rejection MH), the T-walk, differential evolution MCMCs, DREAM MCMCs, and a sequential Monte Carlo particle filter, along with diagnostic and plot functions. The [vignette](https://cran.rstudio.com/web/packages/BayesianTools/vignettes/BayesianTools.html) will get you started.
+
+*   [FRK](https://cran.rstudio.com/web/packages/FRK/) v0.1.1: Implements the Fixed Rank Kriging methods presented by Cressie and Johannesson in their 2008 [paper](doi:10.1111/j.1467-9868.2007.00633.x). An extended [vignette](https://cran.rstudio.com/web/packages/FRK/vignettes/FRK_intro.pdf) explains the math and provides several examples.
+
+![](/2017-03-22-february-2017-new-package-picks/FRK.png)
+
+
+*   [glmmTMB](https://cran.rstudio.com/web/packages/glmmTMB/) v0.1.1: Provides functions to fit Generalized Linear Mixed Models using the Template Model Builder [(TMB)](https://cran.rstudio.com/web/packages/TMB/index.html) package. There are vignettes for [getting started](https://cran.rstudio.com/web/packages/glmmTMB/vignettes/troubleshooting.html), [Covariance Structures](https://cran.rstudio.com/web/packages/glmmTMB/vignettes/covstruct.html), [post-hoc MCMC](https://cran.rstudio.com/web/packages/glmmTMB/vignettes/mcmc.html), [simulation](https://cran.rstudio.com/web/packages/glmmTMB/vignettes/sim.html), and [troubleshooting](https://cran.rstudio.com/web/packages/glmmTMB/vignettes/troubleshooting.html).
+
+*   [IMIFA](https://cran.rstudio.com/web/packages/IMIFA/) v1.1.0: Provides flexible Gibbs sampler functions for fitting Infinite Mixtures of Infinite Factor Analysers and related models, introduced by Murphy et al. in a 2017 [paper](https://arxiv.org/pdf/1701.07010.pdf). The [vignette](https://cran.rstudio.com/web/packages/IMIFA/vignettes/IMIFA.html) shows examples.
+
+*   [ImputeRobust](https://cran.rstudio.com/web/packages/ImputeRobust/) v1.1-1: Provides new imputation methods for the [mice](https://cran.r-project.org/web/packages/mice/index.html) package, based on generalized additive models for location, scale, and shape (GAMLSS) as described in [de Jong, van Buuren and Spiess](doi:10.1080/03610918.2014.911894).
+
+*   [lmvar](https://cran.rstudio.com/web/packages/lmvar/) v1.0.0: Provides functions to run linear regressions in which both the expected value and variance can vary by observation. Vignettes provide an [introduction](https://cran.rstudio.com/web/packages/lmvar/vignettes/Intro.html) and explain the details of the [math](https://cran.rstudio.com/web/packages/lmvar/vignettes/Math.pdf).
+
+*   [metaviz](https://cran.rstudio.com/web/packages/metaviz/) v0.1.0: Implements the rainforest plots proposed by [Schild & Voracek](doi:10.1002/jrsm.1125) as a variant of the forest plots used for meta-analysis. The [vignette](https://cran.rstudio.com/web/packages/metaviz/vignettes/metaviz.html) describes their use.
+
+![](/2017-03-22-february-2017-new-package-picks/metavis.png)
+
+*   [prophet](https://cran.rstudio.com/web/packages/prophet/) v0.1: Implements a procedure for forecasting time series data based on an additive model where non-linear trends are fit with yearly and weekly seasonality, plus holidays. There is a [Quick Start guide](https://cran.rstudio.com/web/packages/prophet/vignettes/quick_start.html).
+
+*   [robustarima](https://cran.rstudio.com/web/packages/robustarima/) v0.2.5: Provides functions for fitting a linear regression model with ARIMA errors, using a filtered tau-estimate.
+
+*   [rpgm](https://cran.rstudio.com/web/packages/rpgm/) v0.1.3: Provides functions that use the [Ziggurat Method](https://www.jstatsoft.org/article/view/v005i08) to generate Normal random variates quickly.
+
+*   [sarima](https://cran.rstudio.com/web/packages/sarima/) v0.4-3: Provides functions for simulating and predicting with seasonal ARIMA models. The [vignette](https://cran.rstudio.com/web/packages/sarima/vignettes/white_noise_tests.pdf) presents a use case. 
+
+*   [sppmix](https://cran.rstudio.com/web/packages/sppmix/) v1.0.0.0: Implements classes and methods for modeling spatial point patterns using inhomogeneous Poisson point processes, where the intensity surface is assumed to be analogous to a finite additive mixture of normal components, and the number of components is a finite, fixed or random integer. 
+
+![](/2017-03-22-february-2017-new-package-picks/sppmix.png)
+Look [here](http://www.stat.missouri.edu/~amicheas/sppmix/sppmix_tutorial_links.html) for documentation.
+
+*   [walkr](https://cran.rstudio.com/web/packages/walkr/) v0.3.4: Provides functions to sample from the interaction of a hyperplane and an [N Simplex](https://en.wikipedia.org/wiki/Simplex). The [vignette](https://cran.rstudio.com/web/packages/walkr/vignettes/walkr.pdf) describes the math and the algorithms involved.
+
+#### Utilities   
+*   [AWR](https://cran.rstudio.com/web/packages/AWR/) v1.11.88: Installs the compiled Java modules of the [Amazon Web Services SDK](https://aws.amazon.com/sdk-for-java) for R packages interacting with AWS.
+
+*   [AWR.Kinesis](https://cran.rstudio.com/web/packages/AWR.Kinesis/) v1.7.3: Provides functions for fetching data from [Amazon Kinesis Streams](https://aws.amazon.com/kinesis) using the Java-based [MultiLangDaemon](https://github.com/awslabs/amazon-kinesis-client/blob/master/src/main/java/com/amazonaws/services/kinesis/multilang/MultiLangDaemonConfig.java). 
+
+*   [AWR.KMS](https://cran.rstudio.com/web/packages/AWR.KMS/) v0.1: Provides functions to encrypt plain text and 'decrypt' cipher text using encryption keys hosted at [Amazon Web Services Key Management Service](https://aws.amazon.com/kms).
+
+*   [drake](https://cran.rstudio.com/web/packages/drake/) v2.0.0: Provides a reproducible build system for R that understands the workflow dependency structure, builds out-of-date targets, skips up-to-date targets, and offers two forms of parallel computing. There is a [quickstart guide](https://cran.rstudio.com/web/packages/drake/vignettes/quickstart.html).
+
+*   [filesstrings](https://cran.rstudio.com/web/packages/filesstrings/) v0.3.1: Provides tools for manipulating [strings](https://cran.rstudio.com/web/packages/filesstrings/vignettes/strings.html) and [files](https://cran.rstudio.com/web/packages/filesstrings/vignettes/files.html) on top of stringr.
+
+*   [ggraph](https://cran.rstudio.com/web/packages/ggraph/) v1.0.1: Provides functions to extend ggplot2 to graph visualizations. There are vignettes showing how to work with [Edges](https://cran.rstudio.com/web/packages/ggraph/vignettes/Edges.html), [Layouts](https://cran.rstudio.com/web/packages/ggraph/vignettes/Layouts.html), and [Nodes](https://cran.rstudio.com/web/packages/ggraph/vignettes/Nodes.html).
+
+![](/2017-03-22-february-2017-new-package-picks/ggraph.png)
+
+*   [odbc](https://cran.rstudio.com/web/packages/odbc/) v1.0.1: Uses the DBI interface to implement a connection to ODBC compatible databases.
+
+*   [sonify](https://cran.rstudio.com/web/packages/sonify/) v0.1-0: Contains a function to transform univariate data, sampled at regular or irregular intervals, into a continuous sound with time-varying frequency. The function is intended as a substitute for R's `plot` function to simplify data analysis for the visually impaired.
+
+*   [widgetframe](https://cran.rstudio.com/web/packages/widgetframe/) v0.1.0: Provides two functions for working with htmlwidgets and iframes, which may be useful when working with Wordpress or R Markdown. There is a [vignette](https://cran.rstudio.com/web/packages/widgetframe/vignettes/Using_widgetframe.html).
+
+*   [wrapr](https://cran.rstudio.com/web/packages/wrapr/) v0.1.1: Contains the debugging functions [DebugFnW](https://cran.rstudio.com/web/packages/wrapr/vignettes/DebugFnW.html) to capture function context on error for debugging, and [let](https://cran.rstudio.com/web/packages/wrapr/vignettes/let.html) to convert non-standard evaluation interfaces to standard evaluation interfaces.
+
