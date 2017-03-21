@@ -1,12 +1,14 @@
 ---
 author: "Jonathan Regenstein"
-categories: [R views]
-date: 2017-01-31T00:54:51Z
-draft: true
+categories: [Reproducible Finance with R, Finance, R Language]
+date: 2017-02-03
+draft: false
 summary: "interactive rolling correlations sectors and SP500"
-tags: [Data Science, Finance, R Language, Time Series]
+tags: [Shiny, R]
 title: "Reproducible Finance with R: Sector Correlations Shiny App"
 ---
+
+by Jonathan Regenstein
 
 In a [previous post](https://www.rstudio.com/rviews/2017/01/18/reproducible-finance-with-r-sector-correlations/), we built an R Notebook that pulled in data on sector ETFs and allowed us to calculate the rolling correlation between a sector ETF and the S&P 500 ETF, whose ticker is SPY. Today, we’ll wrap that into a Shiny app that allows the user to choose a sector, a returns time period such as ‘daily’ or ‘weekly’, and a rolling window. For example, if a user wants to explore the 60-day rolling correlation between the S&P 500 and an energy ETF, our app will show that. As is customary, we will use the flexdashboard format and reuse as much as possible from our Notebook. 
 

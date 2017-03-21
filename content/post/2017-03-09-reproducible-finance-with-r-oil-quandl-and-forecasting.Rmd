@@ -2,9 +2,9 @@
 title: 'Quandl and Forecasting'
 author: "Jonathan Regenstein"
 date: '2017-03-17'
-categories: [R Views]
-tags: [Reproducible Finance with R, R Language, Data Science]
-draft: yes
+categories: [Reproducible Finance with R, Data Science, Statistics, R Language]
+tags: [R, R Markdown]
+draft: no
 summary: 'A Notebook for importing oil prices from Quandl, making a 6-month forecast, and visualizig the results'
 ---
 

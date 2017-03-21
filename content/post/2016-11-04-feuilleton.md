@@ -1,10 +1,12 @@
 ---
 title: "Feuilleton"
 author: "Joseph Rickert"
-date: 2016-11-04T00:51:21+00:00
-categories: [R Views]
-tags: [Feuilleton, Opinions, R Language, Reviews]
+date: 2016-11-04
+categories: [News, R Language]
+tags: [R]
 ---
+
+by Joseph Rickert
 
 Here we offer ephemera, a little light reading and some more challenging material. We hope that least some of it will become the "[talk of the town](https://en.wikipedia.org/wiki/Feuilleton)".
 

@@ -1,10 +1,10 @@
 ---
 title: "Reproducible Finance with R: The Sharpe Ratio"
 author: "Jonathan Regenstein"
-date: 2016-11-09T00:29:10+00:00
+date: 2016-11-09
 slug: reproducible-finance-with-r-the-sharpe-ratio
-categories: [R Views]
-tags: [Data Science, Finance, R Language, Time Series]
+categories: [Reproducible Finance with R, Finance, Applications, R Language]
+tags: [Sharpe Ratio, R]
 ---
 
 ```{r setup, include=FALSE}
@@ -14,6 +14,8 @@ for (pkg in c('PerformanceAnalytics', 'quantmod', 'dygraphs', 'RColorBrewer')) {
   if (!requireNamespace(pkg)) install.packages(pkg)
 }
 ```
+
+by Jonathan Regenstein
 
 Financial applications were an early driving force behind the adoption of the R language, but as data science becomes increasingly critical to banks, hedge funds, investment managers, data providers, exchanges, etc., R is becoming even more important to Finance. We are excited and inspired by what the future holds in the brave new world of data-driven financial institutions. In this first post of what we hope will be a regular series about Finance, R and RStudio, we present a classic use case: import stock data, build a portfolio, and calculate the Sharpe Ratio. We use the new RStudio IDE Notebooks tool to emphasize reproducibility.
 

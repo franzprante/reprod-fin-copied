@@ -1,7 +1,10 @@
 ---
 title: 'How to Teach R: Common mistakes'
+author: 'Garrett Grolemund'
 date: '2017-02-22'
-draft: yes
+categories: [Education, R Language]
+tags: [R]
+draft: no
 ---
 
 by Garrett Grolemund

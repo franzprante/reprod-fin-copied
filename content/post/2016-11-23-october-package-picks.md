@@ -1,10 +1,12 @@
 ---
 title: "October Package Picks"
 author: "Joseph Rickert"
-date: 2016-11-23T12:50:04+00:00
-categories: [R Views]
-tags: [Packages, R Language]
+date: 2016-11-23
+categories: [R Packages, R Language]
+tags: [R]
 ---
+
+by Joseph Rickert
 
 In my [August Package Picks](/2016/10/21/august-package-picks/) post, I explained that my selection criteria favor packages with vignettes. (I find skimming through a package's vignettes to be an effective method of "grokking" what a package is all about.) I also questioned why a person would go to all of the trouble to develop a package and put it on CRAN without writing a vignette. Since writing that post, I have had the opportunity to speak with experienced package authors who argue, with some considerable authority, that the object documentation (what you get when you type "?foo" at the console) and the README file comprise a package's most important documentation.
 
