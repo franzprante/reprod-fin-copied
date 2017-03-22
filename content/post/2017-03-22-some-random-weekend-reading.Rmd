@@ -1,0 +1,53 @@
+---
+title: Some Random Weekend Reading
+author: Joseph Rickert
+date: '2017-03-22'
+slug: some-random-weekend-reading
+categories:
+  - Opinion
+  - Book Review
+  - R
+  - R Packages
+tags:
+  - R
+draft: yes
+---
+by Joseph Rickert
+
+Few of us have enough time to read, and most of us already have depressingly deep stacks of material that we would like to get through. However, somethimes a random encounter with something interesting is all that it takes to regenerate enthusiasm. Just in case you are not going to get to a book store with a good technical section this weekend here are a few not quite random reads.
+
+
+[Deep Learning](http://www.deeplearningbook.org/) by Goodfellow, Bengio and Courville is a solid, self-contained introduction to Deep Learning that begins with Linear Algebra and ends with discussions of research topics such as Autoencoders, Representation Learning, and Boltzman Machines. The online layout extends an invitation to click anywhere and begin reading. Sampling the chapters, I found the text to be engaging reading; much more interesting and lucid than just an online resource. For some Deep Dearning practice with R and [H2O](https://h2o-release.s3.amazonaws.com/h2o/rel-slater/9/docs-website/h2o-docs/booklets/DeepLearning_Vignette.pdf) have a look at the post [Deep Learning in R](http://www.rblog.uni-freiburg.de/2017/02/07/deep-learning-in-r/) by Kutkina and Feuerriegel.
+
+ 
+However, if you are under the impression that getting a handle on Deep Learning will get you totally up to speed with neural network buzzwords, you may be disappointed. [Extreme Learning Machines](https://en.wikipedia.org/wiki/Extreme_learning_machine), which "aim to break the barriers between the convential artificial learning techniques and biological learning mechanisms" are sure to take you even deeper int to the abyss. For a succinct introduction to ELMs with and application to handwritten digit classification, have a look at the [recent paper](https://www.hindawi.com/journals/cin/2016/3049632/) by Pang and Yang. For more than an afternoon's worth of reading, browse through the IEEE Intelligent Systems issue on [Extreme Learning Machines](http://www.ntu.edu.sg/home/egbhuang/pdf/IEEE-IS-ELM.pdf) [here](http://www.ntu.edu.sg/home/egbhuang/) and the other resources collected [here](http://www.ntu.edu.sg/home/egbhuang/pdf/IEEE-IS-ELM.pdf). See the  [announcement](http://www.ntu.edu.sg/home/egbhuang/ELM2014/index.html) of the 2014 conference for the full context of the quote above.
+
+For something a little lighter and closer to closer to home, [Christopher Gandrud's page](https://christophergandrud.github.io/networkD3/) on the [networkD3](https://cran.r-project.org/web/packages/networkD3/index.html) package is sure to set you browsing through [Sankey Diagrams](https://en.wikipedia.org/wiki/Sankey_diagram) and [Force Directed Drawing Alorithms](https://cs.brown.edu/~rt/gdhandbook/chapters/force-directed.pdf).
+
+
+
+```{r, echo=FALSE}
+lapply(c('networkD3'), function(x) {
+  if (!requireNamespace(x)) install.packages(x)
+})
+```    
+
+```{r, warning=FALSE}
+library(networkD3)
+# Load data
+data(MisLinks)
+data(MisNodes)
+
+# Plot
+forceNetwork(Links = MisLinks, Nodes = MisNodes,
+            Source = "source", Target = "target",
+            Value = "value", NodeID = "name",
+            Group = "group", opacity = 0.8)
+```   
+
+
+Finally, if you are like me, and think that the weekends are for catching up on things that you should probably already know, but on which you might be a bit shaky, remember that you can never know enough about GitHub. Compliments of GitHub's Carolyn Shin here is some online GitHub reading: [GitHub Guides](https://guides.github.com/), [GitHub on Demand Training](https://github.com/github/training-kit), and an online version of the [Pro Git Book](https://git-scm.com/book/en/v2).
+
+Reading recommendations go both ways. Please feel free to comment with some recommendations of your own.
+
+#
