@@ -33,7 +33,7 @@
     title = "Recents"
 
 [widgets.tag_cloud]
-    title = "Tag cloud"
+    title = "Tags"
 
 [widgets.tags]
     title = "Tags"
