@@ -1399,7 +1399,7 @@ ol.toc {
   page-break-inside: avoid;
   overflow: hidden;
   break-inside: avoid-column;
-  padding: 0;
+  padding: 1em;
   margin-bottom: 15px;
 }
 .archive-article:before,
