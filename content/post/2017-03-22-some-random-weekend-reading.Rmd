@@ -1,7 +1,7 @@
 ---
 title: Some Random Weekend Reading
 author: Joseph Rickert
-date: '2017-03-22'
+date: '2017-03-24'
 slug: some-random-weekend-reading
 categories:
   - Opinion
@@ -26,13 +26,13 @@ For something a little lighter and closer to closer to home, [Christopher Gandru
 
 
 
-```{r, echo=FALSE}
+```{r, include=FALSE, message=FALSE}
 lapply(c('networkD3'), function(x) {
   if (!requireNamespace(x)) install.packages(x)
 })
 ```    
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, message=FALSE}
 library(networkD3)
 # Load data
 data(MisLinks)
