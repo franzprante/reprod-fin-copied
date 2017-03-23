@@ -229,6 +229,8 @@ code {
 .widget-title {
   line-height: 1em;
   text-decoration: none;
+}
+.widget-title {
   text-transform: uppercase;
 }
 #header,
@@ -1908,7 +1910,6 @@ ol.toc {
 #recent-post li .item-inner a,
 #recent-post li .item-inner .item-category {
   font-size: 13px;
-  text-transform: uppercase;
 }
 #recent-post li .item-inner a a,
 #recent-post li .item-inner .item-category a {
