@@ -9,7 +9,23 @@
             {{ end }}
             </a>
 
-            {{ partial "article_header" . }}
+<header class="article-header">
+    <a href="{{ .Permalink }}">
+    <h1 class="article-title" itemprop="name">
+        {{ .Title }}
+    </h1>
+    </a>
+    {{ if and (isset .Params "author") (not (eq .Params.author "")) }}
+    <div class="article-meta">
+      <div>
+        <i class="fa fa-user"></i>
+        {{ .Params.author }}
+        <i class="fa fa-calendar"></i>
+        <time datetime="{{ .Date }}" itemprop="datePublished">{{ .Date.Format .Site.Params.date_format }}</time>
+      </div>
+    </div>
+  {{ end }}
+</header>
             <div class="article-entry" itemprop="articleBody">
                 <p>
                   {{ if and (isset .Params "summary") (not (eq .Params.summary "")) }}
