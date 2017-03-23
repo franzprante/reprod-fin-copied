@@ -863,8 +863,6 @@ a.article-title:hover {
   clear: both;
 }
 .article-meta > div {
-  float: left;
-  margin-right: 10px;
 }
 .article-meta > div .fa {
   margin-right: 3px;
