@@ -1,6 +1,7 @@
 ---
 title: 'Reproducible Finance with R: ETF Country Exposure'
 author: 'Jonathan Regenstein'
+author_by: '[A Reproducible Finance with R](/categories/reproducible-finance-with-r/) Post by Jonathan Regenstein'
 date: '2017-02-08'
 categories: [Reproducible Finance with R, Visualizations, Finance, Applications, R Language]
 tags: [R]
