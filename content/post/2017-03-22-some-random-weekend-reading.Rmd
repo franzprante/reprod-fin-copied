@@ -10,7 +10,7 @@ categories:
   - R Packages
 tags:
   - R
-draft: yes
+draft: no
 ---
 by Joseph Rickert
 
