@@ -49,13 +49,21 @@
             {{ end }}
         {{ end }}
       </div>
-      {{ with .Params.author_by }}
-      <div>{{ . | markdownify }}</div>
-      {{ end }}
     </div>
   {{ end }}
 </header>
             <div class="article-entry" itemprop="articleBody">
+                {{ if and (isset .Params "author_by") (not (eq .Params.author_by "")) }}
+                  {{ with .Params.author_by }}
+                  <div>{{ . | markdownify }}</div>
+                  {{ end }}
+                {{ else }}
+                  {{ if and (isset .Params "author") (not (eq .Params.author "")) }}
+                    {{ with .Params.author }}
+                    <div>by {{ . | markdownify }}</div>
+                    {{ end }}
+                  {{ end }}
+                {{ end }}
                 {{ .Content }}
             </div>
             {{ partial "article_footer" . }}
