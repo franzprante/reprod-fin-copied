@@ -7,8 +7,6 @@ tags: [R]
 draft: no
 ---
 
-by Jonathan Regenstein
-
 Today, we are going to tackle a project that has long been on my wishlist - a Shiny app to take a fund or portfolio, analyze its exposure to different countries and display those exposures on a world map. Now you know how exciting my wishlists are.
  
 Before describing our data importing/wrangling work here in the Notebook, it mgight be helpful to look at where we're headed.  The final Shiny app is [here](http://colorado.rstudio.com:3939/content/277/). This is similar to a [previous project](http://colorado.rstudio.com:3939/content/206/) because we are building a leaflet map, shading according to data that we add to the spatial dataframe, and including another HTML widget that is reponsive to the map. However, our current project differs in important ways and has a completely different use. 

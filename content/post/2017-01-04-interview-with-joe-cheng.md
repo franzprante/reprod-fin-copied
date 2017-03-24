@@ -6,8 +6,6 @@ categories: [Interview, R Language]
 tags: [R]
 ---
 
-by Joseph Rickert
-
 Recently, I had the opportunity to interview RStudio's Joe Cheng. Joe, the inventor and lead developer for Shiny, was the first person that J.J. Allaire invited to join the RStudio IDE project. We talked about those early days, how Shiny got started, Joe's background as a software developer, his take on the R language and more. What follows is an edited transcript of our conversation.
 
 ****

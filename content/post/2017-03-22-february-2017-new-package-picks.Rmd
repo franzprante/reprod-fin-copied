@@ -5,7 +5,6 @@ date: '2017-03-22'
 slug: february-2017-new-package-picks
 draft: yes
 ---
-by Joseph Rickert
 
 One hundred and forty-five new packages were added to CRAN in February. Here are 47 interesting packages organized into five categories; Biostatistics, Data, Data Science, Statistics and Utilities. 
 

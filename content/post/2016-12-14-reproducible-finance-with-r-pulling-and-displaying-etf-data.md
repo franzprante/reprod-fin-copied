@@ -6,8 +6,6 @@ categories: [Reproducible Finance with R, Finance, Applications, R Language]
 tags: [R]
 ---
 
-by Jonathan Regenstein
-
 It's the holiday season, and that can mean only one thing: time to build a leaflet map as an interface to country Exchange Traded Fund ([ETF](https://en.wikipedia.org/wiki/Exchange-traded_fund)) data!
 
 In previous posts, we examined how to import stock data and then calculate and display the Sharpe Ratio of a portfolio. Today, we're going to skip the calculations and focus on a nice interface for pulling and displaying data. Specifically, our end product will enable users to graph country ETF prices by clicking on those countries in an interactive map, instead of having to use the ETF ticker symbol. Admittedly, part of the motivation here is that I don't like having to remember ticker symbols for country ETFs, but hopefully others will find it useful too.

@@ -7,8 +7,6 @@ categories: [R for the Enterprise, Finance, Applications, R Language]
 tags: [R]
 ---
 
-by Nathan Stephens
-
 # How R Enters Through the Back Door
 
 In many organizations, R enters through the back door when analysts download the free software and install it on their local workstations.

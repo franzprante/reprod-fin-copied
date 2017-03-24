@@ -14,8 +14,6 @@ lapply(c('dplyr', 'quantmod', 'dygraphs'), function(x) {
 })
 ```
 
-by Jonathan Regenstein
-
 Welcome to the first installation of reproducible finance for 2017. It's a new year, a new President takes office soon, and we could be entering a new political-economic environment. What better time to think about a popular topic over the last few years: equity correlations. Elevated correlations are important for several reasons - life is hard for active managers and diversification gains are vanishing - but I personally enjoy thinking about them more from an inference or data exploration perspective. Are changning correlations telling us something about the world? Are sectors diverging? How much can be attributed to the Central Bank regime at hand? So many questions, so many hypotheses to be explored. Let's get started.
 
 Today, we will build a Notebook and start exploring the historical rolling correlations between sector ETFs and the S&P 500.  That is, we want to explore how equity returns in different sectors have been correlated with the returns of the broader index. Perhaps they are all moving in lockstep, perhaps they have been diverging. Either way, this Notebook will be the first step toward an flexdashboard that lets us do more interactive exploration - choosing different sector ETFs and rolling windows. 

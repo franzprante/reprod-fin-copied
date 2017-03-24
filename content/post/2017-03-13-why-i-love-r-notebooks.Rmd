@@ -9,8 +9,6 @@ tags: [R, R Markdown]
 slug: why-i-love-r-notebooks
 ---
 
-by Nathan Stephens
-
 *Note: [R Notebooks](https://blog.rstudio.org/2016/10/05/r-notebooks/) requires [RStudio Version 1.0](https://www.rstudio.com/products/rstudio/download/) or later*
 
 I'm a big fan of the R console. During my early years with R, that's all I had, so I got very comfortable with pasting my code into the console. Since then I've used many code editors for R, but they all followed the same paradigm -- script in one window and get output in another window. Notebooks on the other hand combine code, output, and narrative into a single document. Notebooks allow you to interactively build narratives around small chunks of code and then publish the complete notebook as a report.

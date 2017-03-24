@@ -8,8 +8,6 @@ tags: [R]
 title: "More January Package Picks"
 ---
 
-by Joseph Rickert
-
 In a [recent post](https://www.rstudio.com/rviews/2017/02/17/january-new-data-packages/), I highlighted several new packages that arrived on CRAN in January that provided R users with access to data. In this post, I present additional selections for interesting January packages, organized into the categories Miscellaneous, Machine Learning, Statistics and Utilities.
 
 ## Miscellaneous

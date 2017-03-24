@@ -7,8 +7,6 @@ categories: [R Packages, R Language]
 tags: [R]
 ---
 
-by Joseph Rickert
-
 September was a bit of a slow month for new R packages. Only 96 new packages showed up on CRAN. Nevertheless, I have picked out 23 for special mention which I have listed in 5 categories. I used the same selection criteria as I [described in the post for August picks](/2016/10/21/august-package-picks/).
 
 ## Data and Interfaces

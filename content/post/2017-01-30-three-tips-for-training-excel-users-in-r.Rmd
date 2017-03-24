@@ -1,5 +1,6 @@
 ---
 author: "Merav Yuravlivker"
+author_by: "by Merav Yuravlivker, CEO of Data Society"
 categories: [Education, R Language]
 date: 2017-02-10
 draft: false
@@ -7,7 +8,6 @@ summary: ""
 tags: [Excel, R]
 title: "Three Tips for Training Excel Users in R"
 ---
-by Merav Yuravlivker, CEO of Data Society
 
 “I’m not a coder” or “I was never good at math” is a frequent refrain I hear when I ask professionals about their data analysis skills. Through popular culture and stereotypes, most people who don’t have a background in programming automatically underestimate their ability to create amazing things with code. However, Data Society has proven that this is a false narrative through our training program – with students in over 20 countries and many government and enterprise clients, we’ve seen so-called “non-coders” proficiently put together automated data cleaning code scripts and analyses within a few weeks. So how do we do it? Well, we’ve singled out three key steps to get someone started on their journey to an amazing skill set and more powerful data analytics: 
 

@@ -12,7 +12,6 @@ tags:
   - R
 draft: no
 ---
-by Joseph Rickert
 
 Few of us have enough time to read, and most of us already have depressingly deep stacks of material that we would like to get through. However, sometimes a random encounter with something interesting is all that it takes to regenerate enthusiasm. Just in case you are not going to get to a book store with a good technical section this weekend, here are a few not-quite-random reads.
 
