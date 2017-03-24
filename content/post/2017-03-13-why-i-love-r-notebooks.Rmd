@@ -3,7 +3,6 @@ title: Why I love R Notebooks
 date: 2017-03-15
 draft: no
 author: "Nathan Stephens"
-summary: "Data science with R Notebooks"
 categories: [R Language]
 tags: [R, R Markdown]
 slug: why-i-love-r-notebooks
