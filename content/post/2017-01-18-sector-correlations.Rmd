@@ -1,9 +1,10 @@
 ---
 author: "Jonathan Regenstein"
+author_by: "A Reproducible Finance with R Post by Jonathan Regenstein"
 categories: [Reproducible Finance with R, Visualizations, Time Series, Applications, R Language]
 date: 2017-01-18
+slug: "reproducible-finance-with-r-sector-correlations"
 draft: false
-summary: ""
 tags: [R]
 title: "Sector Correlations"
 ---
