@@ -46,7 +46,7 @@ One hundred and forty-five new packages were added to CRAN in February. Here are
 
 *   [FRK](https://cran.rstudio.com/web/packages/FRK/) v0.1.1: Implements the Fixed Rank Kriging methods presented by Cressie and Johannesson in their 2008 [paper](doi:10.1111/j.1467-9868.2007.00633.x). An extended [vignette](https://cran.rstudio.com/web/packages/FRK/vignettes/FRK_intro.pdf) explains the math and provides several examples.
 
-![](/2017-03-22-february-2017-new-package-picks/FRK.png)
+![](/post/2017-03-22-february-2017-new-package-picks_files/FRK.png)
 
 
 *   [glmmTMB](https://cran.rstudio.com/web/packages/glmmTMB/) v0.1.1: Provides functions to fit Generalized Linear Mixed Models using the Template Model Builder [(TMB)](https://cran.rstudio.com/web/packages/TMB/index.html) package. There are vignettes for [getting started](https://cran.rstudio.com/web/packages/glmmTMB/vignettes/troubleshooting.html), [Covariance Structures](https://cran.rstudio.com/web/packages/glmmTMB/vignettes/covstruct.html), [post-hoc MCMC](https://cran.rstudio.com/web/packages/glmmTMB/vignettes/mcmc.html), [simulation](https://cran.rstudio.com/web/packages/glmmTMB/vignettes/sim.html), and [troubleshooting](https://cran.rstudio.com/web/packages/glmmTMB/vignettes/troubleshooting.html).
@@ -59,7 +59,7 @@ One hundred and forty-five new packages were added to CRAN in February. Here are
 
 *   [metaviz](https://cran.rstudio.com/web/packages/metaviz/) v0.1.0: Implements the rainforest plots proposed by [Schild & Voracek](doi:10.1002/jrsm.1125) as a variant of the forest plots used for meta-analysis. The [vignette](https://cran.rstudio.com/web/packages/metaviz/vignettes/metaviz.html) describes their use.
 
-![](/2017-03-22-february-2017-new-package-picks/metavis.png)
+![](/post/2017-03-22-february-2017-new-package-picks_files/metavis.png)
 
 *   [prophet](https://cran.rstudio.com/web/packages/prophet/) v0.1: Implements a procedure for forecasting time series data based on an additive model where non-linear trends are fit with yearly and weekly seasonality, plus holidays. There is a [Quick Start guide](https://cran.rstudio.com/web/packages/prophet/vignettes/quick_start.html).
 
@@ -71,7 +71,7 @@ One hundred and forty-five new packages were added to CRAN in February. Here are
 
 *   [sppmix](https://cran.rstudio.com/web/packages/sppmix/) v1.0.0.0: Implements classes and methods for modeling spatial point patterns using inhomogeneous Poisson point processes, where the intensity surface is assumed to be analogous to a finite additive mixture of normal components, and the number of components is a finite, fixed or random integer. 
 
-![](/2017-03-22-february-2017-new-package-picks/sppmix.png)
+![](/post/2017-03-22-february-2017-new-package-picks_files/sppmix.png)
 Look [here](http://www.stat.missouri.edu/~amicheas/sppmix/sppmix_tutorial_links.html) for documentation.
 
 *   [walkr](https://cran.rstudio.com/web/packages/walkr/) v0.3.4: Provides functions to sample from the interaction of a hyperplane and an [N Simplex](https://en.wikipedia.org/wiki/Simplex). The [vignette](https://cran.rstudio.com/web/packages/walkr/vignettes/walkr.pdf) describes the math and the algorithms involved.
@@ -89,7 +89,7 @@ Look [here](http://www.stat.missouri.edu/~amicheas/sppmix/sppmix_tutorial_links.
 
 *   [ggraph](https://cran.rstudio.com/web/packages/ggraph/) v1.0.1: Provides functions to extend ggplot2 to graph visualizations. There are vignettes showing how to work with [Edges](https://cran.rstudio.com/web/packages/ggraph/vignettes/Edges.html), [Layouts](https://cran.rstudio.com/web/packages/ggraph/vignettes/Layouts.html), and [Nodes](https://cran.rstudio.com/web/packages/ggraph/vignettes/Nodes.html).
 
-![](/2017-03-22-february-2017-new-package-picks/ggraph.png)
+![](/post/2017-03-22-february-2017-new-package-picks_files/ggraph.png)
 
 *   [odbc](https://cran.rstudio.com/web/packages/odbc/) v1.0.1: Uses the DBI interface to implement a connection to ODBC compatible databases.
 
