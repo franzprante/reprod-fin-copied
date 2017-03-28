@@ -34,7 +34,7 @@
               <input type="search" name="q" class="search-form-input" placeholder="{{with .Site.Data.l10n.search.placeholder}}{{.}}{{end}}">
               <button type="submit" class="search-form-submit">
               </button>
-              <input type="hidden" name="q" value="site:{{ .Site.BaseURL }}">
+              <input type="hidden" name="q" value="site:{{ .Site.Params.BaseURL }}">
          </form>
         </div>
     </div>
