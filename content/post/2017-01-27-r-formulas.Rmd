@@ -16,8 +16,6 @@ for (pkg in c('splines','caret')) {
 }
 ```
 
-by Max Kuhn
-
 ## Introduction
 
 The formula interface to symbolically specify blocks of data is ubiquitous in R. It is commonly used to generate _design matrices_ for modeling function (e.g. `lm`). In traditional linear model statistics, the _design matrix_ is the two-dimensional representation of the predictor set where instances of data are in rows and variable attributes are in columns (a.k.a. the _X_ matrix). 

@@ -1,8 +1,10 @@
 ---
 title: 'Interactive Maps and ETF Analysis'
 author: 'Jonathan Regenstein'
+author_by: '[A Reproducible Finance with R](/categories/reproducible-finance-with-r/) Post by Jonathan Regenstein'
 date: '2017-03-08'
-categories: [Reproducble Finance with R, Finance, Applications, R Language]
+slug: 'reproducible-finance-with-r-interactive-maps-and-etf-analysis'
+categories: [Reproducible Finance with R, Finance, Applications, R Language]
 tage: [Shiny, R]
 draft: no
 ---
@@ -12,7 +14,6 @@ draft: no
 
 <!-- BLOGDOWN-BODY-BEFORE -->
 <!-- /BLOGDOWN-BODY-BEFORE -->
-<p>by Jonathan Regenstein</p>
 <p>In this post, I’ll describe a <a href="http://colorado.rstudio.com:3939/content/277/">Shiny app</a> to support the Emerging Markets ETF Country Exposure analysis developed in a <a href="https://www.rstudio.com/rviews/2017/02/08/reproducible-finance-with-r-etf-country-exposure/">previous post</a></p>
 <p>I have done some additional work and updated the analysis to include five ETFs in the app, whereas we originally imported data on 1 ETF. The new notebook is available <a href="http://colorado.rstudio.com:3939/content/322/Fund-Country-Weights-Multiple-ETFS-DataGrab.nb.html">here</a>.</p>
 <p>As we start to build our Shiny app, we will assume that our underlying Notebook has been used to build the desired ETF data objects and spatial data frame, and that those have been saved in an appropriately named .RDat file. That’s an important assumption because the first thing we’ll do in the chunk below is load up that file.</p>

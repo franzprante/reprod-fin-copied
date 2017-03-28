@@ -8,8 +8,6 @@ tags: [R]
 title: "Madrid R User Group, A Brief History"
 ---
 
-by Carlos Ortega
-
 *(Editors note: A Spanish verison of the post follows the English text)*
 
 In the first meeting we were 5, now we are consistently over 60. It was not difficult for us to start up the group of users of R of Madrid. Gregorio Serrano, Carlos Gil Bellosta, Pedro Concejero and I started our own help list [R-help-es](https://stat.ethz.ch/mailman/listinfo/r-help-es) to regularly answers questions within this new community. It was in March 2012 when we first got together in a classroom of the Faculty of Economics of one of the Madrid’s public Universities. We discussed: a) How to model different trading strategies with R, b) How to model the number of bugs present in the R code, and c) the presentation of a library to create spatial graphs of the map of Spain.

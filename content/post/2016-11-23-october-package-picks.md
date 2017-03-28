@@ -6,8 +6,6 @@ categories: [R Packages, R Language]
 tags: [R]
 ---
 
-by Joseph Rickert
-
 In my [August Package Picks](/2016/10/21/august-package-picks/) post, I explained that my selection criteria favor packages with vignettes. (I find skimming through a package's vignettes to be an effective method of "grokking" what a package is all about.) I also questioned why a person would go to all of the trouble to develop a package and put it on CRAN without writing a vignette. Since writing that post, I have had the opportunity to speak with experienced package authors who argue, with some considerable authority, that the object documentation (what you get when you type "?foo" at the console) and the README file comprise a package's most important documentation.
 
 This is undoubtedly true, and self-evident once a person has decided to use the package. It is also true that the R Community is diligent: people pay attention, and really useful packages seem to get discovered rather quickly in spite of CRAN's low signal-to-noise ratio. Nevertheless, CRAN is poised to blow through the 10,000 package milestone sometime soon. Package discovery and audition is hard work. As a potential user of a given package, I very much appreciate and benefit from the elaboration of a package's capabilities and the extended examples found in well-done vignettes, and I suspect that others do, too.

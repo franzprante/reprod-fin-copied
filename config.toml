@@ -12,7 +12,6 @@ googleAnalytics = ""
 paginate = 10
 footnotereturnlinkcontents = "↩"
 theme = "hugo-icarus-theme"
-preserveTaxonomyNames = true
 
 [permalinks]
   post = "/:year/:month/:day/:slug/"
