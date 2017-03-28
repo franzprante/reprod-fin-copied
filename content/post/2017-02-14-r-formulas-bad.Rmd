@@ -14,8 +14,6 @@ for (pkg in c('randomForest', 'rpart', 'caret', 'ggplot2'))
   if (!requireNamespace(pkg)) install.packages(pkg)
 ```
 
-by Max Kuhn
-
 R's model formula infrastructure was discussed in [my previous post](https://www.rstudio.com/rviews/2017/02/01/the-r-formula-method-the-good-parts/). Despite the elegance and convenience of the formula method, there are some aspects that are limiting. 
 
 ## Limitations to Extensibility

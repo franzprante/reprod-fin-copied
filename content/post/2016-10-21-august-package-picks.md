@@ -7,8 +7,6 @@ categories: [R Packages, R Language]
 tags: [R]
 ---
 
-by Joseph Rickert
-
 141 new packages landed on CRAN in August. The following are my picks for the most interesting packages in four categories. My selection criteria were brutally simple: to make the list, a package had to have enough documentation for me to have some idea about what it does, and also, in my judgment, provide some functionality that is likely to appeal to a broad class of users. I am sure that through my ignorance and biases I have overlooked some really good work; for this, I apologize.
 
 One thing that struck me as peculiar during my review is the large number of packages lacking vignettes or a link to documentation describing what the package does or how it works. I can understand that explanatory documentation might be superfluous for a person writing a package for herself or her research team, but in that case, why put it on CRAN? I would think that a package developer who takes the trouble to put something on CRAN would want others to discover and use his work. With over 9,000 packages already on CRAN, and that number growing by well over a 100 packages each month, I would not be surprised if some works of real merit go unnoticed due to lack of documentation.

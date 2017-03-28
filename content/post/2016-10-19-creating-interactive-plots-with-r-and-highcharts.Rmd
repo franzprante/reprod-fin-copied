@@ -15,8 +15,6 @@ for (pkg in c('highcharter', 'dplyr', 'tidyr')) {
 }
 ```
 
-by Mine Cetinkaya-Rundel
-
 Sometimes great ideas come from trying to solve simple problems. This seems to be especially true for software developers who are willing to put in an unreasonable amount of effort to solve a simple problem to their satisfaction. So the [story](http://www.highcharts.com/about) goes that Torstein Hønsi, the founder and Chief Product Officer of [Highcharts](http://www.highcharts.com/). was looking for a simple charting tool for updating his homepage with snow depth measurements from Vikjafjellet, the local mountain where his family keeps a cabin. Frustrated with the common flash plug-ins, and other proprietary solutions available at the time, he decided to build a standards-based solution of his own and then, of course, share it.
 
 In this post, I'll use [Joshua Kunst's](https://github.com/jbkunst) [highcharter package](https://mran.revolutionanalytics.com/package/highcharter/), a wrapper for the Highcharts javascript library, along with [Shiny](http://shiny.rstudio.com/) to create some pretty slick plots.

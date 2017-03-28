@@ -7,8 +7,6 @@ categories: [Education, R Language]
 tags: [R]
 ---
 
-by Joseph Rickert
-
 If you are aspiring to write good R code, you may find it helpful to occasionally spend some time reading about writing: reading about writing R code, and reading about writing about R code that you've written. (If you write some excellent R code, you will likely have the opportunity to write about it.)
 
 For reading about writing good R code, a place to start might be one of the many R style guides available. Hadley Wickham includes a [style guide](http://adv-r.had.co.nz/Style.html) in his Advanced R Book that is short and sweet and based on the only slightly less concise [Google's R Style Guide](https://google.github.io/styleguide/Rguide.xml). Also have a look at Graham Williams [Sharing R Code - With Style](http://handsondatascience.com/StyleO.pdf), a hybrid tutorial / style guide that is part of his [HandsOnDataScience](http://togaware.com/onepager/) work in progress. In his elegant introduction, Graham writes:

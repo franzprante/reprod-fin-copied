@@ -12,7 +12,6 @@ tags: [R]
 
 <!-- BLOGDOWN-BODY-BEFORE -->
 <!-- /BLOGDOWN-BODY-BEFORE -->
-<p>by Joseph Rickert</p>
 <p>I found my way into data science and machine learning relatively late in my career. When I began reading papers on supervised learning I was delighted to find that good old logistic regression was considered a “<a href="http://repository.cmu.edu/robotics/218/">go to</a>” classifier. This was like learning that an old friend was admired for an achievement I didn’t know anything about. After a couple of comfortable experiences like this, I thought I would fit in quite nicely with this new (to me) tribe of data analysts studying pattern recognition and natural language processing. It took some time however, before I realized that they were working with a conceptual framework that was a little different from my statistics worldview. You might say it’s all probabilistic and statistical reasoning, but different problems and different tools lead to mindsets that shape and bias a person’s thinking.</p>
 <p>For example, consider the following list of classifiers: Decision Trees, Generalized Boosted Models, Logistic Regression, Naive Bayes, Neural Networks, Random Forests and Support Vector Machine.</p>
 <p>Some of these are base classifiers, and others are ensemble models, but one of them is conceptually different from the others. The odd duck here Naive Bayes. It’s the only generative model in the list. The others are examples of discriminative models. This is not a distinction that is easy to stumble across in the statistics literature, but it is fundamental to the machine-learning mindset, and a helpful modeling idea.</p>
@@ -65,8 +64,8 @@ names(dem_data) &lt;- c(&quot;Class&quot;,&quot;V1&quot;,&quot;V2&quot;,&quot;V3
 
 head(dem_data,2)</code></pre>
 <pre><code>##      Class V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14 V15 V16
-## 1 democrat  y  y  y  y  n  y  y  y  y   y   y   n   n   y   y   y
-## 2 democrat  n  n  y  y  n  y  y  y  y   n   n   y   n   n   n   y</code></pre>
+## 1 democrat  y  n  y  n  n  n  y  y  n   y   n   n   n   n   y   y
+## 2 democrat  y  y  n  n  n  n  n  y  n   n   y   n   n   n   n   y</code></pre>
 <pre class="r"><code>dim(dem_data)</code></pre>
 <pre><code>## [1] 25 17</code></pre>
 <p>A very nice, maybe even ironic feature of the the Naive Bayes algorithm, is that while it is extremely useful in generating synthetic data when there is not enough real data at hand, it is also of considerable importance in the world of big data and machine learning. Almost every industrial-strength big data platform, including <a href="http://mahout.apache.org/">Apache Mahout</a>, <a href="http://spark.apache.org/docs/latest/mllib-naive-bayes.html">Spark’s MLlib</a>, <a href="https://spark.apache.org/docs/latest/sparkr.html#naive-bayes-model">SparkR package</a>, <a href="https://msdn.microsoft.com/en-us/microsoft-r/scaler-user-guide-naive-bayes">Microsoft R Server</a>, and <a href="https://rdrr.io/cran/h2o/man/h2o.naiveBayes.html">H2O</a>, has an implementation of Naive Bayes. The are several reasons for this including: (1) the empirical observation that Naive Bayes performs remarkably well, in spite of the unrealistic assumption of independent conditional probabilities (For example see <a href="http://web.cs.iastate.edu/~honavar/rish-bayes.pdf">Rist et al</a>.); (2) the fact that the number of parameters required to fit a Naive Bayes model scales linearly with the number of variables, and (3) maximum likelihood training can be done via closed form expressions. So it is not necessary to grind through several iterations of a calculation waiting for the convergence.</p>

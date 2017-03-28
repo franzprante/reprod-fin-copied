@@ -7,8 +7,6 @@ tags: [R]
 draft: no
 ---
 
-by Joseph Rickert
-
 Here are a few things of some interest in the R world:
 
 *   The [Gordon and Betty Moore Foundation](http://www.moore.org) has joined the R Consortium! This is a very positive development for the R Consortium and the R Community in general. The Moore Foundation has been a positive force for supporting technology that can make a real difference in people’s lives since its foundation in 2000 with an endowment of over $6 billion. The grant from the Moore Foundation brings considerable prestige and resources to the R Consortium. And the direct participation of Chris Mentzel, program director of the Moore Foundation’s Data-Driven Discovery Initiative, will lend his expertise to both the R Consortium’s Board of Directors and Infrastructure Steering Committee. (The Data-Driven Discovery Initiative, which supports efforts to develop tools and techniques to harness large, complex data sets, is backed by a $60 million budget.) For more information, see the R Consortium’s [announcement](http://news/2017/01/11/gordon-and-betty-moore-foundation-joins-r-consortium-to-encourage-development-maintenance-and-distribution-of-r-software).
