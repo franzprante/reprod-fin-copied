@@ -19,7 +19,7 @@ draft: yes
 
 R (https://www.r-project.org) is a premier system for statistical and
 scientific computing and data science. At its core, R is a very carefully
-curated, high-level interface to low-level numerical libraries. True to this
+curated high-level interface to low-level numerical libraries. True to this
 principle, R packages have greatly expanded the scope and number of these
 interfaces over the years, among them interfaces to a large number of
 distributed and parallel computing tools. Despite its impressive breadth of
@@ -31,7 +31,7 @@ block to their adoption (in any language or system). HPC technologies are often
 difficult to set up, use, and manage.  They often rely on frequently changing
 and complex software library dependencies, and sometimes highly specific
 library versions.  Managing all this boils down to spending more time on system
-administration, and commensurately less time on research.
+administration, and less time on research.
 
 How do we make things easier? One approach to help accelerate the adoption of
 HPC technology by the R community uses Singularity, a modern application
@@ -191,13 +191,13 @@ doi:10.1038/nature15393). The example downloads whole genome data files in VCF
 example will work for any input set of VCF files (it processes all files named
 `*.vcf.gz` in the working directory).
 
-The example constructs a sparse 2,504 row (people) by 81,271,844 columns
+The example constructs a sparse 2,504 row (people) by 81,271,844 column
 (genomic variants) R matrix from the VCF data files. The matrix entries are one
 if a particular variant occurs in the person, or a zero otherwise.  Because not
 every person exhibits every variant, the matrix is very sparse with about 9.8
 billion nonzero-elements, or about 2% fill-in. Rather than construct a single
 giant sparse matrix, the example partitions the data and saves many smaller
-sub-matrices each with CHUNKSIZE columns as R data files in the working
+sub-matrices each with CHUNKSIZE non-zero elements as R data files in the working
 directory, where CHUNKSIZE is an optional user-defined parameter that defaults
 to a value based on system memory size.
 
