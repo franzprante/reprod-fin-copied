@@ -1,9 +1,10 @@
 ---
 title: "March '17 Tips and Tricks"
 author: "Sean Lopp"
-categories: [RStudio, R Language]
-date: 2017-03-24
-summary: "This month's collection of tips and tricks focuses on file navigation."
+categories:
+  - R Language
+  - RStudio
+date: 2017-03-31
 tags: [R]
 ---
 
@@ -16,7 +17,7 @@ This month's Tips and Tricks focus on file navigation. Many of these tips are st
 
 *Please* don't spend time navigating through your folder structure to find a recent project or file. 
 
-![](/post/2017-03-24-march-17-tips-and-tricks/recent_files_projs.png)
+![](/post/2017-03-24-march-17-tips-and-tricks_files/recent_files_projs.png)
 
 ### Go to File/Function
 
@@ -30,7 +31,7 @@ The search supports fuzzy matching as long as the search string is in the correc
 
 In addition to the index, RStudio can quickly search the text of any file(s) for a string or regular expression. Open the `Find in Files` dialogue by navigating through the toolbar `Edit -> Find in Files` or using the keyboard shortcut `Cmd / Ctrl + Shift + F`. 
 
-![](/post/2017-03-24-march-17-tips-and-tricks/find-in-files.gif)
+![](/post/2017-03-24-march-17-tips-and-tricks_files/find-in-files.gif)
 
 
 ### Tabs
@@ -39,36 +40,36 @@ In addition to the index, RStudio can quickly search the text of any file(s) for
 
 If you're like me, you often end up with a whole bunch of files open and the number of tabs in the source pane causes anxiety. Don't click through the tabs closing each individually.
 
-![](/post/2017-03-24-march-17-tips-and-tricks/close_tab.png)
+![](/post/2017-03-24-march-17-tips-and-tricks_files/close_tab.png)
 
 **Search for a Tab**
 
 If you don't get anxiety from multiple tabs, you may find the keyboard shortcuts for switching between tabs helpful. My favorite is `Ctrl + Shift + .` which opens a search dialogue for the currently open tabs. 
 
-![](/post/2017-03-24-march-17-tips-and-tricks/tabs.png)
+![](/post/2017-03-24-march-17-tips-and-tricks_files/tabs.png)
 
 ### Set Working Directory
 
 Sometimes I find myself inside a file and I have no idea where that file is. In this scenario I often use the following trick to orient myself:
 
-![](/post/2017-03-24-march-17-tips-and-tricks/session_workingdir.png)
+![](/post/2017-03-24-march-17-tips-and-tricks_files/session_workingdir.png)
 
 The other options, `To Project Directory` and `To File Pane Location` are also very helpful. These commands do not have keybindings by default, but you can create your own keyboard shortcuts for these actions: `Tools -> Modify Keyboard Shortcuts...`
 
-![](/post/2017-03-24-march-17-tips-and-tricks/keyboard_shortcuts.png)
+![](/post/2017-03-24-march-17-tips-and-tricks_files/keyboard_shortcuts.png)
 
 
 ### File Pane: Go To Working Directory
 
 After mastering tip 5, you can easily navigate the file pane to the working directory:
 
-![](/post/2017-03-24-march-17-tips-and-tricks/goto_wd.png)
+![](/post/2017-03-24-march-17-tips-and-tricks_files/goto_wd.png)
 
 ### File Pane: Go To Project Root Directory
 
 Lastly, it is really easy to go to the root of a project directory:
 
-![](/post/2017-03-24-march-17-tips-and-tricks/goto_proj.png)
+![](/post/2017-03-24-march-17-tips-and-tricks_files/goto_proj.png)
 
 
 Be sure to follow [@rstudio](www.twitter.com/rstudiotips) for more frequent updates. Tweet us [@rstudio](www.twitter.com/rstudio) if there's a file navigation trick you wish we'd implement! 
