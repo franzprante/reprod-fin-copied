@@ -5,7 +5,9 @@ categories:
   - R Language
   - RStudio
 date: 2017-03-31
-tags: [R]
+tags: 
+  - R
+  - RStudio IDE
 ---
 
 by Sean Lopp
@@ -67,7 +69,7 @@ After mastering tip 5, you can easily navigate the file pane to the working dire
 
 ### File Pane: Go To Project Root Directory
 
-Lastly, it is really easy to go to the root of a project directory:
+Finally, it is really easy to go to the root of a project directory:
 
 ![](/post/2017-03-24-march-17-tips-and-tricks_files/goto_proj.png)
 
