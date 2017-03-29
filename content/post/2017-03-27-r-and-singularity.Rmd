@@ -14,7 +14,7 @@ tags:
   - Containers
   - TensorFlow
   - Linux
-draft: yes
+draft: no
 ---
 
 R (https://www.r-project.org) is a premier system for statistical and
