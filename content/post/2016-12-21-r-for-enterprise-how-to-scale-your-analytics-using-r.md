@@ -6,8 +6,6 @@ categories: [R for the Enterprise, R Language]
 tags: [R]
 ---
 
-by Sean Lopp
-
 At RStudio, we work with many companies interested in scaling R. They typically want to know:
 
 -   How can R scale for big data or big computation?

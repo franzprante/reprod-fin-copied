@@ -6,8 +6,6 @@ categories: [Reproducible Finance with R, Finance, Applications, R Language]
 tags: [Shiny, R]
 ---
 
-by Jonathan Regenstein
-
 In a [previous post](https://www.rstudio.com/rviews/2016/12/14/reproducible-finance-with-r-pulling-and-displaying-etf-data/), we built an R Notebook that laid the groundwork for a Shiny app that allows users to graph country ETFs by clicking on a world map. In today's Fun Friday post, we'll charge forth to build that app, again using a flexdashboard so that we can stay in the Rmarkdown schema. Devoted readers of this blog know that I have a predilection for the Notebook-to-flexdashboard workflow, for reasons of efficiency and reproducibility.
 
 The final app is [here](http://colorado.rstudio.com:3939/Global-ETF-Map/), with the code available in the upper right-hand corner. Let's step through this script.

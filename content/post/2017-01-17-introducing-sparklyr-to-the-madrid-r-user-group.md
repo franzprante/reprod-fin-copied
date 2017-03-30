@@ -8,8 +8,6 @@ tags: [sparklyr, R]
 title: "Introducing sparklyr to the Madrid R User Group"
 ---
 
-by Carlos Ortega
-
 In the last meeting of 2016, the 40th in Madrid’s R Users Group five-year history, we had the opportunity to listen (via Skype) to a very interesting talk by Javier Luraschi, the main author of the package sparklyr.
 
 ![](images/madrid_advert.png)

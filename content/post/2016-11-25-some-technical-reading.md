@@ -7,8 +7,6 @@ categories: [News, R Language]
 tags: [R]
 ---
 
-by Joseph Rickert
-
 I am ever-optimistic that on the weekend I will have enough time and brainpower to do some serious technical reading. The following are five articles on my list. I hope that at least one of them resonates with you too. Happy reading.
 
 1. In this [paper from Nature Communications](http://www.nature.com/articles/ncomms12474), Kun-Hsing Yu et al. use machine learning to diagnose cancer. The authors write:

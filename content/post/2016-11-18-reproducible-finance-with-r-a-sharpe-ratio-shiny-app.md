@@ -7,8 +7,6 @@ categories: [Reproducible Finance with R, Finance, Applications, R Language]
 tags: [Sharpe Ratio, Shiny, R]
 ---
 
-by Jonathan Regenstein
-
 In this [previous post](/2016/11/09/reproducible-finance-with-r-the-sharpe-ratio/), we used an R Notebook to grab the monthly return data on three stocks, build a portfolio, visualize portfolio performance, and calculate the Sharpe Ratio. The Notebook format emphasized reproducibility and reuse by other R coders.
 
 Today, we'll convert that Notebook into a Shiny application that allows end users to build their own portfolios, and then calculate performance/Sharpe Ratio. Friday = fun day!

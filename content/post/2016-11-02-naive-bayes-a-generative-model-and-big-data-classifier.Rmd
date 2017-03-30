@@ -15,8 +15,6 @@ for (pkg in c('mlbench', 'e1071', 'sparklyr', 'dplyr')) {
 }
 ```
 
-by Joseph Rickert
-
 I found my way into data science and machine learning relatively late in my career. When I began reading papers on supervised learning I was delighted to find that good old logistic regression was considered a "[go to](http://repository.cmu.edu/robotics/218/)" classifier. This was like learning that an old friend was admired for an achievement I didn't know anything about. After a couple of comfortable experiences like this, I thought I would fit in quite nicely with this new (to me) tribe of data analysts studying pattern recognition and natural language processing. It took some time however, before I realized that they were working with a conceptual framework that was a little different from my statistics worldview. You might say it's all probabilistic and statistical reasoning, but different problems and different tools lead to mindsets that shape and bias a person's thinking.
 
 For example, consider the following list of classifiers: Decision Trees, Generalized Boosted Models, Logistic Regression, Naive Bayes, Neural Networks, Random Forests and Support Vector Machine.

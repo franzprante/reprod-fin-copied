@@ -7,8 +7,6 @@ categories: [RStudio, R Language, Tips and Tricks]
 tags: [R, RStudio, IDE]
 ---
 
-by Sean Lopp
-
 The RStudio IDE reached version 1.0 this month. The IDE has come a long way since the initial release 5 and a half years ago. Many major features have been built: projects, package building tools, notebooks. During that same period, often hidden in the shadows, a growing list of smaller features has been changing lives. In celebration of version 1.0 this post hopes to spread fanfare for a few of these easy-to-miss tools.
 
 ## Tearable Panes

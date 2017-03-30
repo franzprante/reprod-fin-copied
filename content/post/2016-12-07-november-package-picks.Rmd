@@ -7,8 +7,6 @@ tags: [R]
 draft: no
 ---
 
-by Joseph Rickert
-
 November was a prolific month for R developers: 189 new packages landed in CRAN. I have selected more than a quarter of them for this post, but I haven’t listed everything that is worth a look. My November 2016 picks are organized into four categories: Biotech (4 picks), Data (6 picks), Machine Learning (9 picks) , Statistics (9 picks), Time Series (4 picks) and Utilities (20 picks). The relatively large number of Utilities packages listed seriously over-represents this category. However, I have included so many to emphasize the cumulative impact of developers working to improve the R ecosystem at a fairly low level. Also, I believe that these sorts of packages are relatively difficult to discover.
 
 ## Biotech

@@ -7,8 +7,6 @@ tags: [R]
 draft: no
 ---
 
-by Joseph Rickert
-
 The R package system continues to expand as the number of packages on CRAN is about to blow through the 10,000 mark sometime soon. This is astonishing! Not only are new packages arriving at a rate of about 190 per month, but CRAN itself continues to tick along like a well-oiled machine, 24 by 7\. We all owe a great deal of gratitude to the CRAN maintainers, and to the Bioconductor team as well, who are maintaining more than 1,200 packages.
 
 My source for following new CRAN packages is Dirk Eddelbuettel's [CRANberries site](http://dirk.eddelbuettel.com/cranberries/). The [CRAN:New](http://dirk.eddelbuettel.com/cranberries/cran/new/) tab will show you the details for the current crop of new packages.
