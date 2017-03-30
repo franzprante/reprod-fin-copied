@@ -28,7 +28,7 @@ RStudio automatically indexes all open files as well as files in the current pro
 
 The search supports fuzzy matching as long as the search string is in the correct order. For example, `tiptric` will match files and function names like `march-tips-and-tricks.Rmd`. 
 
-![](/post/2017-03-24-march-17-tips-and-tricks/go_to_file.png)
+![](/post/2017-03-24-march-17-tips-and-tricks_files/go_to_file.png)
 
 ### Find in File
 
