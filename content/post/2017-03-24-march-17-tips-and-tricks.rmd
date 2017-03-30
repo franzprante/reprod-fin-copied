@@ -1,18 +1,19 @@
 ---
 title: "March '17 Tips and Tricks"
 author: "Sean Lopp"
+draft: yes
 categories:
   - R Language
   - RStudio
+  - Tips and Tricks
 date: 2017-03-31
 tags: 
   - R
-  - RStudio IDE
+  - RStudio
+  - IDE
 ---
 
-by Sean Lopp
-
-This month's Tips and Tricks focus on file navigation. Many of these tips are straightforward - more tip than trick - but they can save quite a bit of time and frustration. 
+This month's Tips and Tricks focus is on file navigation. Many of these tips are straightforward - more tip than trick - but they can save quite a bit of time and frustration. 
 
 
 ### Open Recent
@@ -23,7 +24,7 @@ This month's Tips and Tricks focus on file navigation. Many of these tips are st
 
 ### Go to File/Function
 
-RStudio automatically indexes all open files and files in the current project. The index includes function calls and objects within the files. To search the index, enter a search string in the `Go to file/function` window in the main toolbar or use the keyboard shortcut `Ctrl + .`. 
+RStudio automatically indexes all open files as well as files in the current project. The index includes function calls and objects within the files. To search the index, enter a search string in the `Go to file/function` window in the main toolbar or use the keyboard shortcut `Ctrl + .`. 
 
 The search supports fuzzy matching as long as the search string is in the correct order. For example, `tiptric` will match files and function names like `march-tips-and-tricks.Rmd`. 
 
@@ -52,18 +53,18 @@ If you don't get anxiety from multiple tabs, you may find the keyboard shortcuts
 
 ### Set Working Directory
 
-Sometimes I find myself inside a file and I have no idea where that file is. In this scenario I often use the following trick to orient myself:
+Sometimes I find myself inside a file and I have no idea where that file is. In this scenario, I often use the following trick to orient myself:
 
 ![](/post/2017-03-24-march-17-tips-and-tricks_files/session_workingdir.png)
 
-The other options, `To Project Directory` and `To File Pane Location` are also very helpful. These commands do not have keybindings by default, but you can create your own keyboard shortcuts for these actions: `Tools -> Modify Keyboard Shortcuts...`
+The other options, `To Project Directory` and `To File Pane Location` are also very helpful. These commands do not have key bindings by default, but you can create your own keyboard shortcuts for these actions: `Tools -> Modify Keyboard Shortcuts...`
 
 ![](/post/2017-03-24-march-17-tips-and-tricks_files/keyboard_shortcuts.png)
 
 
 ### File Pane: Go To Working Directory
 
-After mastering tip 5, you can easily navigate the file pane to the working directory:
+After mastering tip 5, you can easily navigate from the file pane to the working directory:
 
 ![](/post/2017-03-24-march-17-tips-and-tricks_files/goto_wd.png)
 
