@@ -3,8 +3,8 @@ title: "RStudio IDE Easy Tricks You Might've Missed"
 author: "Sean Lopp"
 date: 2016-11-11
 slug: easy-tricks-you-mightve-missed
-categories: [RStudio, R Language]
-tags: [R]
+categories: [RStudio, R Language, Tips and Tricks]
+tags: [R, RStudio, IDE]
 ---
 
 by Sean Lopp

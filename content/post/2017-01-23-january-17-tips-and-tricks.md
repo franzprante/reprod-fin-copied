@@ -3,8 +3,8 @@ title: "January '17 Tips and Tricks"
 author: "Sean Lopp"
 date: 2017-01-27
 slug: january-17-rstudio-tips-and-tricks
-tags: [RStudio, R Language]
-categories: [R]
+categories: [RStudio, R Language, Tips and Tricks]
+tags: [R, RStudio, IDE]
 ---
 by Sean Lopp
 

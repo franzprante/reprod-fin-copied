@@ -1,10 +1,10 @@
 ---
 title: "February '17 Tips and Tricks"
 author: "Sean Lopp"
-categories: [RStudio, R Language]
+categories: [RStudio, R Language, Tips and Tricks]
 date: 2017-03-03
 summary: "This month's collection of tips and tricks focuses on Code Snippets."
-tags: [R]
+tags: [R, RStudio, IDE]
 ---
 
 by Sean Lopp

@@ -3,8 +3,8 @@ title: "December '16 RStudio Tips and Tricks"
 author: "Sean Lopp"
 date: 2016-12-09
 slug: december-16-rstudio-tips-and-tricks
-categories: [RStudio, R Language]
-tags: [R]
+categories: [RStudio, R Language, Tips and Tricks]
+tags: [R, RStudio, IDE]
 ---
 
 by Sean Lopp
