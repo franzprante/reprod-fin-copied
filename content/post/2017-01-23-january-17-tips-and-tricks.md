@@ -2,8 +2,9 @@
 title: "January '17 Tips and Tricks"
 author: "Sean Lopp"
 date: 2017-01-27
-tags: [RStudio, R Language]
-categories: [R]
+slug: january-17-rstudio-tips-and-tricks
+categories: [RStudio, R Language, Tips and Tricks]
+tags: [R, RStudio, IDE]
 ---
 
 This month's collection of Tips and Tricks comes from an excellent talk given at the 2017 RStudio::Conf in Orlando by RStudio Software Engineer Kevin Ushey.  The slides from his talk are embedded below and cover features from autocompletion to R Markdown shortcuts. Use the left and right arrow keys to change slides.
