@@ -75,7 +75,4 @@ Finally, it is really easy to go to the root of a project directory:
 ![](/post/2017-03-24-march-17-tips-and-tricks_files/goto_proj.png)
 
 
-Be sure to follow [@rstudio](www.twitter.com/rstudiotips) for more frequent updates. Tweet us [@rstudio](www.twitter.com/rstudio) if there's a file navigation trick you wish we'd implement! 
-
-
-  
+Be sure to follow [\@rstudiotips](https://twitter.com/rstudiotips) for more frequent updates. Tweet us [\@rstudio](https://twitter.com/rstudio) if there's a file navigation trick you wish we'd implement! 
