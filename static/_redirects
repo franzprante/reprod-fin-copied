@@ -1,1 +1,5 @@
 /feed/     /index.xml
+https://rviews.netlify.com/*  https://rviews.rstudio.com/:splat  301!
+http://rviews.netlify.com/*   https://rviews.rstudio.com/:splat  301!
+https://rviews-beta.netlify.com/*  https://rviews-beta.rstudio.com/:splat  301!
+http://rviews-beta.netlify.com/*   https://rviews-beta.rstudio.com/:splat  301!
