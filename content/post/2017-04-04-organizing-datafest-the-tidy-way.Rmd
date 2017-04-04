@@ -1,12 +1,11 @@
 ---
 title: Organizing DataFest the tidy way
 author: 'Mine Çetinkaya-Rundel'
-date: '2017-04-04'
+date: '2017-04-05'
 slug: 'DataFestOrg'
-categories: [Education, Reproducibility]
-tags: [R]
+categories: [Education, Reproducibility, R Language]
+tags: [R, R Markdown, Google Forms]
 draft: yes
-summary: ''
 ---
 
 ```{r setup, include=FALSE}
@@ -54,7 +53,7 @@ part_wide <- gs_title("DataFest [YEAR] @ [HOST] - Team Sign up (Responses)") %>%
 ```{r include=FALSE}
 # googlesheets doesn't work here, so reading data in this way
 # Error: oauth_listener() needs an interactive environment.
-part_wide <- read_csv("../../data/part-wide.csv")
+part_wide <- read_csv("../../static/post/2017-04-04-organizing-datafest-the-tidy-way_files/part-wide.csv")
 ```
 
 Then, we realize that the variable names are a mess since they come directly from questions on the Google form!

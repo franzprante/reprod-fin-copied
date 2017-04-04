@@ -1,12 +1,11 @@
 ---
 title: Organizing DataFest the tidy way
 author: 'Mine Çetinkaya-Rundel'
-date: '2017-04-04'
+date: '2017-04-05'
 slug: 'DataFestOrg'
-categories: [Education, Reproducibility]
-tags: [R]
+categories: [Education, Reproducibility, R Language]
+tags: [R, R Markdown, Google Forms]
 draft: yes
-summary: ''
 ---
 
 
@@ -16,10 +15,12 @@ summary: ''
 <p>This post highlights using Google Forms for data collection (e.g. registration), the <code>googlesheets</code> package to pull that data into R, and packages from the tidyverse to manipulate, summarise, and visualize that data. Then, we use <a href="http://rpubs.com/">RPubs</a> for publishing documents to be shared with participants and other constituents.</p>
 <p>Here is a list of all packages used in this article:</p>
 <pre class="r"><code>library(googlesheets)
-library(tidyverse)
-library(stringr)
+library(tidyverse)</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.3.2</code></pre>
+<pre class="r"><code>library(stringr)
 library(DT)
 library(knitr)</code></pre>
+<pre><code>## Warning: package &#39;knitr&#39; was built under R version 3.3.2</code></pre>
 <p>In an effort to make it easier for others organizing DataFests to replicate my workflow, I have created a Google Drive containing all forms needed for registering participants and collecting information from consultants (mentors), and judges. I have also populated these forms with randomly generated names to showcase how these data are processed to yield the rosters and reports that are useful for organizing the event and disseminating registration information. All Google Forms mentioned can be found in the <a href="https://drive.google.com/drive/u/1/folders/0B0Y2lFgS9uiDaEZvXzNGZ2xKNmM">DataFest Organization Google Drive</a>, which is available for public viewing. You can make a copy for your own use.</p>
 <p>Additionally, all R scripts and R Markdown documents used to process these data are available on the <a href="https://github.com/mine-cetinkaya-rundel/datafest">datafest GitHub repo</a>.</p>
 <div id="team-sign-ups" class="section level3">
@@ -91,7 +92,7 @@ library(knitr)</code></pre>
          class_year, major, participation, diet, tshirt_size)    # reorder</code></pre>
 <p>Let’s take a peek:</p>
 <pre class="r"><code>participants</code></pre>
-<pre><code>## # A tibble: 16 × 11
+<pre><code>## # A tibble: 16 x 11
 ##             timestamp          team_name first_name last_name
 ##                 &lt;chr&gt;              &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;
 ## 1   4/2/2017 22:20:05      Bae&#39;s Theorem   Adrienne    Fuller
@@ -139,7 +140,7 @@ library(knitr)</code></pre>
   distinct(team_name, .keep_all = TRUE) %&gt;%
   count(school) %&gt;%
   arrange(desc(n))</code></pre>
-<pre><code>## # A tibble: 3 × 2
+<pre><code>## # A tibble: 3 x 2
 ##                    school     n
 ##                     &lt;chr&gt; &lt;int&gt;
 ## 1           Faber College     2
