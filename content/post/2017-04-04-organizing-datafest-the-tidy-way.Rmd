@@ -5,7 +5,6 @@ date: '2017-04-05'
 slug: 'DataFestOrg'
 categories: [Education, Reproducibility, R Language]
 tags: [R, R Markdown, Google Forms]
-draft: yes
 ---
 
 ```{r setup, include=FALSE}
