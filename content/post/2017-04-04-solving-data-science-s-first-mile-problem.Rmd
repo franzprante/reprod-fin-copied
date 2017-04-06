@@ -26,7 +26,7 @@ We have begun by asking these two questions:
 
 One group that is using data.world to effectively solve their first mile problem is [Data for Democracy](http://datafordemocracy.org/).  This incredibly diverse group of over 1200 people aims “to be an inclusive community for data scientists and technologists to volunteer and collaborate on projects that make a positive impact on society”.  Their [Medicare/Medicaid drug spending project](https://data.world/data4democracy/drug-spending) makes particularly good use of the unique features of data.world datasets by including files of many different formats, [publishing queries](https://data.world/data4democracy/drug-spending/query/94dfc980-5bb7-4190-8696-a40a6e724bfb), and then [building dashboards](https://jenniferthompson.shinyapps.io/shinydashboard-medicared/) using Shiny against the normalized data queried from our [API](https://docs.data.world/documentation/api/). Now their first mile work is captured in an accessible format with clear context, so others will be able to easily and quickly build on it in the future.
 
-![](../../static/post/2017-04-07-solving-data-science_files/dataworld.png)
+![](/post/2017-04-07-solving-data-science_files/dataworld.png)
 .
 
 Context is king in so many aspects of life, and it’s especially true when you’re working with data. data.world helps you understand the data you are working with by providing a context for datasets that quickly gets you to the who, what, where, when, why and how of the data.  Once you understand the data, we want you to get that data into your tools as quickly as possible with our [APIs and SDKs](https://docs.data.world/), and then get any analysis you’ve done back into data.world for further distribution and discussion.
