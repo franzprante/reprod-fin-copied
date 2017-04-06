@@ -1,0 +1,159 @@
+---
+title: "R's Quirky and Powerful Startup"
+author: "Sean Lopp"
+date: '2017-04-04'
+draft: yes
+slug: rs-quirky-and-powerful-startup
+summary: ''
+tags: R
+categories:
+- R for the Enterprise
+- R Language
+- R
+---
+
+R's startup behavior is both quirky and powerful. Understanding the behavior can give R users and system administrators a powerful tool and save some common gotchas. R's behavior is thoroughly documented in [R's base documentation: "Initialization at Start of an R Session"](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Startup.html). This post will elaborate on the official documentation and provide some examples.
+
+## .Rprofile, .Renviron, and R*.site oh my!
+
+At a highlevel, R's startup process follows three steps: starting R, setting environment variables, and sourcing profile scripts. In the last two steps R looks for site-wide files and user/project specific files. The R documentation explains this process in detail.
+
+![](/post/2017-04-04-rs-quirky-and-powerful-startup_files/R_STARTUP.jpeg)
+
+### Common Gotchas and Tricks: 
+
+1) The Renviron file located at `R_HOME/etc` is unique and different from Renviron.site and the user specific .Renviron files. *Do not edit the Renviron file!*
+
+2) A site wide file and either a project file *or* a user file can be loaded at the same time. It is not possible to use both a user file and a project file. If the project file exists it will be used instead of the user file.
+
+3) The environment files are plain text files in the form `name=value`. The profile files contain R code.
+
+4) Be careful about placing things in a profile that limit the reproducibility or portability of your code. For example, it is tempting to include `options("stringsAsFactors" = FALSE)`. Setting this option in the profile is not recommended because if you were to share your code with someone else they would get unexpected errors.
+
+5) To double check what environment variables are defined in the R environment run `Sys.getenv()`.
+
+
+### Where to put what?
+
+The R Startup process is very flexible which means there are different ways to achieve the same results. For example, you may be wondering which environment variables to set in .Renviron vs Renviron.site. (Don't even think about calling Sys.setenv in the Rprofile...)
+
+A simple rule of thumb is to answer the question: "When else do I want this variable to be set?"
+
+For example, if you're on a shared server and you want the settings everytime you run R, place .Renviron/.Rprofile in your home directory. If you're a system admin and you want the settings to take affect for every user, modify Renviron.site or Rprofile.site. 
+
+#### Quiz
+
+What is the best way to modify the library path? The answer depends on the change to the library path and when the change should take place.
+
+For example, in an R project using the [Tensorflow]() package I might want R to use the version of python installed in `/usr/local/bin` instead of `/usr/bin`. One approach is to is to reorder the `PATH` by setting `PATH=/usr/local/bin:${PATH}`. This is a change I only want for this project so I'd place the line in a .Renviron file in the project directory. 
+
+On the other hand, I may want to add the JAVA SDK to the path so that any R session can use the `rJava` package. To do so, I'd add a line like `PATH=${PATH}:/opt/jdk1.7.0_75/bin:/opt/jdk1.7.0_75/jre/bin` to Renviron.site.
+
+### R Startup in RStudio
+
+RStudio starts R a bit differently than running R from the terminal. (Technically RStudio doens't "start" R, it uses R as a library, either as a DLL on Windows or as a shared object on Mac and Linux). 
+
+The main difference is the script wrapped around R's binary is not run and any customizations to the script will not take affect. To see the script try:
+
+```bash
+cat $(which R)
+```
+
+For most people this difference won't be noticeable. Any settings in the startup files will still take affect.
+
+### R Startup in RStudio Server Pro
+RStudio Server Pro acts differently from R and the open source version of RStudio. Prior to starting R, RStudio Server Pro uses PAM to create a session and sources the `rsession-profile`. In addition, RStudio Server Pro launches R from bash which means settings defined in the user's bash profile are also available.
+
+In short, RStudio Server Pro provides even more ways to customize the environment used by R. You might ask why you'd ever want *more* options. Recall our rule of thumb: "When else do I want this variable to be set?"
+
+In server environments there are often environment variables that are set every time a user interacts with the server. These environment variables are usually placed in a user's bash profile. Normally RStudio and R wouldn't pick up these settings. RStudio Server Pro allows R to make use of the work the system admin has already done by running R from bash to pick up these profiles.
+
+Likewise, there may be some actions that take place on the server when a user logs in that have to happen before R starts. For example, a Kerberos ticket used by the R session to access a data source must exist when R is started. RStudio Server Pro uses PAM sessions to enable these actions.
+
+## Examples:
+
+### Start Simple: 
+
+We'll start with an example from the R Startup Documentation and print a fortune in the console each time R is started. The fortune should print for all users whenever R is started, so Rprofile.site is the correct location.
+
+ - Pre-req: Install the [fortunes package](https://cran.r-project.org/web/packages/fortunes/index.html) with `install.packages('fortunes')`
+ - Navigate to `R_HOME/etc` and create a file called Rprofile.site
+    - Tip: Use `R.home()` from R if you don't know `R_HOME`
+ - In the file include:
+ 
+```r
+   local({
+     if (interactive())
+       fortunes::fortunes()
+   })
+```   
+
+  - Restart the RStudio session, you should see a quote printed in the R console! 
+  
+```
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+In general, it's much easier to create output from a R object than create an R
+object from output.
+   -- Hadley Wickham
+      R-help (December 2009)
+```
+
+### Define proxy settings in Renviron.site 
+
+Renviron.site is commonly used to tell R how to access the internet in environments with restricted network access. Renviron.site is used so the settings take affect for all R sessions and users. For example,
+
+```bash
+http_proxy=http://proxy.mycompany.com
+```
+
+This article contains more details on how to [configure RStudio to use a proxy](https://support.rstudio.com/hc/en-us/articles/200488488-Configuring-R-to-Use-an-HTTP-or-HTTPS-Proxy).
+
+
+### Add a local CRAN repository for all users
+
+Organizations with offline environments often use local CRAN repositories instead of installing packages directly from a CRAN mirror. Local CRAN repositories are also useful for sharing internally developed R packages among colleagues. 
+
+To use a local CRAN repository it is necessary to add the repository to R's list of repos. This setting is important for all sessions and users so `Rprofile.site` is used. 
+
+```r
+old_repos <- getOption("repos")
+local_CRAN_URI <- paste0("file://", normalizePath("path_to_local_CRAN_repo"))
+options(repos = c(old_repos, my_repo = lcoal_CRAN_URI))
+```
+
+More information on setting up a local CRAN repository is available [here.](https://rstudio.github.io/packrat/custom-repos.html)
+
+### Record sessionInfo automatically
+
+Reproducibility is a critical part of any analysis done in R. One challenge for reproduible scripts and documents is tracking the version of R packages used during an analysis.
+
+The following code can be added to a .Rprofile file within an RStudio project to automatically log the `sessionInfo()` after every RStudio session.  
+
+This log could be referenced if an analysis needs to be run at a later date and fails due to a package discrepency. (For an automated solution that follows a similar pattern checkout the [`packrat`](https://rstudio.github.io/packrat/) package).
+
+```r
+.Last <- function(){
+  if (interactive()) {
+    
+    ## check to see if we're in an RStudio project (requires the rstudioapi package)
+    if (!requireNamespace("rstudioapi"))
+      return(NULL)
+    pth <- rstudioapi::getActiveProject()
+    if (is.null(pth))
+      return(NULL)
+    
+    ## append date + sessionInfo to a file called sessionInfoLog
+    cat("Recording session info into the project's sesionInfoLog file...")
+    info <-  capture.output(sessionInfo())
+    info <- paste("\n----------------------------------------------",
+                  paste0('Session Info for ', Sys.time()),
+                  paste(info, collapse = "\n"),
+                  sep  = "\n")
+    f <- file.path(pth, "sessionInfoLog")
+    cat(info, file = f, append = TRUE)
+  }
+}
+```
