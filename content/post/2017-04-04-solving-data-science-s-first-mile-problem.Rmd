@@ -9,7 +9,7 @@ categories:
 tags:
   - R
   - Shiny
-draft: yes
+  - Data
 ---
 
 At [data.world](https://data.world/), we are out to solve the “first mile problem of data science”: helping people obtain and understand the data sets they need. Everybody starts here whether they are analyzing their fantasy football league or working on the Zika pandemic. But unfortunately, as Professor Eric Schwartz at the University of Michigan said to me recently: “for so many people, the first mile of data science is the last mile, because people just quit when they see the data.” 
