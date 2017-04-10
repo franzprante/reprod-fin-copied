@@ -21,7 +21,7 @@ for (pkg in c('Quandl', 'dplyr', 'xts', 'lubridate', 'dygraphs'))
   if (!requireNamespace(pkg)) install.packages(pkg)
 ```
 
-Today we will continue getting familiar with data from Quandl but will also devote more time to expanding our dygraphs toolkit. We will building up a data visualization in discrete pieces, which isn't very efficient but will make things easier when we move this project into production as a Shiny app.
+Today, we will continue getting familiar with data from Quandl but will also devote more time to expanding our dygraphs toolkit. We will building up a data visualization in discrete pieces, which isn't very efficient but will make things easier when we move this project into production as a Shiny app.
 
 From a substantive perspective, we will examine the relationship between the price ratio of copper-gold and 10-year Treasure yields.  
 
@@ -33,11 +33,18 @@ The yield on 10-year Treasury Notes also tends to rise during economic expansion
 
 Thus, we should observe a positive relationship between the copper-gold price ratio and 10-year yields. Both should be rising and falling based on the state of the world economy. There's nothing too crazy here but it's an interesting relationship to think about and investigate. That's what we'll do today!  
 
-First let's import the relevant time series data from Quandl. We will specify type = "xts" in order to create xts objects and collapse = "daily" because we want daily prices. Note in particular our data sources: CME for copper and gold, and FRED for the 10-year yield. But, we just need the Quandl codes and to be careful about consistent start/end dates for each data set. It's a liberating feeling to know before starting a project that we'll be able to find whatever data we need in one source. 
+First, let's import the relevant time series data from Quandl. We will specify type = "xts" in order to create xts objects and collapse = "daily" because we want daily prices. Note in particular our data sources: CME for copper and gold, and FRED for the 10-year yield. But, we just need the Quandl codes and to be careful about consistent start/end dates for each data set. It's a liberating feeling to know before starting a project that we'll be able to find whatever data we need in one source. 
 
 Let's get to it.
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
+library(Quandl)
+library(dplyr)
+library(xts)
+library(lubridate)
+library(dygraphs)
+
+
 
 copper <- Quandl("CHRIS/CME_HG1", type = "xts", collapse = "daily",  
                     start_date="2012-01-01", end_date="2017-02-28")
@@ -74,7 +81,7 @@ Now we create a new column to store the ratio of copper gold prices.
 copper_gold_tenYear_merged$ratio <- (copper_gold_tenYear_merged$Copper*100)/copper_gold_tenYear_merged$Gold
 ```
 
-We have an xts object that holds 4 time series, but I want to chart only the copper-gold price ratio and 10-year yields. This next step is not necessary but to be extra clear, I am going to create a new xts object to hold only those two time series.
+We have an xts object that holds four time series, but I want to chart only the copper-gold price ratio and 10-year yields. This next step is not necessary but to be extra clear, I am going to create a new xts object to hold only those two time series.
 
 ```{r}
 tenYear_ratio  <- merge(copper_gold_tenYear_merged$ratio, copper_gold_tenYear_merged$TenYear)
