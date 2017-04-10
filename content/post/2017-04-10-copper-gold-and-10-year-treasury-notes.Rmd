@@ -137,7 +137,7 @@ dygraph(rolling_cor, main = "Rolling 90-day Correlation Copper-Gold & 10-Year Yi
 
 ```
 
-It looks like the correlation has been above .4 for the last year and on the increase since the election in November. I guess markets have been feeling good about global growth recently. 
+It looks like the correlation has been above .4 for the last year and on the increase since the election in November. Peaking back up at the chart of the copper-gold ratio and yields, both those time series have been on the rise since the election as well. Investors seem bullish on the economy and an increase in interest rates.   
 
 We can add further context with the minimum, maximum and mean rolling correlations and an event label for the election. Nothing complicated here but it's a good use of the dyLimit() and dyEvent() functions. 
 
