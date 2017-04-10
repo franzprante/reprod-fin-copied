@@ -1,7 +1,7 @@
 ---
 title: "Copper, Gold and Ten-Year Treasury Notes"
 author: "Jonathan Regenstein"
-date: '2017-04-10'
+date: '2017-04-12'
 draft: yes
 summary: A notebook for examining the relationship between the copper-gold price ratio
   and 10-year Treasury yields
@@ -43,8 +43,6 @@ library(dplyr)
 library(xts)
 library(lubridate)
 library(dygraphs)
-
-
 
 copper <- Quandl("CHRIS/CME_HG1", type = "xts", collapse = "daily",  
                     start_date="2012-01-01", end_date="2017-02-28")
@@ -93,13 +91,13 @@ We use dygraphs to chart that one xts object and call dySeries() for each of the
 dygraph(tenYear_ratio) %>%
   dySeries("ratio") %>% 
   dySeries("TenYear")
-```
+```   
+
 That chart is completely unhelpful, of course, because our time series have different scales. I also don't love the choppiness of the blue 10-year chart. Let's address these two issues by adding a right-hand side scale and a dyRoller().
 
 The dyRoller() will help smooth out our chart because each plotted point will be an average of the number of periods specified with rollPeriod = X. This won't affect our xts object, where we store the data, it just makes the chart more readable. 
 
 Adding the right-hand side y-axis requires a few more lines of code. First we need to invoke dyAxis() for the left-hand axis, called "y". Then we invoke dyAxis() for the right-hand axis, called "y2". We also need to set independentTicks = TRUE so that we can use a unique, independent value scale for the right-hand side. Next, in our dySeries() call for each time series, we assign each one to an axis. Here we assign "ratio" with axis = 'y', so that the copper-gold price ratio will be on the left-hand scale and we assign "TenYear" with axis = 'y2', so the 10-year yield will be on the right-hand scale. I also like to include a label with LHS and RHS for each time series. 
-
 
 ```{r}
 dygraph(tenYear_ratio) %>% 
@@ -112,12 +110,11 @@ dygraph(tenYear_ratio) %>%
   dySeries("ratio", axis = 'y', label = "Copper/Gold (LHS)") %>% 
   dySeries("TenYear", axis = 'y2', label = "10-Year % Yield (RHS)")
 
-```
+```   
 
 Alright, that chart looks better now (though I encourage you to play with different settings for rollPeriod to compare different smoothness levels) and, incidentally, seems supportive of our hypothesized relationship between copper-gold and yields. There did seem to be a few periods of divergence, which would be a ripe area for further research. But we will move on to calculate and chart the rolling correlation between these two time series. 
 
 Recall way back to this [post](https://rviews.rstudio.com/2017/01/18/reproducible-finance-with-r-sector-correlations/) from January where we examined rolling correlations between sector ETFs. We'll port our work from that project and use rollyapply to calculate the 90-day rolling correlation between copper-gold and yields. We will also rename the column since it will be displayed on the dygraph.
-
 
 ```{r}
 # Calculate the rolling correlation between copper-gold and Treasury yields. 
@@ -127,7 +124,7 @@ rolling_cor <- rollapply(tenYear_ratio, 90,
                                        by.column = FALSE)
 
 names(rolling_cor) <- "Copper/Gold 10-Year Correlation"
-```
+```   
 
 Let's graph that rolling correlation.
 
@@ -135,7 +132,7 @@ Let's graph that rolling correlation.
 
 dygraph(rolling_cor, main = "Rolling 90-day Correlation Copper-Gold & 10-Year Yield")
 
-```
+```   
 
 It looks like the correlation has been above .4 for the last year and on the increase since the election in November. Peaking back up at the chart of the copper-gold ratio and yields, both those time series have been on the rise since the election as well. Investors seem bullish on the economy and an increase in interest rates.   
 
@@ -154,6 +151,6 @@ dygraph(rolling_cor, main = "Rolling 90-day correlations Copper-Gold & 10-Year Y
   dyLimit(mini, color = 'red') %>% 
   dyLimit(maxi, color = 'blue') %>% 
   dyEvent("2016-11-08", "Trump!", labelLoc = "bottom")
-```
+```   
 
 That's all for today. We have examined a hypothesized relationship and found some confirmatory evidence or at least visual indicators. We have also explored some new tools in the dygraphs world by using dyRoll() and dyAxis().  From a workflow and reproducibility perspective, I like this as a template for importing multiple time series and visualizing the relationship between them in different combinations. When we wrap this into a Shiny app next time, we will see how this can be useful for further exploration. Thanks and see you next time! 
