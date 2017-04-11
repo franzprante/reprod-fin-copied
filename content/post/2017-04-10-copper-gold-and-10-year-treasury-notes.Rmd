@@ -3,11 +3,11 @@ title: "Copper, Gold and Ten-Year Treasury Notes"
 author: "Jonathan Regenstein"
 date: '2017-04-12'
 draft: yes
-summary: A notebook for examining the relationship between the copper-gold price ratio
-  and 10-year Treasury yields
 tags:
 - R
 - R Markdown
+- time series
+- dygraphs
 categories:
 - Reproducible Finance with R
 - Data Science
@@ -21,9 +21,7 @@ for (pkg in c('Quandl', 'dplyr', 'xts', 'lubridate', 'dygraphs'))
   if (!requireNamespace(pkg)) install.packages(pkg)
 ```
 
-Today, we will continue getting familiar with data from Quandl, but will also devote more time to expanding our dygraphs toolkit. We will be building up a data visualization in discrete pieces, which isn't very efficient, but will make things easier when we move this project into production as a Shiny app.
-
-From a substantive perspective, we will examine the relationship between the price ratio of copper-gold and 10-year Treasure yields.  
+Today, we will continue getting familiar with data from Quandl, but will also devote more time to expanding our dygraphs toolkit. We will be building up a data visualization in discrete pieces, which isn't very efficient, but will make things easier when we move this project into production as a Shiny app. From a substantive perspective, we will examine the relationship between the price ratio of copper-gold and 10-year Treasure yields.  
 
 Why do we care about the copper-gold price ratio and Treasury yields? First, both Jeff Gundlach (in [this webcast](http://doubleline.com/latest-webcasts/)) and [Adam Robinson](http://robinsonglobalstrategies.com/) say so, and that's probably good enough. The theory goes like this:
 
