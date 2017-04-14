@@ -1,6 +1,5 @@
 baseurl = "/"
 ignoreFiles = ["\\.Rmd$", "_files$"]
-relativeurls = true
 
 languageCode = "en-us"
 title = "R Views"
@@ -29,7 +28,7 @@ theme = "hugo-icarus-theme"
     # Format dates with Go's time formatting
     date_format = "2006-01-02"
 
-    baseurl = "https://rviews.rstudio.com"
+    baseurl2 = "https://rviews.rstudio.com"
 
 # Create custom menu entries by defining a label and a link for
 # them. Since you can also link posts, you've the option the
