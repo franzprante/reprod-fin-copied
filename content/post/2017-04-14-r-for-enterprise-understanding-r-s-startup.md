@@ -1,9 +1,25 @@
 ---
-title: "R's Quirky and Powerful Startup"
+title: 'R for Enterprise: Understanding R’s Startup'
+author: Sean Lopp
+date: '2017-04-14'
+slug: r-for-enterprise-understanding-r-s-startup
+categories:
+  - R Language
+  - R for the Enterprise
+  - RStudio
+tags:
+  - R
+  - RStudio
+draft: yes
+summary: ''
+---
+
+---
+title: "R for the Enterprise: Understanding R's Startup"
 author: "Sean Lopp"
 date: '2017-04-04'
 draft: yes
-slug: rs-quirky-and-powerful-startup
+slug: r-for-the-enterprise-understanding-rs-startup
 summary: ''
 tags: R
 categories:
@@ -12,7 +28,15 @@ categories:
 - R
 ---
 
-R's startup behavior is both quirky and powerful. Understanding the behavior can give R users and system administrators a powerful tool and save some common gotchas. R's behavior is thoroughly documented in [R's base documentation: "Initialization at Start of an R Session"](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Startup.html). This post will elaborate on the official documentation and provide some examples.
+R's startup behavior is incredibly powerful. R sets environment variables, loads base packages, and understands whether you're running a script, an interactive session, or even a build command. RStudio's products work hard to ensure that R starts and stops correctly, whether you're running RStudio Desktop, serving a Shiny app to multiple end users in Shiny Server Pro, or supporting hundreds of users and thousands of sessions in a load balanced configuration of RStudio Server Pro.
+
+Most R users will never have to worry about changing R's Startup. In fact, for protability and reproducibility of code we recommend that user's do not modify R's startup profile. But, for system administrators, package developers, and R enthusiasts customizing the launch process can provide a powerful tool and help avoid common gotchas. R's behavior is thoroughly documented in [R's base documentation: "Initialization at Start of an R Session"](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Startup.html). This post will elaborate on the official documentation and provide some examples. Read on if you've ever wondered how to:
+
+- Tell R about a [local CRAN-like repository](https://rstudio.github.io/packrat/custom-repos.html) to host and share R packages internally
+- Use a different version of Python, e.g. to support a [Tensorflow](http://rstudio.github.io/tensorflow) project
+- Define a proxy so R can reach the internet in locked down environments
+- Understand why [Packrat](https://rstudio.github.io/packrat/) creates a .Rprofile
+- Automatically run code at the of a session to capture and log `sesssionInfo()`
 
 ## .Rprofile, .Renviron, and R*.site oh my!
 
@@ -28,9 +52,10 @@ At a highlevel, R's startup process follows three steps: starting R, setting env
 
 3) The environment files are plain text files in the form `name=value`. The profile files contain R code.
 
-4) Be careful about placing things in a profile that limit the reproducibility or portability of your code. For example, it is tempting to include `options("stringsAsFactors" = FALSE)`. Setting this option in the profile is not recommended because if you were to share your code with someone else they would get unexpected errors.
+4) To double check what environment variables are defined in the R environment run `Sys.getenv()`.
 
-5) To double check what environment variables are defined in the R environment run `Sys.getenv()`.
+5) Do not place things in a profile that limit the reproducibility or portability of your code. For example, setting `options(stringsAsFactors = FALSE)` is discouraged because it will cause your code to break in mysterious ways in other environments. Other bad iddas 
+
 
 
 ### Where to put what?
