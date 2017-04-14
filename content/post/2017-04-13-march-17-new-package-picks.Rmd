@@ -10,8 +10,7 @@ tags:
   - Shiny
   - Phylogenetic Trees
   - Data
-date: '2017-04-13'
-draft: yes
+date: '2017-04-14'
 ---
 Two hundred and sixteen new packages were added to CRAN in March. The following are my picks for the *Top Forty*, organized into five categories: Bioscience, Data, Data Science, Statistics and Utilities.
 
