@@ -35,7 +35,8 @@ data(woodmiceTrees)
 wm.res <- treespace(woodmiceTrees,nf=3)
 wm.groves <- findGroves(wm.res, nclust=6)
 plotGrovesD3(wm.groves)
-```
+```    
+
 ### Data    
 *   [cropdatape](https://cran.r-project.org/web/packages/cropdatape/index.html) v1.0.0: Provides access to data from the [Agricultural Ministry of Peru](http://siea.minagri.gob.pe/siea/?q=publicaciones/anuarios-estadisticos).
 
