@@ -16,7 +16,7 @@ Two hundred and sixteen new packages were added to CRAN in March. The following 
 
 ```{r setup, include=FALSE}
 # packages required for this post
-for (pkg in c('Polychrome')) 
+for (pkg in c('Polychrome','treespace')) 
   if (!requireNamespace(pkg)) install.packages(pkg)
 ```
 
@@ -29,6 +29,13 @@ for (pkg in c('Polychrome'))
 *   [treespace](https://cran.r-project.org/web/packages/treespace/index.html) v1.0.0: Provides tools for the exploration of distributions of phylogenetic trees. This package includes a Shiny interface which can be started from R. There are vignettes for [Dengue trees](https://cran.r-project.org/web/packages/treespace/vignettes/DengueVignette.html), [Transmission trees](https://cran.r-project.org/web/packages/treespace/vignettes/TransmissionTreesVignette.html), and for exploring [landscapes of phylogenetic trees](https://cran.r-project.org/web/packages/treespace/vignettes/introduction.html).
 The following plot from the vignette shows clusters of similar trees.
 
+```{r,warnings=FALSE, message=FALSE}
+library(treespace)
+data(woodmiceTrees)
+wm.res <- treespace(woodmiceTrees,nf=3)
+wm.groves <- findGroves(wm.res, nclust=6)
+plotGrovesD3(wm.groves)
+```
 ### Data    
 *   [cropdatape](https://cran.r-project.org/web/packages/cropdatape/index.html) v1.0.0: Provides access to data from the [Agricultural Ministry of Peru](http://siea.minagri.gob.pe/siea/?q=publicaciones/anuarios-estadisticos).
 
