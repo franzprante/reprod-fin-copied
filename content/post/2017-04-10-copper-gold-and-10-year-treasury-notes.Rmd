@@ -101,8 +101,8 @@ dygraph(tenYear_ratio) %>%
   # Add the rollPeriod for smoothing.
   dyRoller(rollPeriod = 3) %>% 
   # Create two independent axes.
-  dyAxis("y", label = "Percent (%)") %>%
-  dyAxis("y2", label = "USD", independentTicks = TRUE) %>%
+  dyAxis("y", label = "USD") %>%
+  dyAxis("y2", label = "Percent (%)", independentTicks = TRUE) %>%
   # Assign each time series to an axis.
   dySeries("ratio", axis = 'y', label = "Copper/Gold (LHS)") %>% 
   dySeries("TenYear", axis = 'y2', label = "10-Year % Yield (RHS)")
