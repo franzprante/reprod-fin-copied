@@ -1,7 +1,7 @@
 ---
 title: 'R for Enterprise: Understanding R’s Startup'
 author: Sean Lopp
-date: '2017-04-14'
+date: '2017-04-19'
 slug: r-for-enterprise-understanding-r-s-startup
 categories:
   - R Language
@@ -11,7 +11,6 @@ tags:
   - R
   - RStudio
 draft: yes
-summary: ''
 ---
 
 R's startup behavior is incredibly powerful. R sets environment variables, loads base packages, and understands whether you're running a script, an interactive session, or even a build command. 
