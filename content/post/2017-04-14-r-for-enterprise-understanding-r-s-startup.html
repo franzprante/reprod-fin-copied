@@ -1,0 +1,129 @@
+---
+title: 'R for Enterprise: Understanding R’s Startup'
+author: Sean Lopp
+date: '2017-04-19'
+slug: r-for-enterprise-understanding-r-s-startup
+categories:
+  - R Language
+  - R for the Enterprise
+  - RStudio
+tags:
+  - R
+  - RStudio
+---
+
+<!-- BLOGDOWN-HEAD -->
+<!-- /BLOGDOWN-HEAD -->
+
+<!-- BLOGDOWN-BODY-BEFORE -->
+<!-- /BLOGDOWN-BODY-BEFORE -->
+<p>R’s startup behavior is incredibly powerful. R sets environment variables, loads base packages, and understands whether you’re running a script, an interactive session, or even a build command.</p>
+<p>Most R users will never have to worry about changing R’s startup process. In fact, for portability and reproducibility of code, we recommend that users do not modify R’s startup profile. But, for system administrators, package developers, and R enthusiasts, customizing the launch process can provide a powerful tool and help avoid common gotchas. R’s behavior is thoroughly documented in <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Startup.html">R’s base documentation: “Initialization at Start of an R Session”</a>. This post will elaborate on the official documentation and provide some examples. Read on if you’ve ever wondered how to:</p>
+<ul>
+<li>Tell R about a <a href="https://rstudio.github.io/packrat/custom-repos.html">local CRAN-like repository</a> to host and share R packages internally</li>
+<li>Use a different version of Python, e.g., to support a <a href="http://rstudio.github.io/tensorflow">Tensorflow</a> project</li>
+<li>Define a proxy so R can reach the internet in locked-down environments</li>
+<li>Understand why <a href="https://rstudio.github.io/packrat/">Packrat</a> creates a .Rprofile</li>
+<li>Automatically run code at the end of a session to capture and log <code>sesssionInfo()</code></li>
+</ul>
+<p>We’ll also discuss how RStudio starts R. Spoiler: it’s a bit different than you might expect!</p>
+<div id="rprofile-.renviron-and-r.site-oh-my" class="section level2">
+<h2>.Rprofile, .Renviron, and R*.site oh my!</h2>
+<p>R’s startup process follows three steps: starting R, setting environment variables, and sourcing profile scripts. In the last two steps, R looks for site-wide files and user- or project-specific files. The R documentation explains this process in detail.</p>
+<div class="figure">
+<img src="/post/2017-04-04-rs-quirky-and-powerful-startup_files/R_STARTUP.jpeg" />
+
+</div>
+<div id="common-gotchas-and-tricks" class="section level3">
+<h3>Common Gotchas and Tricks:</h3>
+<ol style="list-style-type: decimal">
+<li><p>The Renviron file located at <code>R_HOME/etc</code> is unique and different from Renviron.site and the user-specific .Renviron files. <em>Do not edit the Renviron file!</em></p></li>
+<li><p>A site-wide file, and either a project file <em>or</em> a user file, can be loaded at the same time. It is not possible to use both a user file and a project file. If the project file exists, it will be used instead of the user file.</p></li>
+<li><p>The environment files are plain-text files in the form <code>name=value</code>. The profile files contain R code.</p></li>
+<li><p>To double check what environment variables are defined in the R environment, run <code>Sys.getenv()</code>.</p></li>
+<li><p>Do not place things in a profile that limit the reproducibility or portability of your code. For example, setting <code>options(stringsAsFactors = FALSE)</code> is discouraged because it will cause your code to break in mysterious ways in other environments. Other bad ideas include: reading in data, loading packages, and defining functions.</p></li>
+</ol>
+</div>
+<div id="where-to-put-what" class="section level3">
+<h3>Where to put what?</h3>
+<p>The R Startup process is very flexible, which means there are different ways to achieve the same results. For example, you may be wondering which environment variables to set in .Renviron versus Renviron.site. (Don’t even think about calling <code>Sys.setenv()</code> in a Rprofile…)</p>
+<p>A simple rule of thumb is to answer the question: “When else do I want this variable to be set?”</p>
+<p>For example, if you’re on a shared server and you want the settings every time you run R, place .Renviron or .Rprofile in your home directory. If you’re a system admin and you want the settings to take affect for every user, modify Renviron.site or Rprofile.site.</p>
+<p>The best practice is to scope these settings as narrowly as possible. That means if you can place code in .Rprofile instead of Rprofile.site you should! This practice complements the previous warnings about modifying R’s startup. The narrowest scope is to setup the environment within the code, not the profile.</p>
+<div id="quiz" class="section level4">
+<h4>Quiz</h4>
+<p>What is the best way to modify the path? The answer depends on the desired scope for the change.</p>
+<p>For example, in an R project using the <a href="http://rstudio.github.io/tensorflow">Tensorflow</a> package, I might want R to use the version of Python installed in <code>/usr/local/bin</code> instead of <code>/usr/bin</code>. This change is best implemented by reordering the <code>PATH</code> using <code>PATH=/usr/local/bin:${PATH}</code>. This is a change I only want for this project, so I’d place the line in a .Renviron file in the project directory.</p>
+<p>On the other hand, I may want to add the JAVA SDK to the path so that any R session can use the <code>rJava</code> package. To do so, I’d add a line like <code>PATH=${PATH}:/opt/jdk1.7.0_75/bin:/opt/jdk1.7.0_75/jre/bin</code> to Renviron.site.</p>
+</div>
+</div>
+</div>
+<div id="r-startup-in-rstudio" class="section level2">
+<h2>R Startup in RStudio</h2>
+<p>A common misconception is that R and RStudio are one in the same. RStudio runs on top of R and requires R to be installed separately. If you look at the process list while running RStudio, you’ll see at least two different processes: usually one called RStudio and one called rsession.</p>
+<p>RStudio starts R a bit differently than running R from the terminal. Technically, RStudio doesn’t “start” R, it uses R as a library, either as a DLL on Windows or as a shared object on Mac and Linux.</p>
+<p>The main difference is that the script wrapped around R’s binary is not run, and any customization to the script will not take affect. To see the script try:</p>
+<pre class="bash"><code>cat $(which R)</code></pre>
+<p>For most people, this difference won’t be noticeable. Any settings in the startup files will still take affect. For user’s that build R from source, it is important to include the <code>--enable-R-shlib</code> flag to ensure R also builds the shared libraries used by RStudio.</p>
+<div id="r-startup-in-rstudio-server-pro" class="section level3">
+<h3>R Startup in RStudio Server Pro</h3>
+<p>RStudio Server Pro acts differently from R and the open-source version of RStudio. Prior to starting R, RStudio Server Pro uses PAM to create a session, and sources the <code>rsession-profile</code>. In addition, RStudio Server Pro launches R from bash, which means settings defined in the user’s bash profile are available.</p>
+<p>In short, RStudio Server Pro provides more ways to customize the environment used by R. You might ask why you’d ever want <em>more</em> options. Recall our rule of thumb: “When else do I want this variable to be set?”</p>
+<p>In server environments, there are often environment variables set every time a user interacts with the server. These environment variables are placed in a user’s bash profile by a system admin. Normally R wouldn’t pick up these settings. RStudio Server Pro allows R to make use of the work the system admin has already done by picking up these profiles.</p>
+<p>Likewise, there may be some actions that take place on the server when a user logs in that have to happen before R starts. For example, a Kerberos ticket used by the R session to access a data source must exist before R is started. RStudio Server Pro uses PAM sessions to enable these actions.</p>
+<p>There may also be actions or variables that should only be defined for RStudio, and not any other time R is run. To facilitate this use case, RStudio Server Pro provides the <code>rsession-profile</code>. For example, if your environment makes use of RStudio Server Pro’s support for multiple versions of R, you’d place any environment variables that should defined for all versions of R inside of <code>rsession-profile</code>.</p>
+</div>
+</div>
+<div id="examples" class="section level2">
+<h2>Examples:</h2>
+<div id="define-proxy-settings-in-renviron.site" class="section level3">
+<h3>Define proxy settings in Renviron.site</h3>
+<p>Renviron.site is commonly used to tell R how to access the internet in environments with restricted network access. Renviron.site is used so the settings take affect for all R sessions and users. For example,</p>
+<pre class="bash"><code>http_proxy=http://proxy.mycompany.com</code></pre>
+<p>This article contains more details on how to <a href="https://support.rstudio.com/hc/en-us/articles/200488488-Configuring-R-to-Use-an-HTTP-or-HTTPS-Proxy">configure RStudio to use a proxy</a>.</p>
+</div>
+<div id="add-a-local-cran-repository-for-all-users" class="section level3">
+<h3>Add a local CRAN repository for all users</h3>
+<p>Organizations with offline environments often use local CRAN repositories instead of installing packages directly from a CRAN mirror. Local CRAN repositories are also useful for sharing internally developed R packages among colleagues.</p>
+<p>To use a local CRAN repository, it is necessary to add the repository to R’s list of repos. This setting is important for all sessions and users, so <code>Rprofile.site</code> is used.</p>
+<pre class="r"><code>old_repos &lt;- getOption(&quot;repos&quot;)
+local_CRAN_URI &lt;- paste0(&quot;file://&quot;, normalizePath(&quot;path_to_local_CRAN_repo&quot;))
+options(repos = c(old_repos, my_repo = lcoal_CRAN_URI))</code></pre>
+<p>More information on setting up a local CRAN repository is available <a href="https://rstudio.github.io/packrat/custom-repos.html">here</a>.</p>
+</div>
+<div id="record-sessioninfo-automatically" class="section level3">
+<h3>Record sessionInfo automatically</h3>
+<p>Reproducibility is a critical part of any analysis done in R. One challenge for reproducible scripts and documents is tracking the version of R packages used during an analysis.</p>
+<p>The following code can be added to a .Rprofile file within an RStudio project to automatically log the <code>sessionInfo()</code> after every RStudio session.</p>
+<p>This log could be referenced if an analysis needs to be run at a later date and fails due to a package discrepancy.</p>
+<pre class="r"><code>.Last &lt;- function(){
+  if (interactive()) {
+    
+    ## check to see if we&#39;re in an RStudio project (requires the rstudioapi package)
+    if (!requireNamespace(&quot;rstudioapi&quot;))
+      return(NULL)
+    pth &lt;- rstudioapi::getActiveProject()
+    if (is.null(pth))
+      return(NULL)
+    
+    ## append date + sessionInfo to a file called sessionInfoLog
+    cat(&quot;Recording session info into the project&#39;s sesionInfoLog file...&quot;)
+    info &lt;-  capture.output(sessionInfo())
+    info &lt;- paste(&quot;\n----------------------------------------------&quot;,
+                  paste0(&#39;Session Info for &#39;, Sys.time()),
+                  paste(info, collapse = &quot;\n&quot;),
+                  sep  = &quot;\n&quot;)
+    f &lt;- file.path(pth, &quot;sessionInfoLog&quot;)
+    cat(info, file = f, append = TRUE)
+  }
+}</code></pre>
+</div>
+<div id="automatically-turn-on-packrat" class="section level3">
+<h3>Automatically turn on packrat</h3>
+<p><a href="http://rstudio.github.io/packrat">Packrat</a> is an automated tool for package management and reproducible research. Packrat acts as a super-set of the previous example. When a user opts in to using packrat with an RStudio project, one of the things packrat automatically does is create (or modify) a project-specific .Rprofile. Packrat uses the .Rprofile to ensure that each time the project opens, Packrat mode is turned on.</p>
+</div>
+</div>
+<div id="to-wrap-up" class="section level2">
+<h2>To Wrap Up</h2>
+<p>R’s startup behavior can be complex, sometimes quirky, but always powerful. At RStudio, we’ve worked hard to ensure that R starts and stops correctly whether you’re running RStudio Desktop, serving a Shiny app on shinyapps.io, rendering a report in RStudio Connect, or supporting hundreds of users and thousands of sessions in a load balanced configuration of RStudio Server Pro.</p>
+</div>
