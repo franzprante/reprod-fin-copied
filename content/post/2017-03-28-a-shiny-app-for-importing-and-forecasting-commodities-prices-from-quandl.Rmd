@@ -13,7 +13,6 @@ tags:
   - Forecasting
   - Quandl
   - Shiny
-draft: yes
 summary: 'an interactive Shiny app that lets the user choose a commodity, run a forecast and graph the results'
 ---
   
