@@ -1,0 +1,202 @@
+---
+title: A Shiny App for Importing and Forecasting Commodities Prices from Quandl
+author: "Jonathan Regenstein"
+date: '2017-04-21'
+categories: 
+  - Reproducible Finance with R
+  - R Language
+  - RStudio
+  - Statistics
+tags: 
+  - R
+  - Finance
+  - Forecasting
+  - Quandl
+  - Shiny
+draft: yes
+summary: 'an interactive Shiny app that lets the user choose a commodity, run a forecast and graph the results'
+---
+  
+In a [previous post](https://rviews.rstudio.com/2017/03/17/quandl-and-forecasting/), we imported oil data from Quandl and applied a simple model to it. Today, we'll port that work over to a Shiny app (by way of flexdashboard, of course) that allows a user to choose a commodity (oil, copper or gold), choose a frequency for the time series, and choose how many periods ahead to forecast. The app will display the price history and the forecasted price. To see it in action, have a look [here](http://colorado.rstudio.com:3939/commodities-quandl-flexdb/).
+
+As with the previous Notebook, the main purpose of this post is to build a template where a more sophisticated or proprietary model could be used for forecasting. By setting it up so that models could be selected as inputs, several different models could be included. We are not as concerned with the modeling as much as we are with providing a format that is friendly to both end users and any future collaborator that might want to take this app and expand upon it.
+
+Let's get to it! In the code chunk below, we are immediately faced with a few important decisions. The first of those is the format of the user input. At the extreme, we could use `textInput` and simply allow the user to enter the code for the desired data set. The benefit is that we would not limit the user in any way; he or she could choose any dataset on Quandl. The cost would be that the user would need to know - or go to Quandl and look up - the code for any data set. 
+
+For example, to import WTI oil prices, the user would have to type in "FRED/DCOILWTICO". That's no problem if most of the end users know that code, but it's a big problem otherwise. We want to emphasize convenience and broad usability, so we are going with `selectInput` instead of `textInput`, meaning our app will show a drop-down of a few choices. The user just selects "WTI oil" instead of typing "FRED/DCOILWTICO"", or selects "copper" instead of typing "ODA/PCOPP_USD". But, if a user wants to work with a data set that we haven't included, said user is out of luck.  
+
+Another big decision is how many choices to give the user. I have included only 3: oil, gold and copper. In industry, you would probably include several more, perhaps all of the industrial metals, but there's is a cutoff somewhere. Or maybe we prefer one choice, because this app is just for oil analysis. Either way, the number of options in the drop-down menu is another trade-off between usability and flexibility.
+
+The final decision is a bit more nuanced, and requires looking ahead to how these inputs will be used further down in the app. Have a peek at the object called `dataChoices`, and you might notice that we don't strictly need that object. We could have put the vector of choices as an argument to `selectInput`, so that our code would have read `choices = c("WTI oil" = "FRED/DCOILWTICO", ...)` instead of `choices = dataChoices`. In that choice assignment, "WTI oil" is called the name and "FRED/DCOILWTICO" is called the value (together we can think of them as a name-value pair).  The entire reason for building a separate `dataChoices` object is that we want the ability to extract either the name or the value of the name-value pair. Usually we would care only about the value, because we want to pass the value to Quandl and import the data, but that name is going to be useful as well when we label our graph.
+
+The ability to extract names and values will become even more useful when we get to the frequency of the time series and forecasting. For now, let's look at `dataChoices` and `selectInput`.
+
+```{r, eval = FALSE}
+# Notice a tradeoff here: we're making it easy on our users because they don't need to 
+# remember the naming conventions. But, we're also forced to severely limit their choices. 
+# The dataChoices object is going to allow us to add a nicer label to the graph. 
+# Notice also how easily we can include datasets from different sources, and not worry about
+# their formats. Thanks, Quandl!
+
+dataChoices <- c("WTI oil" = "FRED/DCOILWTICO", # oil data from Fred
+                 "Copper" = "ODA/PCOPP_USD", # copper data from ODA
+                 "Gold" = "CHRIS/CME_GC1") # gold data from CME
+
+selectInput("dataSet",
+            "Commodity",
+            choices = dataChoices,
+            selected = "WTI oil")
+```
+
+Alright, we have given the user the ability to choose a commodity. Next we want to ask about the frequency, and this gets a bit more complicated. We need to tell Quandl the frequency of the time series to import using the "daily", "weekly", "monthly" convention, so we set those to the values. But, further down the app when we want to store the forecast results, we'll need to use the "days", "weeks", "months" phrasing and we'll need to pull out the names from the name-value pair in `frequencyChoices`. We knew that this would be necessary because when we built our Notebook for importing, wrangling, and testing, we noted the different conventions and started thinking about how to deal with them in the Shiny context.
+
+```{r, eval = FALSE} 
+# The frequencyChoices object is going to allow us to pass different period conventions
+# to different places further down the app. 
+
+frequencyChoices <- c("days" = "daily",
+                      "weeks" = "weekly", 
+                      "months" = "monthly")
+
+selectInput("frequency",
+            "freq",
+            choices = frequencyChoices, 
+            selected = "months")
+```
+
+The remainder of the inputs should look familiar as they are in standard format.
+
+```{r, eval = FALSE}
+
+dateRangeInput("dateRange",
+               "Date range",
+               start = "1980-01-01",
+               end   = "2016-12-31")
+
+numericInput("periods", "Periods to Forecast", 6, min = 1, max = 100)
+```
+
+Now that we've built the sidebar inputs, let's put them to use. First, we will import the commodity time series data from Quandl. This will be familiar from the Notebook, but note in particular that we will use the value from the `input$frequency` choice because Quandl uses the "daily/weekly/monthly" frequency format.
+
+```{r, eval = FALSE}
+# Let's pull in the Quandl data. 
+# Nothing fancy here except we are going to use the reactive inputs.
+# We will pass in the value from the input$dataSet key-value pair.
+# We will also pass in the value from the input$frequency key-value pair. 
+
+commodity <- reactive({
+  # It might be a good idea to include your quandl api key if this will be used more than 50 times in a day. 
+  Quandl.api_key("your_apikey_here")
+  
+  commodity <- Quandl(input$dataSet,
+                      start_date = format(input$dateRange[1]),
+                      end_date = format(input$dateRange[2]),
+                      order = "asc",
+                      type = "xts",
+                      collapse = as.character(input$frequency)
+  )
+})
+```
+
+We have imported a time series object for the dataset, date range and frequency chosen by the user. Now we want to do some forecasting and create a visualization. We'll first use the `forecast()` function, then we'll combine the forecasted prices and the historical prices into one xts object that can be passed to dygraph. Let's handle this in one reactive.
+
+First, we'll call `forecast` and pass it the `periods` input from the user.
+
+```{r, eval = FALSE}
+combined_xts <- reactive({
+  
+  # Just like the Notebook, except periods is a reactive input.
+  
+  forecasted <- forecast(commodity(), h = input$periods)
+```
+  
+Now we need to combine that forecasted object with the commodity object that was created in a previous code chunk. Here we will finally thank ourselves for thinking about the name-value issue when assigning `frequencyChoices`. When we create a dataframe to hold the forecasted time series, we build a 'date' column using the `seq()` function. The column starts on the end date of the historical data (which the user selected with the `dateRange` input) and runs for as many periods as the user chose in the `periods` input. But, we need to supply a value to the `by = ...` argument of the `seq()` function so that it knows if we want to move 6 days, 6 weeks, 6 months, etc. To do that, we need to extract the name ("days/weeks/months") from the `frequencyChoices` name-value pair and pass it to seq. The way we extract the name is with this selection statement: `names(frequencyChoices[frequencyChoices == input$frequency])`.
+  
+```{r, eval = FALSE}
+  forecast_dataframe <- data.frame(
+    date = seq(input$dateRange[2], 
+               # The next line is very important, and it's the reason we 
+               # created the frequencyChoices object.
+               by = names(frequencyChoices[frequencyChoices == input$frequency]),
+               length.out = input$periods),
+    Forecast = forecasted$mean,
+    Hi_95 = forecasted$upper[,2],
+    Lo_95 = forecasted$lower[,2])
+```
+  
+Now we convert the `forecast_dataframe` object to an xts and combine that new object with the `commodity` xts object. Remember, we imported the commodity data from Quandl in the form of an xts object, which saved us from having to do a conversion. This chunk should look very similar to the Notebook.
+  
+```{r, eval = FALSE}
+  
+  forecast_xts <- xts(forecast_dataframe[,-1], order.by = forecast_dataframe[,1])
+  
+  combined_xts <- cbind(commodity(), forecast_xts)
+  
+  # Add a nicer name for the first column.
+  
+  colnames(combined_xts)[1] <- "Actual"
+  
+  # This is the combined object that will be passed to dygraphs below. 
+  combined_xts
+})
+```
+
+Next, we will create a chart of the actual price history. Nothing fancy here, except again we are going extract the 'name' portion of a name-value pair, this time from the `dataSet` object (the first one we created in the first code chunk). We want to label the graph with 'WTI oil' and not the Quandl code, so we select the name with  `names(dataChoices[dataChoices==input$dataSet])`. 
+
+```{r, eval = FALSE}
+dygraphOutput("commodity")
+
+output$commodity <- renderDygraph({
+  dygraph(commodity(),
+          # We pull out the name of the selected name-value input$dataSet like so: 
+          # names(dataChoices[dataChoices==input$dataSet])
+          main = paste("Price history of", names(dataChoices[dataChoices==input$dataSet]), 
+                       sep = " ")) %>%
+    dyAxis("y", label = "$") %>%
+    dyOptions(axisLineWidth = 1.5, fillGraph = TRUE, drawGrid = TRUE)
+})
+
+```
+
+Last but not least, let's graph the historical and forecasted time series together on one graph. We could have ported the code directly from the Notebook, but I couldn't help tinkering just a bit. I wanted to focus the graph on the time period around where the actual data ends and the forecast begins, because that is probably what's of most interest to the user. To do that, we'll use the `dyRangeSelector()` function and pass two values to the `dateWindow` variable: a start date and end an date. This is pure aesthetics, but I think it's worth the effort here. 
+
+We are going to use `seq()` and `names(frequencyChoices[frequencyChoices == input$frequency])` once again. 
+
+```{r, eval = FALSE}
+
+dygraphOutput("forecasted")
+
+output$forecasted <- renderDygraph({
+
+# We want the user to be able to see the forecasted area, so let's focus in on that 
+# by truncating the view of the dygraph.
+# We need to give the graph a start date and an end date. 
+start_date <- tail(seq(input$dateRange[2], by = "-1 months", length = 6), 1)
+end_date <- tail(seq(input$dateRange[2], 
+                     by = names(frequencyChoices[frequencyChoices == input$frequency]), 
+                     length = input$periods), 1)
+```
+
+Now we will supply those date objects to a piped dygraphs chain, and that will be a wrap. Have a close look at the chunk below and spot where we again extract the name from the `input$dataSet` name-value pair.
+
+```{r, eval = FALSE}
+
+dygraph(combined_xts(), 
+        # Name about to be extracted!
+        main = paste(names(dataChoices[dataChoices==input$dataSet]), 
+                     ": Historical and Forecast", sep = "")) %>%
+  # Add the actual series.
+  dySeries("Actual", label = "Actual") %>%
+  # Add the three forecasted series.
+  dySeries(c("Lo_95", "Forecast", "Hi_95")) %>% 
+  # A range selector to focus on the where historical data ends and 
+  # foracated data begins.
+  # Note the user can still use the range selector to zoom out if so desired.
+  dyRangeSelector(dateWindow = c(start_date, end_date))
+})
+```
+
+That's all for today! We've built an app that can be extended in many directions - more data set choices, an input selector so the user can choose different models, more visualizations - and in that sense it can serve as a template for ourselves and anyone that wants to build upon this work. 
+
+This app also relies on and highlights one of the tremendous benefits of Quandl: the ability to import datasets from different sources and have them arrive in the IDE in a consistent format. This makes using Quandl with Shiny quite enjoyable after the initial skeleton is built. For example, if we or a colleague did want to change this app and substitute in different commodities, there would be no worry beyond the finding the right code on Quandl and adding another name-value pair to `dataChoices`.
+
