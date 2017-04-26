@@ -1,0 +1,197 @@
+---
+title: Survival Analysis with R
+author: Joseph Rickert
+categories:
+  - R Language
+  - Statistics
+  - Data Science
+Tags:
+  - R
+  - CRAN Task Views
+  - Survival Analysis
+  - Random Forests
+date: '2017-04-26'
+---   
+     
+With roots dating back to at least 1662 when John Graunt, a London merchant, published an extensive set of inferences based on mortality records, Survival Analysis is one of the oldest subfields of Statistics [1]. Basic life-table methods, including techniques for dealing with censored data, were known before 1700 [2]. In the early eighteenth century, the old masters, de Moivre working on annuities and Daniel Bernoulli studying competing risks for his work on smallpox inoculation, developed the foundations of time-to-event modeling [2]. Today, survival analysis models are important in Engineering, Insurance, Marketing and Medicine and many more application areas. So, it is not surprising that the R Task View on Survival Analysis, a curated, organized and annotated list of relevant R packages and functions, is formidable.
+
+<iframe src="https://cran.r-project.org/web/views/Survival.html" width="90%" height="450"> </iframe>
+
+Looking at the Task View on a small screen is a bit like standing too close to a brick wall - left-right, up-down, bricks all around. It is a fantastic edifice that gives some idea of the significant contributions R developers have made both to the theory and practice of Survival Analysis. As well-organized as it is, however, I imagine that even survival analysis experts need some time to find their way around this task view. (I would be remiss not to mention that we all owe a great deal of gratitude to Arthur Allignol and Aurielien Latouche, the task view maintainers.) Newcomers, people either new to R or new to survival analysis or both, must find it overwhelming.  So, it is with newcomers in mind that I offer the following slim trajectory through the task view that relies on just a few packages: [survival](https://cran.rstudio.com/web/packages/survival/), [KMsurv](https://www.r-pkg.org/pkg/KMsurv), 
+[Oisurv](https://cran.r-project.org/web/packages/OIsurv/index.html) and [ranger](https://cran.r-project.org/web/packages/ranger/index.html)
+
+The survival package, which began life as an [S package](http://www.mayo.edu/research/documents/tr53pdf/doc-10027379) in the late '90s, is the cornerstone of the entire R Survival Analysis edifice. Not only is the package itself rich in features, but the object created by the `Surv()` function, which contains failure time and censoring information, is the basic survival analysis data structure in R.
+
+KMsurv contains some interesting data sets from John Klein and Melvin Moeschberger's classic text, [*Survival Analysis Techniques for Censored and Truncated Data*](http://sistemas.fciencias.unam.mx/~ediaz/Cursos/Estadistica3/Libros/0a9X.pdf).
+
+My main reason for selecting the OIsurv package was to draw attention the very helpful guide to [Survival Analysis in R](https://www.openintro.org/download.php?file=survival_analysis_in_R&referrer=/stat/surv.php), produced by the folks at [OpenIntro](https://www.openintro.org/stat/surv.php).
+
+ranger might be the surprise in my very short list of survival packages. The `ranger()` function is well-known for being a fast implementation of the Random Forests algorithm for building ensembles of classification and regression trees. But it was news to me that `ranger()` also builds survival models. [Benchmarks](https://arxiv.org/pdf/1508.04409.pdf) indicate that `ranger()` is suitable for building time-to-event models with the large, high dimensional data sets important to internet marketing applications. Since `ranger()` uses standard `Surv()` survival objects, it's an ideal tool for getting acquainted with survival analysis in the in this machine learning age.
+
+
+```{r, include=FALSE,message=FALSE}
+# This block of code that the packages needed to build the blog post are available
+lapply(c('survival', 'dplyr', 'KMsurv', 'OIsurv', 'ranger', 'ggplot2'), function(x) {
+  if (!requireNamespace(x)) install.packages(x)
+})
+``` 
+
+*** Load and transform the data
+This first block of code loads the required packages along with the bone marrow transplant data frame from the KMsurv package. I chose this because has number of covariates and no missing values. The only data preparation is to make the appropriate variables into factors.
+
+```{r,warning=FALSE,message=FALSE}
+library(survival)
+library(dplyr)
+library(OIsurv) # Aumatically loads KMsurv
+library(ranger)
+library(ggplot2)
+
+#------------
+data(bmt)
+# sapply(bmt,class)
+
+# Prepare new data frame for modeling
+bmt2 <- select(bmt,-c(t2,d2,d3))
+bmt2  <- mutate(bmt2,
+                group = as.factor(group),
+                d1 = as.factor(d1),
+                da = as.factor(da),
+                dc = as.factor(dc),
+                dp = as.factor(dp),
+                z3 = as.factor(z3),
+                z4 = as.factor(z4),
+                z5 = as.factor(z5),
+                z6 = as.factor(z6),
+                z8 = as.factor(z8),
+                z9 = as.factor(z9),
+                z10 = as.factor(z10)
+)
+head(bmt2)
+```
+
+### Kaplan Meier Analysis
+The first thing to do is to use `Surv()` to build the standard survival object. The variable `t1` records the time to death or the censored time; `d1` indicates that the patient died (`d1 = 1`) or that the patient survived until the end of the study (`d1 = 0`). Note that a "+" after the time in the print out of `y_bmt` indicates censoring. The formula `y_bmt ~ 1` instructs the `survfit()` function to fit a model with intercept only, and produces the [Kaplan-Meier](https://en.wikipedia.org/wiki/Kaplan%E2%80%93Meier_estimator) estimate.
+
+The `confBands()` function from the OIsurv package estimates [Hall-Wellner](http://www.ressources-actuarielles.net/EXT/ISFA/1226.nsf/0/b163cbaba7cf2db9c125776b004d3573/$FILE/Hall_Wellner_1980.pdf) confidence bands. These are large-sample, simultaneous estimates and are plotted in red. They contrast with the point-wise confidence bands rendered as black dashed lines.
+
+```{r}
+# Kaplan Meier Survival Curve
+y_bmt <- Surv(bmt$t1, bmt$d1)
+y_bmt
+``` 
+```{r}
+fit1_bmt <- survfit(y_bmt ~ 1)
+summary(fit1_bmt)
+
+cb <- confBands(y_bmt, type = "hall")
+plot(fit1_bmt,
+    main = 'Kaplan Meyer Plot with confidence bands')
+lines(cb, col = "red",lty = 3)
+legend(1000, 0.99, legend = c('K-M survival estimate',
+'pointwise intervals', 'Hall-Werner conf bands'), lty = 1:3)
+```
+
+### Cox Proportional Hazards Model
+Next, I fit a [Cox Proportional Hazards](https://en.wikipedia.org/wiki/Proportional_hazards_model) model, which makes use of several of the variables contained in the data set. I don't pretend to have the best model here, or even a very good one. My intention is just to show the survival package's `coxph()` function, and show how the covariates enter the formula. Note, however, that this model does achieve an R^2^ value of 0.8, and that three variables - `ta`, `tc`, and `dc1` - show up as significant.
+
+```{r}
+# Fit Cox Model
+form <- formula(y_bmt ~ group + ta + tc + tp + dc + dp + 
+                   z1 + z2 + z3 + z4 + z5 + z6 + z7 + z8 + z10)
+
+cox_bmt <- coxph(form,data = bmt2)
+summary(cox_bmt)
+cox_fit_bmt <- survfit(cox_bmt)
+# plot(cox_fit_bmt)
+```  
+
+### Random Forests Model
+To give some idea of the scope of R's capabilities to work with time to event data, I use the `ranger()` function to fit a Random Forests Ensemble model to the data. Note that `ranger()` builds a model for each observation in the data set. The next block of code builds the model using the same variables used the the Cox model above, and each of the 137 survival curves computed for the bmt data set, along with a curve of average values.
+
+
+```{r}
+# ranger model
+
+# ranger model
+r_fit_bmt <- ranger(form,
+                    data = bmt2,
+                    importance = "permutation",
+                    seed = 1234)
+
+# Average the survival models
+death_times <- r_fit_bmt$unique.death.times
+surv_prob <- data.frame(r_fit_bmt$survival)
+avg_prob <- sapply(surv_prob,mean)
+
+# Plot the survival models for each patient
+plot(r_fit_bmt$unique.death.times,r_fit_bmt$survival[1,], type = "l", 
+     ylim = c(0,1),
+     col = "red",
+     xlab = "death times",
+     ylab = "survival",
+     main = "Patient Survival Curves")
+
+for(n in c(2:137)){
+  lines(r_fit_bmt$unique.death.times, r_fit_bmt$survival[n,], type = "l", col = "red")
+}
+lines(death_times, avg_prob, lwd = 2)
+legend(100, 0.2, legend = c('Averages - black'))
+``` 
+
+Here, we show the ranking of variable importance computed by the permutation method, which is `ranger()`'s default for survival data. Note that `ta`, `tc`, and `dc` are the same top three variables flagged in the Cox model.
+
+Also listed is a measure of prediction error calculated from [Harrell's c-index](https://pdfs.semanticscholar.org/7705/392f1068c76669de750c6d0da8144da3304d.pdf). This index is defined as "... the proportion of all usable patient pairs in which the predictions and outcomes are concordant" (cf. [8] p 370), where predictions for pairs are concordant if predicted survival times are larger for patients who lived longer. Note that Harrell's c-index may be thought of as a generalization of finding the are under an ROC curve. (For binary outcomes Harrell's c-index reduces to the [Wilcoxon-Mann-Whitney statistic](https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test) which, in turn, is equivalent to computing the area under the ROC curve.)
+
+
+```{r}
+vi <- data.frame(sort(round(r_fit_bmt$variable.importance, 4), decreasing = TRUE))
+names(vi) <- "importance"
+head(vi)
+
+cat("Prediction Error = 1 - Harrell's c-index = ", r_fit_bmt$prediction.error)
+
+``` 
+
+Finally, we plot the survival curves computed for all three models on the same graph. Note that the "ad hoc" curve of average survival curves computed by the ranger model tracks the Kaplan-Meier curve fairly well. 
+
+
+```{r}
+# Set up for ggplot
+km <- rep("KM", length(fit1_bmt$time))
+km_df <- data.frame(fit1_bmt$time,fit1_bmt$surv,km)
+names(km_df) <- c("Time","Surv","Model")
+
+cox <- rep("Cox",length(cox_fit_bmt$time))
+cox_df <- data.frame(cox_fit_bmt$time,cox_fit_bmt$surv,cox)
+names(cox_df) <- c("Time","Surv","Model")
+
+rf <- rep("RF",length(r_fit_bmt$unique.death.times))
+rf_df <- data.frame(r_fit_bmt$unique.death.times,avg_prob,rf)
+names(rf_df) <- c("Time","Surv","Model")
+plot_df <- rbind(km_df,cox_df,rf_df)
+
+p <- ggplot(plot_df, aes(x = Time, y = Surv, color = Model))
+p + geom_line() + ggtitle("Comparison of Survival Curves") 
+
+```     
+   
+For a very nice exposition of the sort of predictive survival analysis modeling that can be done with `ranger`, be sure to have a look at Manuel Amunategui's [post](http://amunategui.github.io/survival-ensembles/) and [video](https://www.youtube.com/watch?v=6q-UFJUZK0g&list=UUq4pm1i_VZqxKVVOz5qRBIA&index=1).
+
+This four-package excursion only hints at the Survival Analysis tools that are available in R, but it does illustrate some of the richness of the R platform which has been under continuous development and improvement for nearly twenty years. The use of the `Surv()` function shows how open source code allows generations of developers to build on the work of their predecessors. The `ranger` packages provides a practical example of how R can incorporate fast C++ code and adapt to the world of machine learning applications, and the incidental use of options such as Hall-Wellner Confidence bands and Harrell's c-index gives some idea of the statistical depth that underlies almost everything R.
+
+### References
+For convenience, I have collected the references used throughout the post here.
+
+[1] Hacking, Ian. (2006) *The Emergence of Probability: A Philosophical Study of Early Ideas about Probability Induction and Statistical Inference*. Cambridge  University Press, 2nd ed. p11    
+[2] Andersen, P.K., Keiding, N. (1998) *[Survival analysis (overview)](http://www.pauldickman.com/survival/handouts/21%20-%20EoB%20Survival%20analysis%20overview.pdf)* Encyclopedia of Biostatistics 6. Wiley, p 4452-4461    
+[3] Kaplan, E.L. & Meier, P. (1958). *Non-parametric estimation from incomplete observations*, J American Stats Assn. 53, 457–481, 562–563.        
+[4]   Cox, D.R. (1972). *Regression models and life-tables* (with discussion), Journal of the Royal Statistical Society (B) 34, 187–220.    
+[5] Diez, David. *Survival Analysis in R*. [OpenIntro](https://www.openintro.org/stat/surv.php)
+[6] Klein, John P and Moeschberger, Melvin L. (1997) *Survival Analysis Techniques for Censored and Truncated Data*, Springer.    
+[7] Wright, Marvin & Ziegler, Andreas. (2017) * [ranger: A Fast Implementation of Random Forests for High Dimensional Data in C++ and R] (https://www.jstatsoft.org/article/view/v077i01)*, JSS Vol 77, Issue 1.    
+[8] Harrell, Frank, Lee, Kerry & Mark, Daniel. (1996) *[Multivariable Prognostic Models: Issues in Developing Models, Evaluating Assumptions and Adequacy, and Measuring and Reducing Errors](https://pdfs.semanticscholar.org/7705/392f1068c76669de750c6d0da8144da3304d.pdf)*. Statistics in Medicine, Vol 15, 361-387    
+[9] Amunategui, Manuel. *[Survival Ensembles: Survival Plus Classification for Improved Time-Based Predictions in R](http://amunategui.github.io/survival-ensembles/)*        
+
+
+
+
