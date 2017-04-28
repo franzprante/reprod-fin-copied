@@ -11,6 +11,7 @@ Tags:
   - Survival Analysis
   - Random Forests
 date: '2017-04-26'
+draft: Yes
 ---   
      
 With roots dating back to at least 1662 when John Graunt, a London merchant, published an extensive set of inferences based on mortality records, Survival Analysis is one of the oldest subfields of Statistics [1]. Basic life-table methods, including techniques for dealing with censored data, were known before 1700 [2]. In the early eighteenth century, the old masters, de Moivre working on annuities and Daniel Bernoulli studying competing risks for his work on smallpox inoculation, developed the foundations of time-to-event modeling [2]. Today, survival analysis models are important in Engineering, Insurance, Marketing and Medicine and many more application areas. So, it is not surprising that the R Task View on Survival Analysis, a curated, organized and annotated list of relevant R packages and functions, is formidable.
