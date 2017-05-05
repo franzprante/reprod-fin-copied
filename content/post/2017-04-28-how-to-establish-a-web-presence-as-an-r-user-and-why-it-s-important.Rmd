@@ -1,0 +1,56 @@
+---
+title: How to Establish a Web Presence as an R User and Why It's Important
+author: Peter Vukcevic
+date: '2017-04-28'
+slug: 'Web_Presence'
+categories: 
+  - R
+  - Community
+  - Opinion
+tags: 
+  - R Language
+  - Internet 
+summary: ''
+---
+
+If you are a developer using the R environment to do your programming work, you are probably feeling left out and a bit segregated from the rest of the programming industry. It’s true that not many people know about the R language and what its uses are; however, things have been getting better in the past couple of years as more and more businesses are starting to implement R into their processes. 
+
+This is the time when you need to start promoting what you do and letting everybody know about your skills. In the past, R was an open-source environment that only developers and enthusiasts knew about, but now you have an opportunity to find jobs in this field, spread the “R network”, and simply make other people aware of it. 
+
+Given the fact that it’s difficult to find a job in development and programming in a traditional way, you have to focus your efforts online. Simply put, your online presence has become your resume, and this is an especially good [opportunity for R developers](http://www.g-stat.com/r-challenges-and-opportunities). So, here is what you need to do.
+
+## Create your own website 
+
+The first thing you need to do is [build a website](https://www.wix.com/blog/2016/06/how-to-create-website-step-by-step-guide/) that represents you as a professional. It might not seem as important at the beginning, but a website is the core of your online presence, and all of your other online assets will link and lead back to it. This is your “online office” where people can come to learn about you, your knowledge, skills, and see what you’re all about as an R programmer. 
+
+When someone lands on your website and has the ability to acquire all of this information about your skills, what you did in the past, and what your interests and goals as a professional are, they will find you to be more credible and trustworthy. This means that potential employers or partners will be more open to contacting you and doing business with you. 
+
+On top of that, given the fact that a lot of people have their doubts about the R language, you will show them that people like you are, in fact, real professionals and serious about the R environment. Simply put, they will also be more open towards R, as well as towards you as an individual professional. 
+
+## Start blogging 
+
+ ![](http://devangst.com/content/images/2016/03/year-of-blogging-what-i-learned.jpg)
+ 
+One of the most important things you need to do on your website is to add a blog section. [Start blogging right away](https://firstsiteguide.com/start-blog/), i.e., as soon as you get everything set up, as you will need this in the future. A blog is an incredibly valuable tool that can help you in many ways. 
+
+Sure, when you build your own website you will include some information about who you are, what you do, what your goals are, etc. However, you will need to have more space to talk about topics that interest you and how you look at them, in this case the R language and its benefits. 
+
+Sharing your thoughts and talking about R, explaining how it works, what its implementations are, and how it’s more than just an environment for statistical computing will help people realize just how valuable this language is. On top of that, they will see how much knowledge you possess in the field, and they might consider hiring you or talking more with you about this topic. 
+
+## Stay active on social media 
+
+Creating professional profiles on social media is highly important. In the past, people didn’t take social media seriously, but today there is more business communication happening on social media than through email. However, you need to choose the right social media platform. 
+
+Facebook can be a good option. If you add people who share the same passion or those who stand to benefit from having an R programmer on their team, there’s a good chance that they will be interested in your blog posts, which you can share directly from your website. Additionally, you can find groups and pages that focus on topics related to R, and find people who share the same interests. 
+
+This is how you will create valuable connections and discussions, which will allow you to share knowledge and learn more, all while promoting your personal brand. LinkedIn is another social network that is great for making valuable business contacts. This professional network also gives you the option to write and publish posts, and everyone in your network will be notified about your latest content. 
+
+Make sure that you build all the things mentioned above and work on them carefully and regularly. Link all of your social media profiles to your website and vice versa. Make sure that you always respond to people inquiring about R, and have a proactive approach of engaging people online and discussing [why R is good for business](https://www.fastcompany.com/3030063/why-the-r-programming-language-is-good-for-business). 
+
+## Author’s bio:
+![](https://firstsiteguide.com/includes/imgs/peter.png)
+
+Peter Vukcevic is a web developer at FirstSiteGuide where he focuses on assisting web newcomers establish their online presence and successful content marketing on a crowded web. He’s a passionate basketball fan and a book junkie. The best of him is yet to come, so don’t be afraid to see what he is up to on Twitter.
+
+
+
