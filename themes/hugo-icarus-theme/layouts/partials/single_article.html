@@ -46,6 +46,9 @@
     <section id="comments">
         <div id="disqus_thread">
         <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = "{{ .Site.Params.fullURL }}" + location.pathname;
+        };
         (function() {
             if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
                 return;
