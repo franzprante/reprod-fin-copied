@@ -1,0 +1,158 @@
+---
+title: Mapping Quandl Macroeconomic Data
+author: Jonathan Regenstein
+date: '2017-05-10'
+categories:
+  - Reproducible Finance with R 
+  - R Language 
+  - RStudio 
+  - Statistics
+  - Packages
+tags:
+  - R 
+  - Finance 
+  - Quandl
+  - Maps
+---
+
+```{r setup, include=FALSE}
+# packages required for this post
+for (pkg in c('Quandl', 'dplyr', 'xts', 'sf', 'purrr', 'leaflet', 'dygraphs', 'rnaturalearth')) 
+  if (!requireNamespace(pkg)) install.packages(pkg)
+
+library(dplyr)
+library(xts)
+```
+
+In previous posts, we built a [map to access global ETFs](https://rviews.rstudio.com/2016/12/16/reproducible-finance-with-r-a-shiny-etf-map/) and a simple [Shiny app to import and forecast commodities data from Quandl](https://rviews.rstudio.com/2017/04/21/a-shiny-app-for-importing-and-forecasting-commodities-prices-from-quandl/). Today, we will begin a project that combines those previous apps. Our end goal is to build an interactive map to access macroeconomic data via Quandl, allowing the user to choose an economic indicator and click on a country to access that indicator's time series. For example, if a user wants to import and graph GDP-per-capita data from China, that user will be able to select `GDP per Capita` from a drop down and then click on China to display the time series.  As usual, we'll start with a Notebook for data import, test visualizations, and map building.  
+
+Careful readers will note that we are not simply reusing code from those previous projects; that is because we are going to introduce some new packages to our toolkit.  Specifically: 
+
+- Instead of downloading a spatial data frame from [Natural Earth](http://www.naturalearthdata.com/), we will use the new R package [rnaturalearth](https://cran.r-project.org/web/packages/rnaturalearth/rnaturalearth.pdf) and it's function `ne_countries()` to import our geographic data. 
+
+- Relatedly, we are not going work with a "spatial" data frame, but rather with a simple features data frame of class `sf`. Learn more [here](https://cran.r-project.org/web/packages/sf/vignettes/sf1.html).
+
+- Finally, when we test our data import of several macroeconomic data sets, we will use the `map()` function from the [purrr](https://cran.r-project.org/web/packages/purrr/purrr.pdf) package instead of relying on `lapply()`, as we did previously when passing ticker symbols to `getSymbols()`. If you're like me, you won't be sad to be done with `lapply()`.
+
+Let's get to it!
+
+We are going to be working with a macroeconomic data source from the World Bank called World Development Indicators [(WDI)](http://data.worldbank.org/products/wdi).  The `Quandl` code for WDI is `WWDI` and thus we'll append `WWDI/` to each data set call.
+
+One difference from our previous work with `Quandl` is that previously we imported and visualized global time series, such as the price of oil, gold or copper. By global, I mean these time series were not associated with a particular country. That simplified our job a bit because we did not need to supply a country code to `Quandl`. Today, we do need to include a country code.
+
+Let's start with a simple example and import GDP-per-capita data for China, whose country code is `CHN`.  We will pass the string `WWDI/CHN_NY_GDP_PCAP_KN` to `Quandl`, which consists of the WDI code `WWDI/`, appended by the China country code `CHN`, appended by the GDP-per-capita code `_NY_GDP_PCAP_KN`. 
+
+```{r China GDPPC, message = FALSE}
+library(Quandl)
+# Pass the code string to Quandl. 
+China_GDPPC <- Quandl("WWDI/CHN_NY_GDP_PCAP_KN", type = 'xts') %>% 
+  # Add a nice column name
+  `colnames<-`("GDP Per Capita")
+
+# Take a look at the result.
+tail(China_GDPPC, n = 6)
+```
+
+That looks pretty good, but note that the data goes only to December of 2015 - not ideal, but fine for our illustrative purposes. 
+
+Our eventual Shiny app, though, will give the user a choice among many economic time series, and we want to test the import and visualization of all those choices. In addition to GDP-per-capita, let's test GDP-per-capita growth, real interest rate, exchange rate, CPI, and labor force participation rate. Those offer a nice snapshot of a country's economy.
+
+To run our test in the code chunk below, we will first build a vector of data set codes. Note that each of them start with `WWDI/`, then `CHN`, and then the relevant code. Next, we will pipe that vector to `Quandl` using the `map()` function. `map()` takes a function, in this case the `Quandl()` function, and applies it to the elements in a vector, in this case our vector of data set codes. We also want to specify `type = "xts"`. 
+
+If we stopped our pipe there, the output would be a list of six time series and that would suit our testing purposes, but I don't love having to look at a list of six. Thus, we'll keep on piping and use the `reduce()` function from the `purrr` package and call `merge()` to combine the six lists into one xts object. That is much easier to deal with, and easier to pass to `dygraphs` for our test visualization. The last piped function will invoke `colnames<-` to clean up the column names.  
+
+```{r Many Econ Indicators, message = FALSE, warning = FALSE}
+library(purrr)
+# Create a vector of economic indicators that can be passed to Quandl via map().
+# Include names and values for easy naming of xts columns.
+econIndicators <- c("GDP Per Capita" = "WWDI/CHN_NY_GDP_PCAP_KN",
+                  "GDP Per Capita Growth" = "WWDI/CHN_NY_GDP_PCAP_KD_ZG",
+                  "Real Interest Rate" = "WWDI/CHN_FR_INR_RINR",
+                  "Exchange Rate" = "WWDI/CHN_PX_REX_REER",
+                  "CPI" = "WWDI/CHN_FP_CPI_TOTL_ZG",
+                  "Labor Force Part. Rate" = "WWDI/CHN_SL_TLF_ACTI_ZS")
+
+# You might want to supply your Quandl api key. It's free to get one.
+Quandl.api_key("d9EidiiDWoFESfdk5nPy")
+
+China_all_indicators <- 
+  # Start with the vector of Quandl codes
+  econIndicators %>% 
+  # Pass them to Quandl via map(). 
+  map(Quandl, type = "xts") %>% 
+  # Use the reduce() function to combine them into one xts objects.
+  reduce(merge) %>% 
+  # Use the names from the original vector to set nicer column names.
+  `colnames<-`(names(econIndicators))
+# Have a look.
+tail(China_all_indicators, n = 6)
+```
+
+That seems to have done the job, and note that both CPI and Exchange have data up to December of 2016. Much better, and a sign that there will be date variation among countries and indicators. That won't be crucial today, but it could be if we needed consistent dates for all of our data sets. 
+
+As a final step, let's use `dygraph()` to visualize these time series to make sure things function properly before moving to Shiny.
+
+```{r Dygraph}
+library(dygraphs)
+dygraph(China_all_indicators$`GDP Per Capita`, main = "GDP Per Capita")
+dygraph(China_all_indicators$`GDP Per Capita Growth`, main = "GDP Per Capita Growth")
+dygraph(China_all_indicators$`Real Interest Rate`, main = "Real Interest Rate")
+dygraph(China_all_indicators$`Exchange Rate`, main = "Exchange Rate")
+dygraph(China_all_indicators$`CPI`, main = "CPI")
+dygraph(China_all_indicators$`Labor Force Part. Rate`, main = "Labor Force Part. Rate")
+```
+
+GDP-per-capita has been on a steady march higher, labor force participation plummeted in the 90's and 2000's, probably as the labor market became more market-oriented, and real interest rates look quite choppy. Plenty to explore, and it signals that our Shiny app might be a nice exploratory tool. 
+
+For now, it's on to map-building! 
+
+In previous posts, we have started map-building by grabbing a spatial object from the internet. Today, we will use the new `rnaturalearth` package and its fantastic function `ne_countries()`. We will specify `type = "countries"` and `returnclass = 'sf'`.  We could have set `returnclass = 'sp'` if we wanted to work with a spatial data frame, but I have been migrating over to the `sf` package and simple features data frames for mapping projects. Lots to learn here, but in general, it seems to use more tidy concepts than the `sp` package.  
+
+```{r Import SF Object, message = FALSE, warning = FALSE}
+library(rnaturalearth)
+library(sp)
+world <- ne_countries(type = "countries",  returnclass = 'sf')
+
+# Take a peek at the name, gdp_md_est column and economy columns. 
+# The same way we would peek at any data frame.
+head(world[c('name', 'gdp_md_est', 'economy')], n = 6)
+```
+
+This output looks similar to an `sp` object, but it's not identical. In particular, note the `geometry` column, which contains the multipolygon latitude and longitude coordinates. It's a matter of personal preference, but I find this `sf` object more intuitive in terms of how the geometry corresponds with the rest of the data. 
+
+Now we'll create our shading and popups. Note that this code is identical to when we were working with spatial data frames.
+
+```{r Build Map, message = FALSE, warning=FALSE}
+library(leaflet)
+# Create shading by GDP. Let's go with purples.
+gdpPal <- colorQuantile("Purples", world$gdp_md_est, n = 20)
+
+# Create popup country name and income group so that something happens
+# when a user clicks the map.
+popup <- paste0("<strong>Country: </strong>", 
+                world$name, 
+                "<br><strong>Market Stage: </strong>", 
+                world$income_grp)
+```
+
+Now, it's time to build our leaflet map. This code is nearly identical to our code from previous projects, but with one major change.  As we saw above, we need to pass in a country code to `Quandl`, not a country name and not a ticker symbol. Thus, we don't want to set `layerId = name`, but we also don't need to add anything special to our `world` object. It already contains a column called `iso_a3`, and that column contains the country codes used by `Quandl`. Fantastic! 
+
+We just need to set `layerId = ~iso_a3` and we will be able to access country codes in our Shiny app when a user clicks the map. This is quite fortunate, but it also highlights a good reason to spend time studying the `world` object.  It might contain other data that will be useful in future projects. 
+
+```{r Leaflet Map Build, message = FALSE, warning = FALSE}
+
+leaf_world <- leaflet(world) %>%
+  addProviderTiles("CartoDB.Positron") %>% 
+  setView(lng =  20, lat =  15, zoom = 2) %>%
+      addPolygons(stroke = FALSE, smoothFactor = 0.2, fillOpacity = .7, 
+      
+      # Note the layer ID. Not a country name! It's a country code! 
+      
+      color = ~gdpPal(gdp_md_est), layerId = ~iso_a3, popup = popup)
+
+leaf_world
+```
+
+Because `Quandl` uses the [ISO 3-letter code](https://blog.quandl.com/api-for-economic-data) to identify a country, and because the `rnaturalearth` `sf` object already contains a column with iso_a3 country codes, building our map wasn't very hard.  It's worth pointing out that in various projects, we have now built maps with three different layerIDs. In the Global ETF Map project, we built one map with `layerID = name`, using the built-in `name` column in the `rnaturalearth` object, and we built another map with `layerID = tickers`, using a column of tickers that we added ourselves with the `merge()` function. Now, today, we have a map with `layerID = iso_a3`, using the built-in column of country codes. We are building up a nice portfolio of maps with different layerIDs should we ever want or need them in the future. 
+
+That's all for today. We'll save that `leaflet_world` object for use in our Shiny app! See you next time.
