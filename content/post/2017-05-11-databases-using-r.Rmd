@@ -75,7 +75,7 @@ The database accessibility feature is still being developed, so we will use the 
 ```
 devtools::install_github("tidyverse/dplyr")
 devtools::install_github("tidyverse/dbplyr")
-install.packages("rstats-db/odbc")
+devtools::install_github("rstats-db/odbc")
 install.packages("DBI")
 ```
 
@@ -163,7 +163,7 @@ Database:   Microsoft SQL Server 12.00.4422[username@localhost/airontime]
 When used against a database, the previous function is converted to a SQL query that works with MS SQL Server.  The `show_query()` function displays the translation.
 
 ```
-show_query(tbl(con, "flights"))
+show_query(tally(tbl(con, "flights")))
 ```
 
 `<SQL>
