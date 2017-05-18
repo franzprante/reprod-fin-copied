@@ -59,7 +59,7 @@ summary: 'As R developers, our first instinct may be to approach databases the s
 <p>The database accessibility feature is still being developed, so we will use the development versions of <code>dbplyr</code> and <code>dplyr</code>.</p>
 <pre><code>devtools::install_github(&quot;tidyverse/dplyr&quot;)
 devtools::install_github(&quot;tidyverse/dbplyr&quot;)
-install.packages(&quot;rstats-db/odbc&quot;)
+devtools::install_github(&quot;rstats-db/odbc&quot;)
 install.packages(&quot;DBI&quot;)</code></pre>
 </div>
 <div id="connect-to-the-database" class="section level2">
@@ -114,7 +114,7 @@ Database:   Microsoft SQL Server 12.00.4422[username@localhost/airontime]
    &lt;int&gt;
 1 336776</code></pre>
 <p><br/> When used against a database, the previous function is converted to a SQL query that works with MS SQL Server. The <code>show_query()</code> function displays the translation.</p>
-<pre><code>show_query(tbl(con, &quot;flights&quot;))</code></pre>
+<pre><code>show_query(tally(tbl(con, &quot;flights&quot;)))</code></pre>
 <p><code>&lt;SQL&gt; SELECT COUNT(*) AS &quot;n&quot; FROM &quot;flights&quot;</code></p>
 </div>
 <div id="bringing-it-all-together" class="section level2">
