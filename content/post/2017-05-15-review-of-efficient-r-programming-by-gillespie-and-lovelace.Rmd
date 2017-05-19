@@ -1,7 +1,7 @@
 ---
 title: Review of Efficient R Programming
 author: 'Brandon C. Loudermilk'
-date: '2017-05-15'
+date: '2017-05-19'
 slug: 'Efficient_R_Programming'
 categories:
  - R Language
@@ -10,8 +10,6 @@ categories:
 tags: 
  - R
  - Efficient Programming
-draft: yes
-summary: ''
 ---
 
 ![](/post/2017-05-15_Efficient_R_Programming_files/cover.PNG)
