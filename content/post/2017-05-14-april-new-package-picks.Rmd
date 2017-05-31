@@ -1,0 +1,133 @@
+---
+title: April New Package Picks
+author: Joseph Rickert
+date: '2017-05-30'
+categories: 
+  - R Language
+  - Packages
+  - Opinion
+tags: 
+  - R
+  - R Packages
+  - Data
+draft: no
+---
+Here are my picks for the "Top 40" new packages submitted to CRAN in April 2017. These selections, which were culled from 208 submissions, are organized into four categories: Data, Finance, Statistics and Utilities. The number of entries in the Data and Utilities categories reflect the initiatives of R developers to connect to external resources.
+
+```{r setup, include=FALSE}
+lapply(c('d3Tree'), function(x) {
+  if (!requireNamespace(x)) install.packages(x)
+})
+```
+
+### Data
+[comtradr](https://CRAN.R-project.org/package=comtradr) v0.0.1: Provides functions to extract country-level shipping data for a variety of commodities data from the [United Nations Comtrade API](https://comtrade.un.org/data/). 
+
+
+[countyfloods](https://CRAN.R-project.org/package=countyfloods) v0.0.2: Provides access to county-level United States flood data using United States Geological Service (USGS) API. The [vignette](https://cran.r-project.org/web/packages/countyfloods/vignettes/countyflood.html) provides examples.
+
+![](/post/2017-05-14-april-new-package-picks_files/florida_floods.png)
+
+[EdSurvey](https://CRAN.R-project.org/package=EdSurvey) v1.0.6: Provides functions to access and analyze survey and assessment data from the National Center for Education Statistics ([NCES](https://nces.ed.gov/)), including the National Assessment of Educational Progress ([NAEP](data(https://nces.ed.gov/nationsreportcard/)). There are is an [Introduction](https://cran.r-project.org/web/packages/EdSurvey/vignettes/v1edsurvey.pdf), and vignettes for [Advanced Data Manipilation](https://cran.r-project.org/web/packages/EdSurvey/vignettes/v2getData.pdf), [NAEP Accommodations](https://cran.r-project.org/web/packages/EdSurvey/vignettes/v3accommodations.pdf), [Statistical Methods](https://cran.r-project.org/web/packages/EdSurvey/vignettes/v4statistics.pdf), and [Achievement Levels](https://cran.r-project.org/web/packages/EdSurvey/vignettes/v5AchievementLevels.pdf).
+
+[RNRCS](https://CRAN.R-project.org/package=RNRCS) v0.1.1: Provides functions to download data from the Natural Resources Conservation Service (NRCS) for sites in the Soil Climate Analysis Network [(SCAN)](https://www.wcc.nrcs.usda.gov/scan/), and Snow Telemetry [(SNOTEL and SNOLITE)](https://www.wcc.nrcs.usda.gov/snow/) networks. Metadata can be returned for all sites in the NRCS' Air and Water Data Base [(AWDB)](https://www.wcc.nrcs.usda.gov/report_generator/AWDB_Network_Codes.pdf).
+
+[roadoi](https://CRAN.R-project.org/package=roadoi) v0.2: Implements a web client interface to [oaDOI](https://oadoi.org), a service providing free full-text access to academic papers through various sources including Crossref, Bielefeld Academic Search Engine (BASE), and the Directory of Open Access Journals (DOAJ). The [vignette](https://cran.r-project.org/web/packages/roadoi/vignettes/intro.html) shows how to use it.
+
+[rsoi](https://CRAN.R-project.org/package=rsoi) v0.2.1: Provides functions to download [Southern Oscillation Index data](https://www.ncdc.noaa.gov/teleconnections/enso/indicators/soi/) and [Oceanic Nino Index data](http://www.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/detrend.nino34.ascii.txt) from NOAA.
+
+[rsolr](https://CRAN.R-project.org/package=rsolr) v0.0.4: Implements an API for querying [Apache Solr](http://lucene.apache.org/solr/) databases. There is a [vignette](https://cran.r-project.org/web/packages/rsolr/vignettes/intro.pdf).
+
+[tubern](https://CRAN.R-project.org/package=tubern) v0.1.0: Implements an R client for the YouTube Analytics and Reporting [API](https://developers.google.com/youtube/reporting/). The [vignette](https://cran.r-project.org/web/packages/tubern/vignettes/basic_tubern.html) shows how to use the API.
+
+[wikitaxa](https://CRAN.R-project.org/package=wikitaxa) v0.1.4: Provides access to taxonomic information from [Wikipedia](https://www.wikipedia.org/), [Wikicommons](https://en.wikipedia.org/wiki/Wikimedia_Commons), [Wikispecies](https://species.wikimedia.org/wiki/Main_Page), and [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page). There is a [vignette](https://cran.r-project.org/web/packages/wikitaxa/vignettes/wikitaxa_vignette.html).
+
+
+### Finance
+[partialCI](https://CRAN.R-project.org/package=partialCI) v1.1.0: Provides functions for estimating, testing, and simulating [partially cointegrated time series](https://www.econstor.eu/handle/10419/140632). [Clegg et al.](https://hdl.handle.net/10419/150014) provide an in-depth discussion of the package functionality, as well as illustrating examples in the fields of finance and macroeconomics. The [vignette](https://cran.r-project.org/web/packages/partialCI/vignettes/pci_vignette.html) provides a guide to the package.
+
+[PortfolioOptim](https://CRAN.R-project.org/package=PortfolioOptim) v1.0.3: Provides two functions for financial portfolio optimization by linear programming.
+
+### Statistics
+[bigKRLS](https://CRAN.R-project.org/package=bigKRLS) v1.5.2: Provides functions for Kernel-Regularized Least Squares that are optimized for speed and memory usage. The author's [website](https://sites.google.com/site/petemohanty/software) has sample code and more. A [vignette](https://cran.r-project.org/web/packages/bigKRLS/vignettes/bigKRLS_basics.html) shows the basics.
+
+[brglm2](https://CRAN.R-project.org/package=brglm2) v0.1.4: Provides functions for achieving bias reduction in Generalized Linear Models via solving the mean bias-reducing adjusted score equations in [Firth](https://academic.oup.com/biomet/article-abstract/80/1/27/228364/Bias-reduction-of-maximum-likelihood-estimates?redirectedFrom=fulltext) and [Kosmidis and Firth](https://academic.oup.com/biomet/article-abstract/96/4/793/220575/Bias-reduction-in-exponential-family-nonlinear?redirectedFrom=fulltext), or the median bias-reduction adjusted score equations in [Kenne et al.](https://arxiv.org/abs/1604.04768), or through the direct subtraction of an estimate of the bias of the maximum likelihood estimator from the maximum likelihood estimates as in [Cordeiro and McCullagh](http://www.jstor.org/stable/2345592). There are vignettes on [bias reduction](https://cran.r-project.org/web/packages/brglm2/vignettes/iteration.pdf) and on [Detecting Separation](https://cran.r-project.org/web/packages/brglm2/vignettes/separation.html).
+
+[casebase](https://CRAN.R-project.org/package=casebase) v0.1.0: Implements the case-base sampling approach of [Hanley and Miettinen](https://www.degruyter.com/view/j/ijb.2009.5.1/ijb.2009.5.1.1125/ijb.2009.5.1.1125.xml), [Saarela and Arjas](http://onlinelibrary.wiley.com/doi/10.1111/sjos.12125/abstract;jsessionid=3A97773970B58C703A24D29C215D5F1A.f04t03), and [Saarela](https://link.springer.com/article/10.1007%2Fs10985-015-9352-x), for fitting flexible hazard regression models to survival data with single event type or multiple competing causes via logistic and multinomial regression. There are vignettes on [Competing Risk Analysis](https://cran.r-project.org/web/packages/casebase/vignettes/competingRisk.html), [Population Time Plots](https://cran.r-project.org/web/packages/casebase/vignettes/popTime.html), and [Casebase Sampling](https://cran.r-project.org/web/packages/casebase/vignettes/smoothHazard.html).
+
+[CausalImpact](https://CRAN.R-project.org/package=CausalImpact) v1.2.0: Implements a Bayesian approach to causal impact estimation in time series, as described in [Brodersen et al.](http://projecteuclid.org/euclid.aoas/1430226092) Look [here](https://google.github.io/CausalImpact/) to get started, and also at the [vignette](https://cran.r-project.org/web/packages/CausalImpact/vignettes/CausalImpact.html).
+
+![](/post/2017-05-14-april-new-package-picks_files/causal_effect.png)
+*To estimate a causal effect, specify which period causal should be used for training the model (pre-intervention period), and which period for computing a counterfactual prediction (post-intervention period).*
+
+
+[ggeffects](https://CRAN.R-project.org/package=ggeffects) v0.1.0: Provides functions to compute marginal effects at the mean or average marginal effects from statistical models, and returns the result as tidy data frames. The [vignette](https://cran.r-project.org/web/packages/ggeffects/vignettes/marginaleffects.html) shows how to use it.
+
+[glmnetUtils](https://CRAN.R-project.org/package=glmnetUtils) v1.0.2: Provides a formula interface for the [glmnet](https://CRAN.R-project.org/package=glmnet) package. The [vignette](https://cran.r-project.org/web/packages/glmnetUtils/vignettes/intro.html) shows how to use it.
+
+[lspline](https://CRAN.R-project.org/package=lspline) v1.0-0: Implements linear splines with convenient parameterizations such that (1) coefficients are slopes of consecutive segments, or (2) coefficients are slope changes at consecutive knots. The [vignette](https://cran.r-project.org/web/packages/lspline/vignettes/lspline.html) gives examples.
+
+[marcher](https://CRAN.R-project.org/package=marcher) v0.0-2: Provides tools for likelihood-based estimation, model selection, and testing of two- and three-range shift and migration models for animal movement data as described in [Gurarie et al.](http://onlinelibrary.wiley.com/doi/10.1111/1365-2656.12674/abstract). The [vignette](https://cran.r-project.org/web/packages/marcher/vignettes/marcher.html) shows how to use the model and create visualizations.
+
+![](/post/2017-05-14-april-new-package-picks_files/range_shift.png)
+
+*Simulation of Range Shift Processes*
+
+[Meiosis](https://CRAN.R-project.org/package=Meiosis) v1.0.2: Provides tools for simulation of meiosis in plant breeding research. There is a [vignette](https://cran.r-project.org/web/packages/Meiosis/vignettes/Introduction.html).
+
+[MultiVarSel](https://CRAN.R-project.org/package=MultiVarSel) v1.0: Implements a novel variable selection approach in the multivariate framework of the general linear model, taking into account the dependence that may exist between the columns of the observations matrix. For details, see the paper [Perrot-Dockes et al.](arXiv:1704.00076). The [vignette](https://cran.r-project.org/web/packages/MultiVarSel/vignettes/MultiVarSel.pdf) shows an example.
+
+[mrbsizeR](https://cran.r-project.org/web/packages/unitizer/vignettes/unitizer_miscellaneous.html) v1.0.1: Implements a method for the multiresolution analysis of spatial fields and images to capture scale-dependent features based on scale space smoothing. The [vignette](https://cran.r-project.org/web/packages/mrbsizeR/vignettes/mrbsizeR.pdf) provides an example.
+
+[networktools](https://CRAN.R-project.org/package=networktools) v1.0.0: Includes assorted tools for network analysis, including functions for calculating impact statistics (global strength impact, network structure impact, edge impact), and for calculating and visualizing expected influence. The [vignette](https://cran.r-project.org/web/packages/networktools/vignettes/Impact.pdf) describes the impact statistics.
+
+[philentropy](https://CRAN.R-project.org/package=philentropy) v0.3.3: Provides functions to compute forty-six optimized distance and similarity measures for comparing probability functions that are useful in a broad range of scientific disciplines. There is an [Introduction](https://cran.r-project.org/web/packages/philentropy/vignettes/Introduction.html) and vignettes for [Distances Measures](https://cran.r-project.org/web/packages/philentropy/vignettes/Distances.html) and [Information Theory](https://cran.r-project.org/web/packages/philentropy/vignettes/Information_Theory.html).
+
+[plink](https://CRAN.R-project.org/package=plink) v1.5-1: Provides functions to facilitate the linking of mixed-format tests for multiple groups under a common item design using unidimensional and multidimensional [IRT-based methods](https://en.wikipedia.org/wiki/Item_response_theory). The very thorough [vignette](https://cran.r-project.org/web/packages/plink/vignettes/plink-UD.pdf) presents the theory.
+
+[RLT](https://CRAN.R-project.org/package=RLT) v3.1.0: Random forest with a variety of additional features for regression, classification, and survival analysis.
+
+[spup](https://CRAN.R-project.org/package=spup) v0.1-0: Implements for analyzing uncertainty propagation in spatial environmental modeling using the methodologies of [Heuvelink et al.](http://www.tandfonline.com/doi/abs/10.1080/13658810601063951) and [Brown and Heuvelink](http://www.sciencedirect.com/science/article/pii/S0098300406001294). There are vignettes on [spatially cross-correlated variables](https://cran.r-project.org/web/packages/spup/vignettes/CN.html), [spatially variable sd](https://cran.r-project.org/web/packages/spup/vignettes/DEM_v3.html), [uncertainty propagation](https://cran.r-project.org/web/packages/spup/vignettes/ExternalModel_v2.html), and [categorical variables](https://cran.r-project.org/web/packages/spup/vignettes/Rotterdam.html).
+
+### Utilities
+[ajv](https://CRAN.R-project.org/package=ajv) v1.0.0: Provides a thin wrapper around the [ajv JSON validation package for JavaScript](http://epoberezkin.github.io/ajv/). There is a [vignette](https://cran.r-project.org/web/packages/ajv/vignettes/getting-started.html) to get you started.
+
+[aws.s3](https://CRAN.R-project.org/package=aws.s3) v.3.1: Implements a simple client package for the Amazon Web Services (AWS) Simple Storage Service (S3) [REST API](https://aws.amazon.com/s3/).
+
+[cranlike](https://CRAN.R-project.org/package=cranlike) v1.0.0: Provides a set of functions to manage 'CRAN'-like repositories efficiently.
+
+[d3Tree](https://CRAN.R-project.org/package=d3Tree) v0.1.0: Provides functions to create and customize interactive collapsible 'D3' trees using the `D3` JavaScript library and the `htmlwidgets` package, which can be used directly from the R console, from RStudio, in Shiny apps, and in R Markdown documents. Look [here](https://github.com/metrumresearchgroup/d3Tree) for examples.
+
+ 
+```{r}
+library(d3Tree)
+
+  d3tree(list(root = df2tree(rootname = 'book',
+                             struct = stan.models),
+                             layout = 'collapse'))
+
+
+```    
+
+[dataMeta](https://CRAN.R-project.org/package=dataMeta) v0.1.0: Provides functions to create a basic data dictionary and append it to the original dataset's attributes list. The [vignette](https://cran.r-project.org/web/packages/dataMeta/vignettes/dataMeta_Vignette.html) shows how it works.
+
+[dparser](https://cran.r-project.org/package=dparser) v0.1.3: Implements a scannerless [GLR parser](https://en.wikipedia.org/wiki/GLR_parser) based on the [Tomita algorithm](http://acl-arc.comp.nus.edu.sg/archives/acl-arc-090501d3/data/pdf/anthology-PDF/J/J87/J87-1004.pdf).
+
+[glue](https://CRAN.R-project.org/package=glue) v1.0.0: Provides an implementation of interpreted string literals, inspired by Python's [Literal String Interpolation](https://www.python.org/dev/peps/pep-0498/), [Docstrings](https://www.python.org/dev/peps/pep-0257/), and Julia's [Triple-Quoted String Literals](https://docs.julialang.org/en/stable/manual/strings/#triple-quoted-string-literals). The [README](https://cran.r-project.org/web/packages/glue/README.html) shows how they work.
+
+[icosa](https://CRAN.R-project.org/package=icosa) v0.98.1: Employs triangular tessellation to refine icosahedra defined in 3D space. The [vignette](https://cran.r-project.org/web/packages/icosa/vignettes/icosaIntroShort.pdf) provides the details.
+
+[leaflet.minicharts](https://CRAN.R-project.org/package=leaflet.minicharts) v0.2.0: Allows users to add and modify small charts on interactive maps created with the [leaflet](https://CRAN.R-project.org/package=leaflet) package
+
+
+[RcppQuantuccia](https://CRAN.R-project.org/package=RcppQuantuccia) v0.0.1: Provides [QuantLib](http://quantlib.org/index.shtml) bindings for R using 'Rcpp' and the header-only [Quantuccia](https://github.com/pcaspers/Quantuccia) variant.
+
+[shinymaterial](https://CRAN.R-project.org/package=shinymaterial) v0.2.1: Allows shiny developers to incorporate UI elements based on Google's [Material Design](https://material.io/guidelines/). See the package [website](https://ericrayanderson.github.io/shinymaterial/) more information.
+
+[unitizer](https://CRAN.R-project.org/package=unitizer) v1.4-2: Provides functions to simplify regression tests by comparing objects produced by test code with earlier versions of those same objects. There is an [Introduction](https://cran.r-project.org/web/packages/unitizer/vignettes/unitizer.html), and vignettes for the [interactive environment](https://cran.r-project.org/web/packages/unitizer/vignettes/unitizer_interactive_env.html), [Reproductble Tests](https://cran.r-project.org/web/packages/unitizer/vignettes/unitizer_reproducible_tests.html), [unitizeR details](https://cran.r-project.org/web/packages/unitizer/vignettes/unitizer_tests.html), and [Miscellanea](https://cran.r-project.org/web/packages/unitizer/vignettes/unitizer_miscellaneous.html).
+
+
+[unix](https://cran.r-project.org/web/packages/brglm2/vignettes/separation.html) v1.3: Provides bindings to various Unix system utilities.
+
+
+
