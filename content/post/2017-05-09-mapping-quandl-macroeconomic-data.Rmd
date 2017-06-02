@@ -24,7 +24,7 @@ library(dplyr)
 library(xts)
 ```
 
-In previous posts, we built a [map to access global ETFs](https://rviews.rstudio.com/2016/12/16/reproducible-finance-with-r-a-shiny-etf-map/) and a simple [Shiny app to import and forecast commodities data from Quandl](https://rviews.rstudio.com/2017/04/21/a-shiny-app-for-importing-and-forecasting-commodities-prices-from-quandl/). Today, we will begin a project that combines those previous apps. Our end goal is to build an interactive map to access macroeconomic data via Quandl, allowing the user to choose an economic indicator and click on a country to access that indicator's time series. For example, if a user wants to import and graph GDP-per-capita data from China, that user will be able to select `GDP per Capita` from a drop down and then click on China to display the time series.  As usual, we'll start with a Notebook for data import, test visualizations, and map building.  
+In previous posts, we built a [map to access global ETFs](https://rviews.rstudio.com/2016/12/16/reproducible-finance-with-r-a-shiny-etf-map/) and a simple [Shiny app to import and forecast commodities data from Quandl](https://rviews.rstudio.com/2017/04/21/a-shiny-app-for-importing-and-forecasting-commodities-prices-from-quandl/). Today, we will begin a project that combines those previous apps. Our end goal is to build an interactive map to access macroeconomic data via Quandl, allowing the user to choose an economic indicator and click on a country to access that indicator's time series. For example, if a user wants to import and graph GDP-per-capita data from China, that user will be able to select `GDP per Capita` from a drop-down menu, and then click on China to display the time series.  As usual, we'll start with a Notebook for data import, test visualizations, and map building.  
 
 Careful readers will note that we are not simply reusing code from those previous projects; that is because we are going to introduce some new packages to our toolkit.  Specifically: 
 
@@ -36,9 +36,9 @@ Careful readers will note that we are not simply reusing code from those previou
 
 Let's get to it!
 
-We are going to be working with a macroeconomic data source from the World Bank called World Development Indicators [(WDI)](http://data.worldbank.org/products/wdi).  The `Quandl` code for WDI is `WWDI` and thus we'll append `WWDI/` to each data set call.
+We are going to be working with a macroeconomic data source from the World Bank called World Development Indicators [(WDI)](http://data.worldbank.org/products/wdi).  The `Quandl` code for WDI is `WWDI`, and thus we'll prepend `WWDI/` to each data set call.
 
-One difference from our previous work with `Quandl` is that previously we imported and visualized global time series, such as the price of oil, gold or copper. By global, I mean these time series were not associated with a particular country. That simplified our job a bit because we did not need to supply a country code to `Quandl`. Today, we do need to include a country code.
+One difference from our earlier work with `Quandl` is that previously we imported and visualized global time series, such as the price of oil, gold or copper. By global, I mean these time series were not associated with a particular country. That simplified our job a bit because we did not need to supply a country code to `Quandl`. Today, we do need to include a country code.
 
 Let's start with a simple example and import GDP-per-capita data for China, whose country code is `CHN`.  We will pass the string `WWDI/CHN_NY_GDP_PCAP_KN` to `Quandl`, which consists of the WDI code `WWDI/`, appended by the China country code `CHN`, appended by the GDP-per-capita code `_NY_GDP_PCAP_KN`. 
 
@@ -53,7 +53,7 @@ China_GDPPC <- Quandl("WWDI/CHN_NY_GDP_PCAP_KN", type = 'xts') %>%
 tail(China_GDPPC, n = 6)
 ```
 
-That looks pretty good, but note that the data goes only to December of 2015 - not ideal, but fine for our illustrative purposes. 
+That looks pretty good, but note that the data only goes back to December of 2015 - not ideal, but fine for our illustrative purposes.
 
 Our eventual Shiny app, though, will give the user a choice among many economic time series, and we want to test the import and visualization of all those choices. In addition to GDP-per-capita, let's test GDP-per-capita growth, real interest rate, exchange rate, CPI, and labor force participation rate. Those offer a nice snapshot of a country's economy.
 
@@ -90,7 +90,7 @@ tail(China_all_indicators, n = 6)
 
 That seems to have done the job, and note that both CPI and Exchange have data up to December of 2016. Much better, and a sign that there will be date variation among countries and indicators. That won't be crucial today, but it could be if we needed consistent dates for all of our data sets. 
 
-As a final step, let's use `dygraph()` to visualize these time series to make sure things function properly before moving to Shiny.
+As a final step, let's use the `dygraph()` function to visualize these time series to make sure things work properly before moving to Shiny.
 
 ```{r Dygraph}
 library(dygraphs)
@@ -102,7 +102,7 @@ dygraph(China_all_indicators$`CPI`, main = "CPI")
 dygraph(China_all_indicators$`Labor Force Part. Rate`, main = "Labor Force Part. Rate")
 ```
 
-GDP-per-capita has been on a steady march higher, labor force participation plummeted in the 90's and 2000's, probably as the labor market became more market-oriented, and real interest rates look quite choppy. Plenty to explore, and it signals that our Shiny app might be a nice exploratory tool. 
+GDP-per-capita has been on a steady march higher, labor force participation plummeted in the 1990's and 2000's, probably as the labor market became more market-oriented, and real interest rates look quite choppy. Plenty to learn, and it signals that our Shiny app might be a nice exploratory tool.
 
 For now, it's on to map-building! 
 
@@ -153,6 +153,6 @@ leaf_world <- leaflet(world) %>%
 leaf_world
 ```
 
-Because `Quandl` uses the [ISO 3-letter code](https://blog.quandl.com/api-for-economic-data) to identify a country, and because the `rnaturalearth` `sf` object already contains a column with iso_a3 country codes, building our map wasn't very hard.  It's worth pointing out that in various projects, we have now built maps with three different layerIDs. In the Global ETF Map project, we built one map with `layerID = name`, using the built-in `name` column in the `rnaturalearth` object, and we built another map with `layerID = tickers`, using a column of tickers that we added ourselves with the `merge()` function. Now, today, we have a map with `layerID = iso_a3`, using the built-in column of country codes. We are building up a nice portfolio of maps with different layerIDs should we ever want or need them in the future. 
+Because `Quandl` uses the [ISO 3-letter code](https://blog.quandl.com/api-for-economic-data) to identify a country, and because the `rnaturalearth` `sf` object already contains a column with iso_a3 country codes, building our map wasn't very hard.  It's worth pointing out that in various projects, we have now built maps with three different `layerID`s. In the Global ETF Map project, we built one map with `layerID = name`, using the built-in `name` column in the `rnaturalearth` object, and we built another map with `layerID = tickers`, using a column of tickers that we added ourselves with the `merge()` function. Now, today, we have a map with `layerID = iso_a3`, using the built-in column of country codes. We are building up a nice portfolio of maps with different `layerID`s should we ever want or need them in the future.
 
 That's all for today. We'll save that `leaflet_world` object for use in our Shiny app! See you next time.

@@ -1,0 +1,233 @@
+---
+title: A Shiny App for Exploring Commodities Prices and Economic Indicators, via Quandl
+author: Jonathan Regenstein
+date: '2017-05-12'
+categories:
+  - Finance
+  - R
+  - Reproducible Finance with R
+tags:
+  - dygraphs
+  - Finance
+  - Quandl
+  - Shiny
+draft: yes
+---
+
+
+In a [previous post](https://rviews.rstudio.com/2017/04/12/copper-gold-and-ten-year-treasury-notes/), we created an R Notebook to explore the relationship between the copper/gold price ratio and 10-year Treasury yields (if you're curious why we might care about this relationship, have a quick look at that previous post), relying on data from Quandl. Today, we'll create a Shiny app that lets users choose which different commodities ratios and different economic indicators to investigate. Perhaps users don't care about Dr. Copper and Treasury yields, but instead want to explore the oil/gold price ratio and how it correlates with the US inflation rate, or the EU inflation rate. Let's give them some flexibility!  
+
+The finished app is available [here](http://colorado.rstudio.com:3939/commodities-ratio-quandl/). 
+
+Before we get to it, note a few issues that we have seen in the past. 
+  
+Very similar to our [previous Shiny app](https://rviews.rstudio.com/2017/04/21/a-shiny-app-for-importing-and-forecasting-commodities-prices-from-quandl/), in the code chunk below, we have some important decisions about how a user selects a commodity. We could use `textInput` to allow the user to enter the code for the desired data set which would not limit the user in any way - he or she could choose any dataset on Quandl.  The cost would be that the user would need to know, or go to Quandl and look up, the code for any data set. 
+
+For example, to import iron ore prices, the user would have to type in ODA/PIORECR_USD. That's a big problem if your end users are not familiar with and have no interest in data set codes.  To emphasize convenience and usability we will go with `selectInput` instead of `textInput`, meaning our app will show a drop-down of a few choices. The user just clicks on "Iron Ore" instead of typing ODA/PIORECR_USD, or clicks on "copper" instead of typing CHRIS/CME_HG1.1. But, if a user wants to work with a data set that we haven't included, said user is out of luck.  
+
+Another big decision is how many choices to give the user. I've included a few: copper, oil, iron, platinum, palladium and silver. That's a nice smattering of commodities whose prices tend to rise with a growing economy, plus silver which does not. I included silver so we could take a look at a commodity that should behave differently from the rest. As always, our choice here is driven by how broad this app should be. We could have added steel, lead, zinc, and tin, or we could have included just copper, oil and iron, depending on the use case. Either way, the number of drop downs is another tradeoff between usability and flexibility.
+
+The final decision is a bit more nuanced and requires looking ahead to how these inputs will be used further down in the app. Have a peak at the object called `commodityChoices` and you might notice that we don't strictly need that object. We could have put the vector of choices as an argment to selectInput, so that our code would have read `choices = c("Copper" = "CHRIS/CME_HG1.1", ...)` instead of `choices = commodityChoices`. In that choice assignment, "copper" is called the name and "CHRIS/CME_HG1.1" is called the value (together we can think of them as a name-value pair).  The  reason for building a separate `commodityChoices` object is that we want the ability to extract either the name or the value of the name-value pair. Usually we would care only about the value, because we want to pass the value to Quandl and import the data, but that name is going to be useful when we label our graphs. 
+
+Without further adieu, let's look at `commodityChoices`, `econIndicatorChoices` and the use of `selectInput`.  
+
+```{r, eval = FALSE}
+# Create a vector of commodity choices. 
+commodityChoices <- c(
+                  "Copper" = "CHRIS/CME_HG1",
+                  "WTI oil" = "FRED/DCOILWTICO",# 
+                  "Iron Ore" = "ODA/PIORECR_USD", # monthly
+                  "Platinum" = "LPPM/PLAT", 
+                  "Palladium" = "LPPM/PALL",
+                  "Silver" = "LBMA/SILVER") 
+
+# Make those commodity choices avaible via selectInput.
+selectInput("commodity",
+            "Commodity",
+            choices = commodityChoices, 
+            selected = "Copper")
+
+# Create a vector of economic indicator choices.
+econIndicatorChoices <- c(
+                  "10-Yr Yield" = "FRED/DGS10", # daily
+                  "US CPI" = "RATEINF/INFLATION_USA",# monthly
+                  "Japan CPI" = "RATEINF/INFLATION_JPN",
+                  "EU CPI" = "RATEINF/INFLATION_EUR")
+
+# Make those economic indicator choices avaible via selectInput.
+selectInput("econIndicator",
+            "Economic Indicator",
+            choices = econIndicatorChoices, 
+            selected = "10-yr Yield")
+ 
+# A standard date range input.
+dateRangeInput("dateRange",
+               "Date range",
+               start = "1990-01-01",
+               end   = "2016-12-31")
+```
+
+Now that we have the inputs in a sidebar for the user, it's back to Quandl to import the data for the chosen commodity, gold and the chosen economic indicator. There's a common date range for all three so we'll start by creating start and end date objects. 
+
+```{r, eval = FALSE}
+ratio_indicator <- reactive({
+
+Quandl.api_key("your API key here")
+
+start_date <- format(input$dateRange[1])
+end_date <- format(input$dateRange[2])
+```
+
+We could now write three separate calls to Quandl for each of the data sets but, instead, let's make use of the `map()` function from the `purrr` package. If you're not familiar with `purrr`, have a look [here](https://cran.r-project.org/web/packages/purrr/purrr.pdf). I'll just say that you'll probably never have to use `lapply()` again (and that should be motivation enough), but, in short, the family of `map()` functions takes a function and applies it to the elements in a vector, similar to the  `apply()` functions. 
+
+Before we can use `map()` though, we need a vector to feed it. Let's create a vector of Quandl codes.
+
+```{r, eval = FALSE}
+# Create a vector of 3 data set codes
+# 1) commodity chosen by user
+# 2) gold quandl code
+# 3) economic indicator chosen by user
+
+gold_code <- "CHRIS/CME_GC1.1"
+# Vector of Quandl codes.
+data_set_codes <- c(input$commodity, gold_code, input$econIndicator)
+```
+
+Then we'll apply the `Quandl()` function by piping our vector of codes and using `map()`. 
+
+```{r, eval = FALSE}
+# Pipe the data_set_codes vector to Quandl via the map() function
+# Note we can still set the start and end date and object type
+# as we always can with Quandl.
+
+ quandlData<- data_set_codes  %>% 
+        # Pipe the datasets vector to Quandl via the map() function.
+        map(Quandl,
+            start_date = start_date,
+            end_date = end_date,
+            collapse = "monthly",
+            type = "xts")     %>%
+```
+
+Next, we will use `map()` to apply the `na.locf()` function to our time series and ensure that no NAs remain. 
+
+```{r, eval = FALSE}
+        # Replace all NAs using map() and na.locf().
+        map(na.locf, formLast = TRUE) %>%
+```
+
+If we stopped here, we would have a list of three xts series, but I don't want a list, I want one xts object. So, we'll pipe our list of three and use the `reduce()` + `merge()` to combine our list of 3 time series into one xts object.
+
+```{r, eval = FALSE}
+        # Merge to one xts object using map() and merge().
+        reduce(merge) %>% 
+        # Add nicer column names.
+        `colnames<-`(c(names(commodityChoices[commodityChoices == input$commodity]), 
+                            "Gold",
+                            names(econIndicatorChoices[econIndicatorChoices == input$econIndicator]))) 
+```
+
+Alright, after running our Quandl codes through that series of mapped functions, we have three time series stored in one xts object, and now we want to calculate the price ratio of the chosen commodity/gold. 
+
+To create that price ratio, we need to divide the first column by the second column and we'll store it in a new column called `ratio`. 
+
+Then we will save just that ratio and the economic indicator column data into their xts object. That is not necessary but it makes things cleaner and easier when we pass to `dygraph()`.
+
+```{r, eval = FALSE}
+# Create a column and add the price ratio.
+quandlData$ratio <- quandlData[,1]/quandlData[,2]
+
+# Save just the ratio and the economic indicator data.
+ratio_indicator  <- merge(quandlData$ratio, quandlData[,3])
+
+# Add more general names.
+colnames(ratio_indicator) <- c("ratio","indicator")       
+
+return(ratio_indicator)
+})
+```
+
+Now we just need to pass our reactive object `ratio_indicator()` to `dygraph()` and follow the same steps as we did when testing in our Notebook. 
+
+We will use `dyRoller()` to smooth out our chart and make each point an average of the number of periods specified with `rollPeriod = X`. This won’t affect our xts object, where we store the data, it just makes the chart more readable.
+
+Remember also that we are charting two time series on the same chart and they are on different scales, so we want to add a right-hand-side y-axis. 
+
+To do so, we need to invoke `dyAxis()` for the left-hand axis, called “y”. Then we invoke `dyAxis()` for the right-hand axis, called “y2”. We also need to set `independentTicks = TRUE` so that we can use a unique, independent value scale for the right-hand side. Next, in our `dySeries()` call for each time series, we assign each one to an axis. Here we assign “ratio” with `axis = 'y'`, so that the commodity-gold price ratio will be on the left-hand scale, and we assign “indicator” with `axis = 'y2'`, so the economic indicator will be on the right-hand scale. 
+    
+```{r, eval = FALSE}
+dygraphOutput("ratio_indicator")
+
+output$ratio_indicator <- renderDygraph({
+  dygraph(ratio_indicator()) %>% 
+    
+  # Add the rollPeriod for smoothing.
+  dyRoller(rollPeriod = 3) %>% 
+    
+  # Create two independent axes, just we did in the Notebook.
+  dyAxis("y", label = "USD") %>%
+  dyAxis("y2", label = "Percent (%)", independentTicks = TRUE) %>%
+    
+  # Assign each time series to an axis. 
+  # Use the name from the name-value pair to create nice labels for each.  
+  dySeries("ratio", axis = 'y', 
+           label = paste(names(commodityChoices[commodityChoices == input$commodity]), 
+                         "/Gold (LHS)", sep = ""), color = "blue") %>% 
+  dySeries("indicator", axis = 'y2', 
+           label = paste(names(econIndicatorChoices[econIndicatorChoices == input$econIndicator]), 
+                         "(RHS)", sep = ""), color = "red")
+})
+
+```
+
+We could end things here but let's go ahead and add a chart to show the rolling correlation between the ratio and the indicator. We've done so much work to calculate and wrangle these time series, might as well put them to use! 
+
+First, we'll calculate the rolling correlation using the `rollapply()` function. Nothing too complicated here.
+
+```{r, eval = FALSE}
+dygraphOutput("rollingCorrelation")
+
+output$rollingCorrelation <- renderDygraph({
+  
+rolling_cor <- rollapply(ratio_indicator(), 24,
+                         function(x) cor(x[, 1], x[, 2], use = "pairwise.complete.obs"),
+                         by.column = FALSE)
+# Make a nicer name for the xts object that stores the rolling correlation. 
+# This name will be displayed when a user hovers on the dygraph. 
+names(rolling_cor) <- paste(names(commodityChoices[commodityChoices == input$commodity]),
+                            "/Gold ",
+                            names(econIndicatorChoices[econIndicatorChoices == input$econIndicator]), 
+                            " Correlation", sep = "")
+```
+
+It's not necessary, but I like to display the mean, minimum and maximum rolling correlations on the chart. We'll store those in three objects: `avg`, `mini`, and `maxi`.
+
+```{r, eval = FALSE}
+
+  avg  <- round(mean(rolling_cor, na.rm = T), 2)
+  mini <- round(min(rolling_cor,  na.rm = T), 2)
+  maxi <- round(max(rolling_cor,  na.rm = T), 2)
+```
+
+Now we pass our `rolling_cor` xts object to `dygraph()` and pass the mean, minimum and maximum objects to `dyLimit()`. 
+
+```{r, eval = FALSE}
+
+dygraph(rolling_cor, main = paste(names(commodityChoices[commodityChoices == input$commodity]),
+                            "/Gold ",
+                            names(econIndicatorChoices[econIndicatorChoices == input$econIndicator]), 
+                            " Correlation", sep = "")) %>% 
+  dyRangeSelector(dateWindow = c("2015-01-01", "2016-12-31"))  %>% 
+  # Add a line for the mean, min and max.
+  dyLimit(avg, color = 'purple') %>% 
+  dyLimit(mini, color = 'red') %>% 
+  dyLimit(maxi, color = 'blue') %>% 
+  # Add an event for the US election.
+  dyEvent("2016-11-08", "Trump!", labelLoc = "bottom")
+})
+```
+
+And, we're done! It's fun to explore different relationships amongst different time series with this app. And once we have this template in the toolkit, all sorts of different data sets can be substituted in for exploration. For example, we might want to port this work over to a currencies dashboard, or a country GDP dashboard. The nice thing is, it's just a matter of finding the right Quandl codes and imagining new hypotheses to explore.
+
+Things got a little choppy today with all the piping, so just a reminder that if you want the reusable code for this app, it's available via the `source code` button at the top right of the live app.  Thanks, and see you next time.  
+
