@@ -1,0 +1,169 @@
+---
+title: Mapping Quandl Data with Shiny
+author: Jonathan Regenstein
+date: '2017-06-14'
+categories:
+  - R Language
+  - Finance
+  - Reproducible Finance with R
+  - Time Series
+tags:
+  - R
+  - Finance
+  - Maps
+  - Quandl
+  - Shiny
+---
+
+
+Today, we are going to wrap our previously built [Quandl/world map Notebook](https://rviews.rstudio.com/2017/05/10/mapping-quandl-macroeconomic-data/) into an interactive Shiny app that lets users choose both a country and a data set for display. As usual, we did a lot of the heavy lifting in the Notebook to make our work more reproducible and our app more performant. The final app is available [here](http://colorado.rstudio.com:3939/worldmap-quandl-shiny/). 
+
+Devotees of this Reproducible Finance blog series will note similarities to this [Shiny app](http://colorado.rstudio.com:3939/Global-ETF-Map/), but today's app will have different and richer functionality. 
+
+First, we are going to be pulling in data from Quandl, so we won't be using ticker symbols, but rather will be using country codes plus data set codes. That would allow us to open this app to the vast number of data sets available via Quandl.
+
+Second, the user will be able to use the sidebar to select different data sets, rather than being restricted to a country ETF. For example, the user might want to select GDP-per-capita, or the exchange rate, or any data set that we wish to make available. Our app today will include 6 economic indicators.  
+
+Third, we will display a chart using `highcharter` instead of `dygraphs`. There's not a substantive reason to be doing this, beyond that it's a good chance to start exploring `highcharter`, which is a popular tool in the financial world. 
+
+Lastly, we'll port raw data to a `data.table` and include a few buttons for easy download, in case our end users want to reproduce our charts or import data for their own work.  We are going to use the `as_tibble` function from the fantastically useful new [tidyquant](https://cran.r-project.org/web/packages/tidyquant/index.html) package to facilitate our `data.table`. We won't have space to cover the data download section in this post, but all the code is available in the live app. 
+
+Without further ado, let's get to it. 
+
+The first line of substance in this app loads in the `leaflet` map we constructed in our Notebook. We named the object `leaf_world` and saved it in a file called `wdiMapData.RDat`.  If you want to refresh your memory on how we did that, have a look back at the [previous post](https://rviews.rstudio.com/2017/05/10/mapping-quandl-macroeconomic-data/). Apologies if that sounds tedious, but hopefully it emphasizes the workflow of doing the heavy map-building in the Notebook when possible. If you or your team ever want to use that map as the basis for another Shiny app, that Notebook will be convenient to reuse. 
+
+To load our map, we run the following: 
+
+```{r, eval = FALSE}
+# Load the .RDat file where the leaflet map is saved.
+load('wdiMapData.RDat')
+```
+
+Now we can access whatever R objects were saved in that file and, in this case, that means one R object called `leaf_world`.  That might not be a great name, but it's the leaflet map of the world we built in the Notebook.  When we are ready to build the map in our Shiny app, we'll simply render that object. 
+
+Before we get to the map, though, let's construct a sidebar where the user can choose which data set to display. We are going to be working with a macroeconomic data source from the World Bank called World Development Indicators [WDI](http://data.worldbank.org/products/wdi).  The Quandl code for WDI is `WWDI` and thus we'll append `WWDI/` to each data set call - but note that this will not appear in the sidebar because we won't actually pass any data to Quandl there. We have to wait for the user to click on a county, and thus will handle the data passing in a future code chunk. This sidebar has one purpose: for the user to select the code for the economic indicator.
+
+We want to give the user a drop-down of choices, but we don't want the choices to be the Quandl codes. We want the choices to be the familiar names of the data sets. In other words, the user will see as a choice 'GDP Per Capita', instead of the Quandl code `_NY_GDP_PCAP_KN`. For that reason, we'll first create an object called  `dataChoices` that holds our name-value pairs. The name is the familiar title of the time series - for example, 'GDP Per Capita` - and the value is the Quandl code. 
+
+```{r, eval = FALSE}
+
+dataChoices <- c("GDP Per Capita" = "_NY_GDP_PCAP_KN",
+                  "GDP Per Capita Growth" = "_NY_GDP_PCAP_KD_ZG",
+                  "Real Interest Rate" = "_FR_INR_RINR",
+                  "Exchange Rate" = "_PX_REX_REER",
+                  "CPI" = "_FP_CPI_TOTL_ZG",
+                  "Labor Force Part. Rate" = "_SL_TLF_ACTI_ZS")
+```
+
+Next, in our `selectInput` statement, we will set choices equal to `dataChoices`, which will allow the user to see intuitive names but choose the Quandl codes.
+
+```{r, eval = FALSE}
+
+selectInput("indicatorSelect", 
+            "Choose an economic indicator",
+            # Give the user a choice from the object we created above.
+            choices = dataChoices,
+            selected = "GDP Per Capita")
+```
+
+Our simple sidebar is finished, and the end result is that when a user makes a choice, we have an input reactive with the value of the data set code.  Let's put that code aside for a minute and turn our attention to the map.
+
+Remember, we did the map-building work on this in our [Notebook](https://rviews.rstudio.com/2017/05/10/mapping-quandl-macroeconomic-data/), then loaded the object in the `setup` code chunk. That leaves us with a simple call to `renderLeaflet()` to pass it `leaf_world`.
+
+```{r, eval = FALSE}
+leafletOutput("map1")
+
+output$map1 <- renderLeaflet({
+  leaf_world
+  })
+```
+
+Alright, that wasn't too cumbersome, and perhaps the simplicity of that step makes the hard work in the previous Notebook a bit more tolerable. 
+
+And now the fun part, wherein we build the machinery to let a user click the map and grab data from Quandl. We will proceed in four steps: 
+
+- capture the country code of the country that gets clicked
+- call the economic time series that the user selected in the sidebar
+- paste the country code and the time series together to create one data set code
+- pass that one data set code to Quandl and import the time series
+
+On to step 1, capturing the clicked country. 
+
+```{r, eval = FALSE}
+clickedCountry <- eventReactive(input$map1_shape_click, {
+  return(input$map1_shape_click$id)
+})
+```
+
+It's same process we used in [this post](https://rviews.rstudio.com/2016/12/16/reproducible-finance-with-r-a-shiny-etf-map/), but there is one difference. Let's review what happened here. 
+
+Recall that we set `layerID = ~iso_a3` when we built the map in our Notebook.  That's because Quandl appends the iso_a3 country codes to the data set code. In other words, if we want GDP-per-capita for Brazil, we need the Brazil country code 'BRA' so we can later append it to the GDP-per-capita code '_NY_GDP_PCAP_KN'.
+
+In the code chunk above, we used an `observeEvent` function to capture the `layerID` of whatever shape a user clicks, and in the Notebook, we had set that ID to be the `~isa_a3` code. When a user clicks Brazil, our reactive captures the country code 'BRA'.
+
+Next, we need to append that country code to the data set code.  Recall that the user chose this code in our sidebar. We just need to grab his selection via another `reactive`.
+
+```{r, eval = FALSE}
+# Nothing fancy here, a reactive value from our sidebar input.
+indicatorValue <- reactive({input$indicatorSelect})
+```
+
+Let's pause and take inventory of what we have captured thus far: the country code from the click on the map is stored as `clickedCountry()`, and the data set code from the sidebar is stored as `indicatorValue()`. Now we want to paste those together and pass them to Quandl. We'll do that via another `reactive`, but we are also going to pass that pasted chain to Quandl in the reactive. Thus, the chunk below has one `reactive` that does two things. 
+
+First, it pastes together our inputs to form one data set code. Second, it passes that code to Quandl and returns the desired time series. 
+
+Notice that when we paste the codes together, we start with `WWDI/`. That's because all of our data comes from the WWDI data source on Quandl. We are not letting the user choose a different data source. We could have done so in the sidebar, but consider how that would have complicated our data set code `reactive` input in the sidebar.
+
+Back to our data import chunk wherein we create our data set code by pasting inputs together and then pass them to Quandl:
+
+```{r, eval = FALSE}
+countryData <- reactive({
+  
+  # WWDI is the World Bank data set. 
+  # We aren't giving the user a choice of data sources, but we could.
+  dataSet <- paste("WWDI/",
+                   # The country that was clicked.
+                   as.character(clickedCountry()),
+                   # The time series that was chosen in the sidebar.
+                   as.character(indicatorValue()), 
+                   sep = "")
+  # Now pass that pasted data set code object to Quandl.
+  Quandl(dataSet, type = "xts")
+})  
+```
+
+We now have an object called `countryData` that is an `xts` object imported from Quandl. It holds the time series (1) from the WWDI data source, (2) for the country that was clicked,  (3) for the economic indicator that was chosen in the sidebar
+
+From a data import perspective, we're done. We could fit a model to this data, run forecasts, etc., but I am going to head straight to visualization using `highcharter`.
+
+As mentioned at the outset, `dygraph` would have done a fine job here, but `highcharter` seems to be a more popular visualization tool in the financial industry, and that's a good reason to start exploring its capabilities. 
+
+The code chunk below might look heavy, but most of the lines are for aesthetics, creating a nice title and removing scroll bars that seem clunky to me. The key substantive statements below are `highchart(type = "stock")` and `hc_add_series(countryData())`.  
+
+The first statement tells `highcharter` to use its built-in stock format (this is good for graphing all sorts of economic time series, not just stocks), and the second passes our data object to the graphing function `hc_add_series`.  It's a well-named function because it adds a series to the chart.  If we wanted to include another series, we would use that same function and pass in another `xts` object.  
+
+```{r, eval = FALSE}
+output$highchart <- renderHighchart({
+  
+  # Make a nice title for the chart.
+  # The next three linese are purely aesthetic to that our graph has an intuitive
+  # title. 
+  indicatorName1 <- names(dataChoices[dataChoices == input$indicatorSelect])
+  countryName1 <- countrycode(as.character(clickedCountry()), "iso3c", "country.name")
+  title <- paste(countryName1, indicatorName1, sep = " ")
+  
+  # Call highchart and ask nicely for it to use the built-in 'stock' format.
+  highchart(type = "stock") %>% 
+    hc_title(text = title) %>%
+    # Pass our time series object countryData to highcharter function hc_add_series.
+    hc_add_series(countryData(), name = title) %>%
+    # I don't like the look of the navigator/scrollbar in a small space, but others might. 
+    # Change these to enabled = TRUE and check out the results.
+    hc_navigator(enabled = FALSE) %>% 
+    hc_scrollbar(enabled = FALSE)
+})
+```
+
+That's all for today. This post completes what we can retrospectively consider our 3-part series of Quandl Shiny apps. The other two posts are [here](https://rviews.rstudio.com/2017/04/21/a-shiny-app-for-importing-and-forecasting-commodities-prices-from-quandl/) and [here](https://rviews.rstudio.com/2017/06/02/a-shiny-app-for-exploring-commodities-prices-and-economic-indicators-via-quandl/). There are definitely interesting ways to combine the functionalities in these apps, but I'll leave that to the awesome community of Shiny developers. 
+
+See you next time, when we visit the wonderful world of portfolio theory and volatility! 
