@@ -1,0 +1,45 @@
+---
+title: Some R User Group News
+author: Joseph Rickert
+date: '2017-06-15'
+categories: 
+  - R Language
+  - Community
+  - News
+  - R Packages
+tags: 
+  - BARUG
+  - R User Groups
+  - bigKRLS
+---
+
+This week, members of the Bay Area useR Group  ([BARUG](https://www.meetup.com/R-Users/)) celebrated the group's one hundred and first meetup with beer, pizza and three outstanding [presentations](https://www.meetup.com/R-Users/events/239944472/) at the cancer diagnostics company [GRAIL](https://grail.com/). Pete Mohanty began the evening with the talk [**Did "Communities in Crisis" Elect Trump?: An Analysis with Kernel Regularized Least Squares**](https://docs.google.com/viewer?a=v&pid=sites&srcid=ZGVmYXVsdGRvbWFpbnxwZXRlbW9oYW50eXxneDozZmUyYjk3ZjAzYzNhYzgx). Not only is the Political Science compelling, but the underlying Data Science is top shelf. The [bigKRLS package](https://cran.r-project.org/web/packages/bigKRLS/index.html) that Pete and his collaborator Robert Shaffer wrote to support their research uses parallel processing and external memory techniques to make the computationally intensive Regularized Least Squares algorithm suitable for fairly large data sets. The following graph from Pete's presentation gives some idea of the algorithm's running time.
+
+![](/post/2017-06-15-Some-R-User-Group-News_files/bigKRLS.png)
+
+
+In the second talk, long time BARUG contributor Earl Hubbell described the production workflow that supports GRAIL's scientific work. "Rmarkdown, tidy data principles, and the RStudio ecosystem serve as one foundation for [GRAIL's] reproducible research." In the evening's third talk, Ashley Semanskee the Kaiser Family Foundation is using R to automate the annual production of its [Employer Health Benefits Survey](http://www.kff.org/health-costs/report/2016-employer-health-benefits-survey/).
+
+Also recently:   
+
+* Jonathan Steinhart spoke to [Vienna<-R](https://www.meetup.com/ViennaR/events/226325456/) about using structurally additive regression to model multiple, irregularly-spaced time series with the [R-INLA package](http://www.r-inla.org/).
+
+* Harlan Harris gave what looks like must have been an outstanding talk on [Forecasting Growth with Semiparametric Bayesain Models](http://rpubs.com/HarlanH/gamlss_accum) to the [New York Open Statistical Programming Meetup](https://www.meetup.com/nyhackr/). Harlan's code is [here](https://www.meetup.com/nyhackr/). 
+
+* Larry Dag demonstrated a Shiny based [recommender engine for board games](https://larrydag.shinyapps.io/boardgame_reco/) to the [Dallas R Users Group](https://www.meetup.com/Dallas-R-Users-Group/events/239684864/)
+
+* Chester Ismay spoke about creating the [fivethirtyeight R data package](https://cran.r-project.org/web/packages/fivethirtyeight/index.html) to the [Portland R User Group](https://www.meetup.com/portland-r-user-group/events/239484692/). Here is the video:
+
+<iframe src="https://www.youtube.com/embed/UUc5u0NOvhg" frameborder="0" allowfullscreen height = "450" width = "100%" ></iframe>
+
+Note that members of the Portland group also helped to organize the first ever [CasdadiaRConf](https://cascadiarconf.com/about/) conference.  
+   
+* [R-Ladies DC](https://www.meetup.com/rladies-dc/) recently held a [workshop](https://github.com/rladies/meetup-presentations_dc/blob/master/BlogdownNetlifyWorkshop-2017/RLadiesDC-PersonalWebsiteWkshp.pdf) on building a personal webpage or blog with blogdown and GitHub. I am looking forward to some new blogdown powered posts from Git savvy bloggers.
+
+* Dave Cooley, the lead developer of googleway, gave a talk to the [The Melbourne Users of R Network](https://www.meetup.com/MelbURN-Melbourne-Users-of-R-Network/events/239535525/) on [The way of google - new tools for mapping in R](http://demos.symbolix.com.au/GooglewayRMeetupPresentation.html#/).
+
+* [R-Ladies of Budapest](https://www.meetup.com/R-Ladies-Budapest/events/239534246/) spent an evening working in the tidyverse. They posted an interesting [data set](https://raw.githubusercontent.com/rladies/meetup-presentations_budapest/master/Meetup_2017_04_19/pisa_hun_small.csv) for practice.
+
+* Serena Signorelli spoke to [Data Sscience Milan](https://www.meetup.com/Data-Science-Milan/events/239207752/) about [sparklyr as a "Big Data Enabler" for R users](https://www.slideshare.net/ICTeam/sparklyr-big-data-enabler-for-r-users).
+
+Finally, I would like to mention that the recently reformed [Austin R User Group](https://www.meetup.com/Austin-R-User-Group/) is thinking big. They are planning [Data Day Texas 2018!](http://datadaytexas.com/2018/r-user-day-at-data-day-texas) and have already assembled an impressive list of speakers.
