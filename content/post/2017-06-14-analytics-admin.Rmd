@@ -1,0 +1,144 @@
+---
+title: R for the Enterprise - Analytic Administration for R
+author: Nathan Stephens
+date: "6/17/2017"
+slug: ''
+categories: [R, R For The Enterprise]
+tags: [R, tidyverse, production, linux]
+draft: yes
+summary: 'How to multiply your effectiveness by becoming an analytics admin'
+---
+
+An analytic admin is a data scientist who can onboard new tools, deploy solutions, support existing standards, and train others on best practices. These people work close with IT to maintain, upgrade, and scale their analytic environments. Analytic admins have a multiplier effect on their work. As they go about their work, they influence others in the organization to be more effective also. If you are a data scientist using R, you might consider filling the role of analytic admin for your organization.
+ 
+Consider the data scientist who wants to make R a legitimate part of their organization. This person has to introduce a new technology and help IT build the architecture around it. In this role, the data scientist -- acting as an analytic admin -- influences their entire organization.
+
+# The need for analytic admins
+
+What organizations need analytic admins? Analytic admins are important for any organization that wants to:
+ 
+* Modernize their analytic tools
+* Take advantage of all their data
+* Build analytic products and applications
+* Develop a best in class data science team
+ 
+Despite the fact that the need for analytic admins is pervasive in industry, companies rarely list it as a dedicated role. Instead, they require teamwork between data science and IT operations, or they may require data scientists to function as their own admins. But the need is real. Most organizations need help bridging the gap between data science and IT. If you see an opportunity to function in the capacity as an analytics admin, I suggest you take it.
+ 
+Analytic admins typically have to train themselves and carve out their own career. It is common for data scientists who operate as analytic admins to feel as though they are in no man’s land. It is natural to feel lost between the worlds of data science and information technology. As someone who had been there, I can say the feeling is disorienting. However; I can also say the value of that position is tremendous. If you feel like you are operating in no man’s land as you function in this role, just know you are exactly where you need to be.
+
+# R tooling and integration
+
+At RStudio we think about doing data science as a development process that begins with accessing and understanding your data and then communicating your results. This process is thoroughly explained in the book, [R for Data Science](http://r4ds.had.co.nz/explore-intro.html), by Wickham and Grolemond.
+ 
+RStudio builds open source and enterprise ready products to help you do data science in R. These products include the RStudio IDE, RStudio Connect, and Shiny Server. These are designed to work with open source R packages like Shiny, R Markdown, and the Tidyverse.
+
+![](/home/nathan/projects/rviews/static/post/2017-06-14-analytics-admin/rstudio-toolchain.png)
+
+Most of the software that RStudio makes is open source, but enterprises often require additional professional features. Common pro features are security, authentication, high availability, administration, and load balancing.
+ 
+R is also used with production environments for hosting web applications, exposing API’s, and automating workflows. R is sometimes integrated into other systems such as data warehouses, Hadoop, and Spark. The role of the analytic admin is to provide tooling for data scientists as well as to integrate R into production systems.
+
+# Linux and R
+
+RStudio products run on Linux, so it’s a great tool to learn. Understanding Linux will help you become self sufficient, use R with other systems, and build better solutions. We will talk more about what you can do with Linux commands in an upcoming blog post.
+ 
+There are many resources for learning Linux online. Here is just one offered by the [Linux Foundation](https://training.linuxfoundation.org/free-linux-training). Analytics admins need to know how to navigate (e.g. cd, pwd, ls); install Linux packages (e.g. apt-get install); and execute commands as root (e.g. sudo). Also important are tab completion, keyboard shortcuts, and text editors (e.g. vim, nano).
+ 
+Did you know you can execute basic Linux commands from inside RStudio Server using the Tools > Shell menu? You can also execute Linux commands inside the R console with the “system” function.
+ 
+Another major benefit of learning Linux is the ability to administer production systems that run with Shiny Server and the ability to deploy Shiny web applications into production.
+
+# Running Shiny in production
+
+There is a growing trend in using Shiny web apps in production analytic workflows. The vibrant Shiny community now spans all verticals including pharma, high tech, and finance. For many organizations, adopting Shiny is their first experience in running R in production.
+ 
+Production environments that depend on Shiny also need analytic admins who can deploy and support these applications. For example, some organizations now have complex Shiny applications that serve hundreds of end users over a cluster of load balanced Shiny Servers. These applications often go through a standard dev-test-prod deployment process. New tools are being built for [correctness testing](https://github.com/rstudio/shinytest) and [load testing](https://github.com/rstudio/shinyloadtest) in Shiny. RStudio and other platform vendors are making significant investments in building architectures -- like Shiny Server and RStudio Connect -- that will help Shiny grow over the long term.
+ 
+The growth of Shiny opens an opportunity to analytic admins who want to make analytic content available to a wide audience. Shiny apps allow end users who know nothing about R to take advantage of the power of the R programming language. They have the potential to influence decision makers who can take actions and see results based on the work data scientists share with them. There is an immediate need for analytic admins who understand Shiny and can help support environments that depend on Shiny.
+
+# Getting started: Installing RStudio Server
+
+A great way to get started learning analytics administration is to build your own open source RStudio Server on Linux. Building an RStudio Server by hand is the analytic admin equivalent of the Jedi building their own lightsabers. It’s a core skill, so you should be able to do it yourself no matter what.
+ 
+An easy way to get started with RStudio Server is to set it up on Ubuntu with Amazon Web Services. AWS even has an instruction guide for [running R on AWS](https://aws.amazon.com/blogs/big-data/running-r-on-aws/). The core commands of the install are the following four lines of code (note: this install RStudio Server version 1.0.143).
+
+``` 
+$ sudo apt-get install r-base
+$ sudo apt-get install gdebi-core
+$ wget https://download2.rstudio.org/rstudio-server-1.0.143-amd64.deb
+$ sudo gdebi rstudio-server-1.0.143-amd64.deb
+```
+
+Of course, your installation is going to require more than just installing RStudio Server. You will probably want use the CRAN repository, install Linux dependencies, add users, and manage R packages. Here is a complete script I used to set up RStudio Server on a simple AWS AMI (ami-efd0428f) using a T2-medium instance. I included instructions from [this](https://www.digitalocean.com/community/tutorials/how-to-install-r-on-ubuntu-16-04-2) document on how to install R from CRAN. I also opened port 8787 in my AWS security group so I could log into RStudio Server via my web browser.
+
+```
+### Simple RStudio Server Install
+### Based on AWS image: ami-efd0428f
+ 
+## Install R from CRAN repository
+$ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+$ sudo add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu xenial/'
+$ sudo apt-get update
+$ sudo apt-get -y install r-base
+ 
+## Install RStudio Server version 1.0.143
+$ sudo apt-get install gdebi-core
+$ wget https://download2.rstudio.org/rstudio-server-1.0.143-amd64.deb
+$ sudo gdebi rstudio-server-1.0.143-amd64.deb
+ 
+## Add a new user
+$ sudo useradd -m myuser
+$ sudo passwd myuser
+ 
+## (Optional - may take time) Install common Linux dependencies
+$ sudo apt-get -y install libcurl4-openssl-dev openssl libssl-dev
+$ sudo apt-get -y install texlive texlive-latex-extra libxml2-dev
+ 
+## (Optional - may take time) Install common R packages
+$ sudo Rscript -e 'install.packages("shiny", repos = "http://cran.rstudio.com/")'
+$ sudo Rscript -e 'install.packages("tidyverse", repos = "http://cran.rstudio.com/")'
+ 
+## Point your browser to <AWS-instance-IP>:8787
+```
+
+If you don’t want to install RStudio Server from scratch there are other ways to get started. One is to use a community AMI like [this](http://www.louisaslett.com/RStudio_AMI/) one. Another is to use the [AWS Marketplace](https://aws.amazon.com/marketplace/pp/B06W2G9PRY?qid=1497719355342&sr=0-1&ref_=srh_res_product_title) to install RStudio Server Pro with 1-Click Launch.
+
+# References
+
+Installation is just the first step to administering R. You should also consider authentication, security, scale, integration, hardware sizing, and configuration. Systems administrators have to do a lot of their own training. Analytic admins are no different. Fortunately, there are lots of references to help you get started administering R, RStudio, and Shiny in your organization.
+ 
+### RStudio Products
+
+* [RStudio documentation](http://docs.rstudio.com/)
+* [RStudio Support](https://support.rstudio.com/hc/en-us)
+* [Administering RStudio Server Pro](https://www.rstudio.com/resources/webinars/administration-of-rstudio-connect-in-production/)
+* [Administering Shiny Server Pro](https://www.rstudio.com/resources/webinars/administering-shiny-server-pro/)
+* [Administration of RStudio Connect in Production](https://www.rstudio.com/resources/webinars/administration-of-rstudio-connect-in-production/)
+ 
+### Authentication and security
+
+* [Authentication in RStudio Connect](https://support.rstudio.com/hc/en-us/articles/226865027-Authentication-in-RStudio-Connect)
+* [Security FAQ](https://support.rstudio.com/hc/en-us/articles/115000782547-Security-FAQ)
+* [Security features in RStudio Server Pro](https://support.rstudio.com/hc/en-us/articles/221682007-Security-features-in-RStudio-Server-Pro)
+* [Can I load balance across multiple nodes running Shiny Server Pro?](https://support.rstudio.com/hc/en-us/articles/217801438-Can-I-load-balance-across-multiple-nodes-running-Shiny-Server-Pro-)
+
+### Managing R Packages
+
+* [Managing libraries for RStudio Server](https://support.rstudio.com/hc/en-us/articles/215733837-Managing-libraries-for-RStudio-Server)
+* [Package management in RStudio Connect](https://support.rstudio.com/hc/en-us/articles/226871467-Package-management-in-RStudio-Connect)
+* [Secure package downloads for R](https://support.rstudio.com/hc/en-us/articles/206827897-Secure-Package-Downloads-for-R)
+* [Package Management for Offline RStudio Connect Installations](https://support.rstudio.com/hc/en-us/articles/115006298728-Package-Management-for-Offline-RStudio-Connect-Installations)
+ 
+### Shiny Server
+
+* [How do I deploy Shiny applications to Shiny Server?](https://support.rstudio.com/hc/en-us/articles/221319028-How-do-I-deploy-Shiny-applications-to-Shiny-Server-)
+* [Scaling and Performance - Tuning Applications in Shiny Server Pro](https://support.rstudio.com/hc/en-us/articles/220546267-Scaling-and-Performance-Tuning-Applications-in-Shiny-Server-Pro)
+* [Shiny Server Pro: Authentication examples](https://support.rstudio.com/hc/en-us/articles/219482057-Shiny-Server-Pro-Authentication-Examples)
+* [Shiny Server download](https://www.rstudio.com/products/shiny/download-server/)
+ 
+### Other useful links
+
+* [RStudio Server Download](https://www.rstudio.com/products/rstudio/download-server/)
+* [Scaling R and RStudio](https://support.rstudio.com/hc/en-us/articles/236226087-Scaling-R-and-RStudio)
+* [Configuration and sizing recommendations](https://support.rstudio.com/hc/en-us/articles/115002344588-Configuration-and-sizing-recommendations)
+
