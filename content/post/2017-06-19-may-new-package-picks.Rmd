@@ -1,0 +1,114 @@
+---
+title: May New Package Picks
+author: Joseph Rickert
+date: '2017-06-23'
+categories: 
+ - R Language
+ - Packages
+ - Opinion
+tags: 
+ - R
+ - R Packages
+---
+Two hundred and twenty-nine new packages were submitted to CRAN in May. Here are my picks for the "Top 40", organized into five categories: Data, Data Science and Machine Learning, Education, Miscellaneous, Statistics and Utilities.
+
+### Data
+[angstroms](https://cran.r-project.org/package=angstroms) v0.0.1: Provides helper functions for working with [Regional Ocean Modeling System](https://www.myroms.org/) (ROMS) output. 
+
+[bikedata](https://cran.r-project.org/package=bikedata) v0.0.1: Download and aggregate data from public bicycle systems from around the world. There is a [vignette](https://cran.rstudio.com/web/packages/bikedata/vignettes/bikedata.html).
+
+[datasauRus](https://cran.r-project.org/package=Datasaurus)https://CRAN.R-project.org/package=datasauRus v0.1.2: The Datasaurus Dozen is a set of datasets that have the same summary statistics, despite having radically different distributions. As well as being an engaging variant on the Anscombe's Quartet, the data is generated in a novel way through a simulated annealing process. Look [here](http://dl.acm.org/citation.cfm?doid=3025453.3025912) for details, and in the [vignette](https://cran.rstudio.com/web/packages/datasauRus/vignettes/Datasaurus.html) for examples.
+
+[dwapi](https://cran.rstudio.com/web/packages/dwapi/) v0.1.1: Provides a set of wrapper functions for [data.world's](https://data.world/) REST API. There is a [quickstart guide](https://cran.rstudio.com/web/packages/dwapi/vignettes/quickstart.html).
+
+[HURDAT](https://cran.r-project.org/package=HURDAT) v0.1.0: Provides datasets from the [Hurricane Research Division's Hurricane Re-Analysis Project](http://www.aoml.noaa.gov/hrd/hurdat/Data_Storm.html), giving details for most known hurricanes and tropical storms for the Atlantic and northeastern Pacific ocean (northwestern hemisphere). The [vignette](https://cran.r-project.org/web/packages/HURDAT/vignettes/hurdat.html) describes the datasets.
+
+[neurohcp](https://cran.r-project.org/package=neurohcp) v0.6: Implements an interface to the [Human Connectome Project](https://db.humanconnectome.org/app/template/Login.vm;jsessionid=B175D91C0ECA959E436B01A7A9AEC60C). The [vignette](https://cran.rstudio.com/web/packages/neurohcp/vignettes/hcp.html) shows how it works.
+
+[osmdata](https://cran.r-project.org/package=osmdata) v0.0.3: Provides functions to download and import of [OpenStreetMap](https://www.openstreetmap.org/#map=5/51.500/-0.100) data as 'sf' or 'sp' objects. There is an [Introduction](https://cran.rstudio.com/web/packages/osmdata/vignettes/osm-sf-translation.html) and a vignette describing [Translation to Simple Features](https://cran.rstudio.com/web/packages/osmdata/vignettes/osm-sf-translation.html). 
+
+[parlitools](https://cran.r-project.org/package=parlitools) v0.0.4: Provides various tools for analyzing UK political data, including creating political cartograms and retrieving data. There is an [Introduction](https://cran.rstudio.com/web/packages/parlitools/vignettes/introduction.html), and vignettes on the [British Election Study](https://cran.rstudio.com/web/packages/parlitools/vignettes/bes-2015.html), [Mapping Local Suthorities](https://cran.rstudio.com/web/packages/parlitools/vignettes/mapping-local-authorities.html), and [Using Cartograms](https://cran.rstudio.com/web/packages/parlitools/vignettes/using-cartograms.html).
+
+[rerddap](https://CRAN.R-project.org/package=rerddap) v0.4.2: Implements an R client to NOAA's [ERDDDAP](https://upwell.pfeg.noaa.gov/erddap/information.html) data servers. There is an [Introduction](https://cran.rstudio.com/web/packages/rerddap/vignettes/Using_rerddap.html).
+
+[soilcarbon](https://cran.r-project.org/package=soilcarbon) v1.0.0: Provides tools for analyzing the [Soil Carbon Database](https://powellcenter-soilcarbon.github.io/soilcarbon/) created by [Powell Center Working Group](https://powellcenter.usgs.gov/). The [vignette](https://cran.rstudio.com/web/packages/soilcarbon/vignettes/launch_shiny.html) launches a local Shiny App.
+
+![](/post/2017-06-28-May-New-Package-Picks_files/soilcarbon.png)
+
+[suncalc](https://CRAN.R-project.org/package=suncalc) v0.1: Implements an R interface to the 'suncalc.js' library, part of the [SunCalc.net's project](http://suncalc.net) for calculating sun position, sunlight phases, moon position and lunar phase for the given location and time.
+
+### Data Science and Machine Learning
+[EventStudy](https://CRAN.R-project.org/package=EventStudy) v0.3.1: Provides an interface to the [EventStudy API](https://www.eventstudytools.com/). There is an [Introduction](https://cran.rstudio.com/web/packages/EventStudy/vignettes/introduction_eventstudy.html), and vignettes on [Preparing EventStudy](https://cran.rstudio.com/web/packages/EventStudy/vignettes/howto_eventstudy.html), [parameters](https://cran.rstudio.com/web/packages/EventStudy/vignettes/parameters_eventstudy.html), and the [RStudio Addin](https://cran.rstudio.com/web/packages/EventStudy/vignettes/addin_eventstudy.html).
+
+[kmcudaR](https://cran.r-project.org/package=kmcudaR) v1.0.0: Provides a fast, drop-in replacement for the classic K-means algorithm based on [Yingyang K-Means](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/ding15.pdf). Look [here](https://cran.rstudio.com/web/packages/kmcudaR/README.html) for details.
+
+[openEBGM](https://cran.r-project.org/package=openEBGM) v0.1.0: Provides an implementation of [DuMouchel's Bayesian data mining method for the market basket problem](http://www.tandfonline.com/doi/abs/10.1080/00031305.1999.10474456). There is an [Introduction](https://cran.rstudio.com/web/packages/openEBGM/vignettes/x1_introAndDataPrepVignette.html), and vignettes for [Processing Raw Data](https://cran.rstudio.com/web/packages/openEBGM/vignettes/x2_rawDataProcessingVignette.html), [Hyperparameter Estimation](https://cran.rstudio.com/web/packages/openEBGM/vignettes/x3_hyperParameterVignette.html), [Empirical Bayes Metrics](https://cran.rstudio.com/web/packages/openEBGM/vignettes/x4_posteriorCalculationVignette.html), and [Objects and Class Functions](https://cran.rstudio.com/web/packages/openEBGM/vignettes/x5_openEBGMObjectVignette.html).
+
+[spacyr](https://CRAN.R-project.org/package=spacyr) v0.9.0: Provides a wrapper for the Python [spaCy](https://spacy.io/) Natural Language Processing library. Look [here](https://cran.rstudio.com/web/packages/spacyr/README.html) for help with installation and use.
+
+### Education
+
+[learnr](https://CRAN.R-project.org/package=learnr) v0.9: Provides functions to create interactive tutorials for learning about R and R packages using R Markdown, using a combination of narrative, figures, videos, exercises, and quizzes. Look [here](https://rstudio.github.io/learnr/) to get started.
+
+[olsrr](https://cran.r-project.org/package=olsrr) v0.2.0: Provides tools for teaching and learning ordinary least squares regression. There is an [Introduction](https://cran.rstudio.com/web/packages/olsrr/vignettes/intro.html) and vignettes on [Heteroscedascitity](https://cran.rstudio.com/web/packages/olsrr/vignettes/heteroskedasticity.html), [Measures of Influence](https://cran.rstudio.com/web/packages/olsrr/vignettes/influence_measures.html), [Collinearity Diagnostics](https://cran.rstudio.com/web/packages/olsrr/vignettes/regression_diagnostics.html), [Residual Diagnostics](https://cran.rstudio.com/web/packages/olsrr/vignettes/residual_diagnostics.html) and [Variable Selection Methods](https://cran.rstudio.com/web/packages/olsrr/vignettes/variable_selection.html).
+
+[rODE](https://cran.r-project.org/package=rODE) v0.99.4: Contains functions to show students how an ODE solver is made and how classes can be effective for constructing equations that describe natural phenomena. Have a look at the free book [Computer Simulations in Physics](http://www.compadre.org/osp/items/detail.cfm?ID=7375). There are several vignettes providing brief examples, including one on the [Pendulum](https://cran.rstudio.com/web/packages/rODE/vignettes/Pendulum.html) and another on [Planets](https://cran.rstudio.com/web/packages/rODE/vignettes/Planet.html).
+
+### Miscelaneous
+[atlantistools](https://CRAN.R-project.org/package=atlantistools) v0.4.2: Provides access to the [Atlantis](http://atlantis.cmar.csiro.au/www/en/atlantis.html) framework for end-to-end marine ecosystem modelling. There is a [package demo](https://cran.rstudio.com/web/packages/atlantistools/vignettes/package-demo.html) and vignettes for [model preprocessing](https://cran.rstudio.com/web/packages/atlantistools/vignettes/model-preprocess.html), [model calibration](https://cran.rstudio.com/web/packages/atlantistools/vignettes/model-calibration.pdf), [species calibration](https://cran.rstudio.com/web/packages/atlantistools/vignettes/model-calibration-species.pdf), and [model comparison](https://cran.rstudio.com/web/packages/atlantistools/vignettes/model-comparison.pdf). 
+
+[phylodyn](https://CRAN.R-project.org/package=phylodyn) v0.9.0: Provides statistical tools for reconstructing population size from genetic sequence data. There are several vignettes including a [Coalescent simulation of genealogies](https://cran.rstudio.com/web/packages/phylodyn/vignettes/Simulation.html) and a case study using [New York Influenza](https://cran.rstudio.com/web/packages/phylodyn/vignettes/NewYorkInfluenza.html) data.
+
+### Statistics
+[adaptiveGPCA](https://cran.r-project.org/package=adaptiveGPCA) v0.1: Implements the adaptive gPCA algorithm described in [Fukuyama](https://arxiv.org/abs/1702.00501). The [vignette](https://cran.r-project.org/package=adaptiveGPCA) shows an example using data stored in a phyloseq object.
+
+![](/post/2017-06-28-May-New-Package-Picks_files/adaptiveGPCA.png)
+
+
+[BayesNetBP](https://cran.r-project.org/package=BayesNetBP) v1.2.1: Implements belief propagation methods for Bayesian Networks based on the [paper by Cowell](http://www.jmlr.org/papers/volume6/cowell05a/cowell05a.pdf). There is a function to invoke a Shiny App.
+
+[RPEXE.RPEXT](https://cran.r-project.org/package=RPEXE.RPEXT) v0.0.1: Implements the likelihood ration test and backward elimination procedure for the reduced piecewise exponential survival analysis technique described in described in Han et al. [2012](http://www.tandfonline.com/doi/abs/10.1080/19466315.2012.698945) and [2016](http://onlinelibrary.wiley.com/doi/10.1002/sim.5915/abstract). The [vignette](https://cran.rstudio.com/web/packages/RPEXE.RPEXT/vignettes/RPEXE.RPEXT.html) provides examples.
+
+[sfdct](https://CRAN.R-project.org/package=sfdct) v0.0.3: Provides functions to construct a constrained 'Delaunay' triangulation from simple features objects. There is a [vignette](https://cran.rstudio.com/web/packages/sfdct/vignettes/sfdct.html).
+
+![](/post/2017-06-28-May-New-Package-Picks_files/sfdct.png)
+
+[simglm](https://cran.r-project.org/package=simglm) v0.5.0: Provides functions to simulate linear and generalized linear models with up to three levels of nesting. There is an [Introduction](https://cran.rstudio.com/web/packages/simglm/vignettes/Intro.html) and vignettes for simulating [GLMs](https://cran.rstudio.com/web/packages/simglm/vignettes/GeneralizedModels.html) and [Missing Data](https://cran.rstudio.com/web/packages/simglm/vignettes/Missing.html) performing [Power Analysis](https://cran.rstudio.com/web/packages/simglm/vignettes/Power.html) and dealing with [Unbalanced Data](https://cran.rstudio.com/web/packages/simglm/vignettes/unbalanced.html).
+
+### Utilities
+[checkarg](https://CRAN.R-project.org/package=checkarg) v0.1.0: Provides utility functions that allow checking the basic validity of a function argument or any other value, including generating an error and assigning a default in a single line of code.
+
+[CodeDepends](https://cran.r-project.org/package=CodeDepends) v0.5-3: Provides tools for analyzing R expressions or blocks of code and determining the dependencies between them. The [vignette](https://cran.rstudio.com/web/packages/CodeDepends/vignettes/intro.html) shows how to use them.
+
+![](/post/2017-06-28-May-New-Package-Picks_files/CodeDepends.png)
+
+[desctable](https://cran.r-project.org/package=desctable) v0.1.0: Provides functions to create descriptive and comparative tables that are ready to be saved as csv, or piped to `DT::datatable()` or `pander::pander()` to integrate into reports. There is a [vignette](https://cran.rstudio.com/web/packages/desctable/vignettes/desctable.html) to get you started.
+
+[lifelogr](https://cran.r-project.org/package=lifelogr) v0.1.0: Provides a framework for combining self-data from multiple sources, including fitbit and Apple Health. There is a [general introduction](https://cran.rstudio.com/web/packages/lifelogr/vignettes/summary.pdf) as well as an [introduction for visualization functions](https://cran.rstudio.com/web/packages/lifelogr/vignettes/vignette_viz.pdf).
+
+[processx](https://cran.r-project.org/package=processx) v2.0.0: Portable tools to run system processes in the background.
+
+[printr](https://cran.r-project.org/package=printr) v0.1: Extends knitr generic function `knit_print()` to automatically print objects using an appropriate format such as Markdown or LaTeX. The [vignette](https://cran.rstudio.com/web/packages/printr/vignettes/printr.html) provides an introduction.
+
+[RHPCBenchmark](https://cran.r-project.org/package=RHPCBenchmark) v0.1.0: Provides microbenchmarks for determining the run-time performance of aspects of the R programming environment, and packages that are relevant to high-performance computation. There is an [Introduction](https://cran.rstudio.com/web/packages/RHPCBenchmark/vignettes/vignette.html).
+
+[rlang](https://CRAN.R-project.org/package=rlang) v0.1.1: Provides a toolbox of functions for working with base types, core R features like the condition system, and core 'Tidyverse' features like tidy evaluation. The [vignette](https://cran.rstudio.com/web/packages/rlang/vignettes/tidy-evaluation.html) explains R's capabilities for creating Domain Specific Languages.
+
+[readtext](https://cran.r-project.org/package=readtext) v0.50: Provides functions for importing and handling text files and formatted text files with additional meta-data, including '.csv', '.tab', '.json', '.xml', '.pdf', '.doc', '.docx', '.xls', '.xlsx' and other file types. There is a [vignette](https://cran.rstudio.com/web/packages/readtext/vignettes/readtext_vignette.html)
+
+[tangram](https://cran.r-project.org/package=tangram) v0.2.6: Provides an extensible formula system to implements a grammar of tables for creating production-quality tables using a three-step process that involves a formula parser, statistical content generation from data, and rendering. There is a vignette introducing the [Grammar](https://cran.rstudio.com/web/packages/tangram/vignettes/example.html), a [Global Style for Rmd](https://cran.rstudio.com/web/packages/tangram/vignettes/single-style.html), and duplicating [SAS PROC Tabulate](https://cran.rstudio.com/web/packages/tangram/vignettes/sas-proc-tabulate.html).
+
+[tatoo](https://CRAN.R-project.org/package=tatoo) v1.0.6: Provides functions to combine data.frames and to add metadata that can be used for printing and xlsx export. The [vignette](https://cran.rstudio.com/web/packages/tatoo/vignettes/tatoo.html) shows some examples.
+
+### Visualizations
+[ContourFunctions](https://CRAN.R-project.org/package=ContourFunctions) v0.1.0: Provides functions for making contour plots. A [vignette](https://cran.rstudio.com/web/packages/ContourFunctions/vignettes/Introduction_to_the_cf_R_package.html) introduces the package.
+
+![](/post/2017-06-28-May-New-Package-Picks_files/ContourFunctions.png)
+
+[mbgraphic](https://cran.r-project.org/package=mbgraphic) v1.0.0: Implements a two-step process for describing univariate and bivariate behavior similar to the [cognostics](https://projecteuclid.org/download/pdf_1/euclid.aos/1043351250) measures proposed by Paul and John Tuke. First, measures describing variables are computed and then plots are selected. The [vignette](https://cran.rstudio.com/web/packages/mbgraphic/vignettes/vignette.html) describes the details.
+
+![](/post/2017-06-28-May-New-Package-Picks_files/mbgraphic.png)
+
+[polypoly](https://cran.r-project.org/package=polypoly) v0.0.2: Provides tools for reshaping, plotting, and manipulating matrices of orthogonal polynomials. The vignette provides an [overview](https://cran.rstudio.com/web/packages/polypoly/vignettes/overview.html).
+
+[RJSplot](https://cran.r-project.org/package=RJSplot) v2.1: Provides functions to create interactive graphs with 'R'. It joins the data analysis power of R and the visualization libraries of JavaScript in one package  There is a [tutorial](http://rjsplot.net/examples).
