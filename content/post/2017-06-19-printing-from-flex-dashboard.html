@@ -13,6 +13,7 @@ tags:
 ---
 
 
+
 <p>Shiny applications of all stripes (including <a href="http://rmarkdown.rstudio.com/flexdashboard/shiny.html">flexdashboard with runtime Shiny</a>) are revolutionary in that they put the power of R directly in the end user’s hands without needing to interact directly with the language. A common way end-users wish to interact with their data is via a dashboard that they can manipulate on the fly. <a href="http://rmarkdown.rstudio.com/flexdashboard/">Flexdashboard</a> streamlines the process of turning an R-based analysis into a dashboard, so R users can create good-looking output for their analyses - and deploy this output to the web - with very little additional effort.</p>
 <p>There are various ways to extract information from flexdashboard, but no good way to programatically return a printable version of the <em>dashboard itself</em>. This is partially by design - responsive HTML dashboards aren’t meant to be printed. There are <a href="https://shiny.rstudio.com/articles/generating-reports.html">well-documented workflows</a> about how to share information between a web-centric output and a complementary report that renders to a printable format.</p>
 <p>That said, there are some reasons to want a printable output that looks similar to a related HTML report. Snapshots are valuable for documentation/training materials, for embedding in emails or other reports, or for the all-too-common case of meetings with executives who like dashboards but want to consume paper-based reports. Plus, flexdashboards are an incredibly quick way to create visually appealing <em>(read: pretty)</em> summary output of a combination of outputs on a single page.</p>
@@ -81,7 +82,12 @@ return(paste(&#39;Cars&#39;, &#39;.png&#39;, sep=&#39;&#39;))
 <p>This chunk contains the secret sauce. When the <code>downloadButton</code> is invoked, the program saves all elements to appear in the downloaded report in a file called ‘config_data.RDS’. These elements are then used as arguments to render a shadow document, ‘ShadowCars.Rmd’. Finally, <code>webshot::webshot</code> converts the hidden document to a .png and delivers it to the client side.</p>
 <p>The full dashboard looks like this:</p>
 <!-- ![*Screenshot of our minimal implementation of a flexdashboard with downloadable screenshot*](/post/2017-06-19-Printing-From-Flex-Dashboard_files/MinDWN.png) -->
-<p>[]](/post/2017-06-19-Printing-From-Flex-Dashboard_files/MinDWN.png)</p>
+
+<div class="figure">
+<img src="/post/2017-06-19-Printing-From-Flex-Dashboard_files/MinDWN.png" />
+
+</div>
+
 </div>
 <div id="shadow-document" class="section level4">
 <h4>Shadow Document</h4>

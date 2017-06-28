@@ -112,7 +112,7 @@ The full dashboard looks like this:
 
 <!-- ![*Screenshot of our minimal implementation of a flexdashboard with downloadable screenshot*](/post/2017-06-19-Printing-From-Flex-Dashboard_files/MinDWN.png) -->
 
-![]](/post/2017-06-19-Printing-From-Flex-Dashboard_files/MinDWN.png)
+![](/post/2017-06-19-Printing-From-Flex-Dashboard_files/MinDWN.png)
 
 #### Shadow Document
 
