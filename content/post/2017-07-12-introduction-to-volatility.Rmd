@@ -115,7 +115,7 @@ Take a quick look at the monthly returns above, to make sure things appear to be
 Now, on to constructing a portfolio and calculating volatility. To turn these five ETFs into a portfolio, we need to assign them weights. Let's first create a weights vector.
 
 ```{r, message = FALSE}
-weights <- c(0.10, 0.10, 0.15, 0.40, 0.15)
+weights <- c(0.10, 0.10, 0.20, 0.40, 0.20)
 ```
 
 Before we use the weights in our calculations, we perform a quick sanity check in the next code chunk. This might not be necessary with five assets as we have today, but it is good practice because if we had 50 assets, it could save us a lot of grief to catch a mistake early.

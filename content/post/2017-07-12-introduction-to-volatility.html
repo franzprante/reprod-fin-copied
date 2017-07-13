@@ -10,11 +10,8 @@ tags:
   - Finance
 ---
 
-<!-- BLOGDOWN-HEAD -->
-<!-- /BLOGDOWN-HEAD -->
 
-<!-- BLOGDOWN-BODY-BEFORE -->
-<!-- /BLOGDOWN-BODY-BEFORE -->
+
 <p>This is the beginning of a series on portfolio volatility, variance, and standard deviation. I realize that it’s a lot more fun to <strong>fantasize about</strong> analyzing stock returns, which is why television shows and websites constantly update the daily market returns and give them snazzy green and red colors. But good ol’ volatility is quite important in its own right, especially to finance geeks, aspiring finance geeks, and institutional investors. If you are, might become, or might ever work with/for any of those, this series should at least serve as a jumping-off point.</p>
 <p>Briefly, our volatility project will proceed as follows:</p>
 <div id="part-1" class="section level3">
@@ -105,7 +102,7 @@ head(portfolio_component_monthly_returns_xts)</code></pre>
 ## 2013-06-28 -0.0174136193 -0.028228925 -0.04611287 -0.01847773 -0.031675393</code></pre>
 <p>Take a quick look at the monthly returns above, to make sure things appear to be in order.</p>
 <p>Now, on to constructing a portfolio and calculating volatility. To turn these five ETFs into a portfolio, we need to assign them weights. Let’s first create a weights vector.</p>
-<pre class="r"><code>weights &lt;- c(0.10, 0.10, 0.15, 0.40, 0.15)</code></pre>
+<pre class="r"><code>weights &lt;- c(0.10, 0.10, 0.20, 0.40, 0.20)</code></pre>
 <p>Before we use the weights in our calculations, we perform a quick sanity check in the next code chunk. This might not be necessary with five assets as we have today, but it is good practice because if we had 50 assets, it could save us a lot of grief to catch a mistake early.</p>
 <pre class="r"><code># Make sure the weights line up with assets.
 asset_weights_sanity_check &lt;- tibble(weights, symbols)
@@ -114,11 +111,11 @@ asset_weights_sanity_check</code></pre>
 <pre><code>## # A tibble: 5 x 2
 ##   weights symbols
 ##     &lt;dbl&gt;   &lt;chr&gt;
-## 1    0.10     AGG
-## 2    0.10     DBC
-## 3    0.15     EFA
-## 4    0.40     SPY
-## 5    0.15     VGT</code></pre>
+## 1     0.1     AGG
+## 2     0.1     DBC
+## 3     0.2     EFA
+## 4     0.4     SPY
+## 5     0.2     VGT</code></pre>
 <p>Alright, now on to the fun part, wherein we use the textbook equation for the standard deviation of a multi-asset portfolio.</p>
 <ul>
 <li>First, we assign the weights of each asset.</li>
@@ -173,18 +170,18 @@ sd_by_hand &lt;-
 
 # I want to print the percentage, so multiply by 100 and round.
 sd_by_hand_percent &lt;- round(sd_by_hand * 100, 2)</code></pre>
-<p>Okay, writing that equation out was painful and very copy/pasty, but at least we won’t be forgetting it any time soon. Our result is a monthly portfolio returns standard deviation of 2.22%.</p>
+<p>Okay, writing that equation out was painful and very copy/pasty, but at least we won’t be forgetting it any time soon. Our result is a monthly portfolio returns standard deviation of 2.54%.</p>
 <p>Now, let’s turn to the less verbose matrix algebra path and confirm that we get the same result.</p>
 <p>First, we will build a covariance matrix of returns using the <code>cov()</code> function.</p>
 <pre class="r"><code># Build the covariance matrix. 
 covariance_matrix &lt;- cov(portfolio_component_monthly_returns_xts)
 covariance_matrix</code></pre>
 <pre><code>##               AGG           DBC          EFA           SPY           VGT
-## AGG  8.185794e-05 -0.0000645834 6.046268e-05 -1.370992e-06 -1.412557e-06
-## DBC -6.458340e-05  0.0018089475 4.198803e-04  2.931955e-04  1.901253e-04
-## EFA  6.046268e-05  0.0004198803 1.251623e-03  7.809411e-04  9.529822e-04
-## SPY -1.370992e-06  0.0002931955 7.809411e-04  8.119639e-04  9.003360e-04
-## VGT -1.412557e-06  0.0001901253 9.529822e-04  9.003360e-04  1.329909e-03</code></pre>
+## AGG  8.158478e-05 -6.388413e-05 6.012007e-05 -1.953472e-06 -1.444655e-06
+## DBC -6.388413e-05  1.807405e-03 4.211196e-04  2.947817e-04  1.913783e-04
+## EFA  6.012007e-05  4.211196e-04 1.251723e-03  7.803496e-04  9.546537e-04
+## SPY -1.953472e-06  2.947817e-04 7.803496e-04  8.107583e-04  9.007168e-04
+## VGT -1.444655e-06  1.913783e-04 9.546537e-04  9.007168e-04  1.335438e-03</code></pre>
 <p>Have a look at the covariance matrix.</p>
 <p><a href="https://www.ishares.com/us/products/239458/ishares-core-total-us-bond-market-etf">AGG</a>, the US bond ETF, has a negative covariance with the other ETFs (besides EFA - something to note), and it should make a nice volatility dampener. Interestingly, the covariance between <a href="https://www.invesco.com/portal/site/us/financial-professional/etfs/product-detail?productId=DBC">DBC</a>, a commodities ETF, and <a href="https://personal.vanguard.com/us/funds/snapshot?FundId=0958&amp;FundIntExt=INT">VGT</a> is quite low, as well. Our painstakingly written-out equation above is a good reminder of how low covariances affect total portfolio standard deviation.</p>
 <p>Back to our calculation: let’s take the square root of the transpose of the weights vector times the covariance matrix times the weights vector. To perform matrix multiplication, we use <code>%*%</code>.</p>
@@ -193,7 +190,7 @@ sd_matrix_algebra &lt;- sqrt(t(weights) %*% covariance_matrix %*% weights)
 
 # I want to print out the percentage, so I&#39;ll multiply by 100 and round.
 sd_matrix_algebra_percent &lt;- round(sd_matrix_algebra * 100, 2)</code></pre>
-<p>The by-hand calculation is 2.22% and the matrix algebra calculation is 2.22%. Thankfully, these return the same result, so we don’t have to sort through the by-hand equation again.</p>
+<p>The by-hand calculation is 2.54% and the matrix algebra calculation is 2.54%. Thankfully, these return the same result, so we don’t have to sort through the by-hand equation again.</p>
 <p>Finally, we can use the built-in <code>StdDev()</code> function from the <code>performanceAnalytics</code> package. It takes two arguments: returns and weights.</p>
 <pre class="r"><code># Confirm portfolio volatility
 portfolio_sd &lt;- StdDev(portfolio_component_monthly_returns_xts, weights = weights)
@@ -202,9 +199,9 @@ portfolio_sd &lt;- StdDev(portfolio_component_monthly_returns_xts, weights = wei
 portfolio_sd_percent &lt;- round(portfolio_sd * 100, 2)</code></pre>
 <p>We now have:</p>
 <ul>
-<li>by-hand calculation = 2.22%</li>
-<li>matrix algebra calculation = 2.22%</li>
-<li>built-in function calculation = 2.22%</li>
+<li>by-hand calculation = 2.54%</li>
+<li>matrix algebra calculation = 2.54%</li>
+<li>built-in function calculation = 2.54%</li>
 </ul>
 <p>Huzzah! That was quite a lot of work to confirm that the results of three calculations are equal to each other, but there are a few benefits.</p>
 <p>First, while it was tedious, we should all be pretty comfortable with calculating portfolio standard deviations in various ways. That might never be useful to us, until the day that for some reason it is (e.g., if during an interview someone asks you to go to a whiteboard and write down the code for standard deviation or whatever equation/model - I think that’s still a thing in interviews).</p>
@@ -230,7 +227,7 @@ spy_sd &lt;- StdDev(spy_returns)
 
 # Again, I want percent so will multiply by 100 and round.
 spy_sd_percent &lt;- round(spy_sd * 100, 2)</code></pre>
-<p>The standard deviation of monthly SPY returns is 2.85% and that of the portfolio is 2.22%.</p>
+<p>The standard deviation of monthly SPY returns is 2.85% and that of the portfolio is 2.54%.</p>
 <p>Fantastic, our portfolio has lower monthly volatility!</p>
 <p>Alright, despite the fact that we have completely ignored returns, we can see the volatility benefits of assets with low or even negative covariances. That’s all for today’s introduction to volatility. Next time, we will move to visualizing these differences in a Notebook, before heading to the world of Shiny.</p>
 </div>
