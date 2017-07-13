@@ -8,7 +8,6 @@ categories:
 tags: 
 - R Consortium
 - Survey
-draft: yes
 ---
 The [R Consortium](https://www.r-consortium.org/) is undertaking a multi-year effort to survey the whole R world. In a rather low-key [blog post](https://www.r-consortium.org/blog/2017/06/29/take-the-r-consortiums-survey-on-r) at the end of last month, the R Consortium's technical committee, the Infrastructure Steering Committee [(ISC)](https://www.r-consortium.org/wp-content/uploads/sites/13/2017/06/R-Consortium-ISC-Charter.pdf), launched its prototype [survey](http://bit.ly/2tuO4NF) of R users.
 ![](/post/2017-07-12-The-R-Survey_files/RC_Survey.png)
