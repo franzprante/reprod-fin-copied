@@ -1,0 +1,113 @@
+---
+title: Introduction to Rolling Volatility
+author: Jonathan Regenstein
+date: '2017-07-18'
+slug: introduction-to-rolling-volatility
+categories:
+  - Finance
+  - Reproducible Finance with R
+  - R Language
+tags:
+  - Finance
+  - R
+---
+
+<!-- BLOGDOWN-HEAD -->
+<!-- /BLOGDOWN-HEAD -->
+
+<!-- BLOGDOWN-BODY-BEFORE -->
+<!-- /BLOGDOWN-BODY-BEFORE -->
+<p>This is the second post in our series on portfolio volatility, variance and standard deviation. If you missed the first post and want to start at the beginning with calculating portfolio volatility, have a look <a href="https://rviews.rstudio.com/2017/07/12/introduction-to-volatility/">here - Introduction to Volatility</a>. We will use three objects created in that previous post, so a quick peek is recommended.</p>
+<p>Today we focus on two tasks:</p>
+<ol style="list-style-type: decimal">
+<li><p>Calculate the rolling standard deviation of <a href="https://us.spdrs.com/en/etf/spdr-sp-500-etf-SPY">SPY</a> monthly returns.</p></li>
+<li><p>Calculate rolling standard deviation of monthly returns of a 5-asset portfolio consisting of the following.</p>
+<ul>
+<li>AGG (a bond fund) weighted 10%</li>
+<li>DBC (a commodities fund) weighted 10%</li>
+<li>EFA (a non-US equities fund) weighted 20%</li>
+<li>SPY (S&amp;P500 fund) weighted 40%</li>
+<li>VGT (a technology fund) weighted 20%</li>
+</ul></li>
+</ol>
+<p>First though, why do we care about rolling standard deviations when in our previous Notebook we calculated ‘the’ standard deviation of monthly returns for both SPY and the portfolio? In that Notebook, what we calculated was the standard deviation of monthly returns for our entire sample, which was monthly returns for four-year period 2013-2017. What we might miss, for example, is a 3-month or 6-month period where the volatility spiked or plummeted or did both. And the longer our sample size, the more likely we are to miss something important. If we had 10 or 20 years of data and we calculated the standard deviation for the entire sample, we could fail to notice an entire year in which volatility was very high. Hence, we would fail to ponder the probability that it could occur again.</p>
+<p>Imagine a portfolio which had a standard deviation of returns for each 6-month period of 3% and it never changed. Now, imagine a portfolio whose vol fluctuated every few 6-month periods from 0% to 6% . We might find a 3% standard deviation of monthly returns over a 10-year sample for both of these, but those two portfolios are not exhibiting the same volatility. The rolling volatility of each would show us the differences and then we could hypothesize about the past causes and future probabilities for those differences. We might also want to think about dynamically re-balancing our portfolio to better manage volatility if we are seeing large spikes in the rolling windows. We’ll look more into re balancing as this series progresses.</p>
+<p>For now, let’s load the <code>.RDat</code> file saved from our previous Notebook.</p>
+<pre class="r"><code>load(&#39;portfolio-returns.RDat&#39;)</code></pre>
+<p>We now have 3 objects in our Global Environment:</p>
+<pre><code>+ `spy_returns` - an `xts` object of SPY monthly returns
++ `portfolio_component_monthly_returns_xts` - an `xts` object of returns of the 5 funds in our portfolio
++ `weights` - a vector of portfolio weights</code></pre>
+<p>Our least difficult task is calculating the rolling standard deviation of SPY returns. We use <code>zoo::rollapply</code> for this and just need to choose a number of months for the rolling window.</p>
+<pre class="r"><code>window &lt;- 6
+
+spy_rolling_sd &lt;- na.omit(rollapply(spy_returns$SPY, window, 
+                           function(x) StdDev(x)))</code></pre>
+<p>We now have an <code>xts</code> object called <code>spy_rolling_sd</code> that contains the 6-month rolling standard deviation of returns of SPY. Keep in mind that the chosen window is important and can affect the results quite a bit. Soon we’ll wrap this work to a Shiny app where changing the window and visualizing the results will be easier.</p>
+<p>Next, we calculate the rolling volatility of our weighted portfolio. The <code>rollapply</code> function doesn’t play nicely with the <code>weights</code> argument that we need to supply to <code>StdDev()</code>. We will craft our own version of roll apply to make this portfolio calculation, which we will use in conjunction with the <code>map_df()</code> function from <code>purrr</code>.</p>
+<p>Before we do that, a slight detour from our substance. Below are two piped workflows to quickly convert from <code>xts</code> to <code>dataframe</code> and back to <code>xts</code>. These rely heavily on the <code>as_tibble()</code> and <code>as_xts()</code> functions from the <a href="https://cran.r-project.org/web/packages/tidyquant/tidyquant.pdf">tidyquant</a>.</p>
+<pre class="r"><code># toggle from an xts object to a tibble
+portfolio_component_monthly_returns_df &lt;- 
+  portfolio_component_monthly_returns_xts %&gt;% 
+  as_tibble(preserve_row_names = TRUE) %&gt;% 
+  mutate(date = ymd(row.names)) %&gt;% 
+  select(-row.names) %&gt;% 
+  select(date, everything())
+
+# toggle from a tibble back to xts.
+returns_xts &lt;- portfolio_component_monthly_returns_df %&gt;% 
+  as_xts(date_col = date)</code></pre>
+<p>Why did we take that detour? Because we will use <code>map_df()</code>, <code>mutate()</code> and <code>select()</code> when we apply our custom function with the <code>%&gt;%</code> operator and that will require a <code>tibble</code>/<code>data.frame</code>.</p>
+<p>Before we step through the code of the custom function, let’s write out the goal and logic.</p>
+<p>Our goal is to create a function that takes a <code>data.frame</code> of asset returns and calculates the rolling standard deviation based on a <em>starting date index</em> and a <em>window</em>, for a <em>portfolio</em> with specified <em>weights</em> for each asset. We will need to supply four arguments to the function, accordingly.</p>
+<p>Here’s the logic I used to construct that function (feel free to eviscerate this logic and replace it with something better).</p>
+<ol style="list-style-type: decimal">
+<li>Assign a start date and end date based on the window argument. If we set window = 6, we’ll be calculating 6-month rolling standard deviations.</li>
+<li>Use <code>filter()</code> to subset the original <code>data.frame</code> down to one window. I label the subsetted data frame as <code>interval_to_use</code>. In our example, that interval is a 6-month window of our original data frame.</li>
+<li>Now we want to pass that <code>interval_to_use</code> object to <code>StdDev()</code>, but it’s not an <code>xts</code> object. We need to convert it and label it <code>returns_xts</code>.</li>
+<li>Before we call <code>StdDev()</code>, we need weights. Create a weights object called <code>w</code> and give the value from the argument we supplied to the function.</li>
+<li>Pass the <code>returns_xts</code> and <code>w</code> to <code>StdDev()</code>.</li>
+<li>We now have an object called <code>results_as_xts</code>. What is this? It’s the standard deviation of returns of the first 6-month window of our weighted portfolio.</li>
+<li>Convert it back to a <code>tibble</code> and return.</li>
+<li>We now have the standard deviation of returns for the 6-month period that started on the first date, because we default to <code>start = 1</code>. If we wanted to get the standard deviation for a 6-month period that started on the second date, we could set <code>start = 2</code>, etc.</li>
+</ol>
+<pre class="r"><code>rolling_portfolio_sd &lt;- function(returns_df, start = 1, window = 6, weights){
+ 
+  start_date &lt;- returns_df$date[start]
+  
+  end_date &lt;-  returns_df$date[c(start + window)]
+  
+  interval_to_use &lt;- returns_df %&gt;% filter(date &gt;= start_date &amp; date &lt; end_date)
+  
+  returns_xts &lt;- interval_to_use %&gt;% as_xts(date_col = date) 
+  
+  w &lt;- weights
+  
+  results_as_xts &lt;- StdDev(returns_xts, weights = w, portfolio_method = &quot;single&quot;)
+  
+  results_to_tibble &lt;- as_tibble(t(results_as_xts[,1])) %&gt;% 
+    mutate(date = ymd(end_date)) %&gt;% 
+    select(date, everything()) 
+  
+}</code></pre>
+<p>We’re halfway there. We need to apply that function starting at the first date in our <code>portfolio_component_monthly_returns_df</code> object, and keep applying it to successive date indexes until the date that is 6 months before the final date. Why end there? Because there is no rolling 6-month standard deviation that starts only 1, 2, 3, 4 or 5 months ago!</p>
+<p>We will invoke <code>map_df()</code> to apply our function to date 1, then save the result to a <code>data.frame</code>, then apply our function to date 2, and save to that same <code>data.frame</code>, and so on until we tell it stop at the index that is 6 before the last date index.</p>
+<pre class="r"><code>window &lt;- 6
+
+roll_portfolio_result &lt;-
+  map_df(1:(nrow(portfolio_component_monthly_returns_df) - window), rolling_portfolio_sd, 
+         returns_df = portfolio_component_monthly_returns_df, window = window, weights = weights) %&gt;%
+  mutate(date = ymd(date)) %&gt;% 
+  select(date, everything()) %&gt;%
+  as_xts(date_col = date) %&gt;% 
+  `colnames&lt;-`(&quot;Rolling Port SD&quot;)
+
+head(roll_portfolio_result)</code></pre>
+<pre><code>##            Rolling Port SD
+## 2013-08-01      0.02411152
+## 2013-09-01      0.02604424
+## 2013-10-01      0.02726744
+## 2013-11-01      0.02887195
+## 2013-12-01      0.02888576
+## 2014-01-01      0.02051912</code></pre>
+<p>Have a look at the rolling standard deviations. Why is the first date August of 2013? Do any of the results stand our as unusual, when compared to the SPY results? It’s hard to make the comparison until we chart them, and that’s what we do in the next post. See you then!</p>
