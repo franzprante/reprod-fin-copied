@@ -1,0 +1,58 @@
+---
+title: Some Ideas for your Internal R Package
+author: Sean Lopp
+date: '2017-07-19'
+slug: supporting-corporate-r-user-groups
+categories:
+  - R for the Enterprise
+  - Packages
+  - R language
+  - RStudio
+tags:
+  - R language
+  - Internal R Package
+---
+
+<!-- BLOGDOWN-HEAD -->
+<!-- /BLOGDOWN-HEAD -->
+
+<!-- BLOGDOWN-BODY-BEFORE -->
+<!-- /BLOGDOWN-BODY-BEFORE -->
+<p>At RStudio, I have the pleasure of interacting with data science teams around the world. Many of these teams are led by R users stepping into the role of <a href="https://rviews.rstudio.com/2017/06/21/analytics-administration-for-r/">analytic admins</a>. These users are responsible for supporting and growing the R user base in their organization and often lead internal R user groups.</p>
+<p>One of the most successful strategies to support a corporate R user group is the creation of an internal R package. This article outlines some common features and functions shared in internal packages. Creating an R package is easier than you might expect. A good place to start is this <a href="https://www.rstudio.com/resources/webinars/rstudio-essentials-webinar-series-programming-part-3/">webinar on package creation</a>.</p>
+<div id="logos-and-custom-css" class="section level2">
+<h2>Logos and Custom CSS</h2>
+<p>Interestingly, one powerful way to increase the adoption of data science outputs - plots, reports, and even slides - is to stick to consistent branding. Having a common look and feel makes it easier for management to recognize the work of the data science team, especially as the team grows. Consistent branding also saves the R user time that would normally be spent picking fonts and color schemes.</p>
+<p>It is easy to include logos and custom CSS inside of an R package, and to write wrapper functions that copy the assets from the package to a user’s local working directory. For example, this wrapper function adds a logo from the <code>RStudioInternal</code> package to the working directory:</p>
+<pre class="r"><code>getLogo &lt;- function(copy_to = getwd()){
+      copy_to &lt;- normalizePath(copy_to)
+      file.copy(system.file(“logo.png”, package = “RStudioInternal”) , copy_to)
+}</code></pre>
+<p>Once available, logos and CSS can be added to <a href="https://shiny.rstudio.com/articles/css.html">Shiny apps</a> and <a href="http://rmarkdown.rstudio.com/html_document_format.html#custom_css">R Markdown documents</a>.</p>
+</div>
+<div id="ggplot2-themes" class="section level2">
+<h2>ggplot2 Themes</h2>
+<p>Similar to logos and custom CSS, many internal R packages include a custom ggplot2 theme. These themes ensure consistency across plots in an organization, making data science outputs easier to recognize and read.</p>
+<p>ggplot2 themes are shared as functions. To get started writing a ggplot2 theme, see <a href="http://ggplot2.tidyverse.org/reference/theme.html">resource 1</a>. For inspiration, take a look at the <a href="https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html">ggthemes package</a>.</p>
+</div>
+<div id="data-connections" class="section level2">
+<h2>Data Connections</h2>
+<p>Internal R packages are also an effective way to share functions that make it easy for analysts to connect to internal data sources. Nothing is more frustrating for a first time R user than trying to navigate the world of ODBC connections and complex database schemas before they can get started with data relevant to their day-to-day job.</p>
+<p>If you’re not sure where to begin, look through your own scripts for common database connection strings or configurations. <a href="https://db.rstudio.com">db.rstudio.com</a> can provide more information on how to handle credentials, drivers, and config files.</p>
+</div>
+<div id="learnr-tutorials" class="section level2">
+<h2>learnr Tutorials</h2>
+<p>RStudio recently released a new package for creating interactive tutorials in R Markdown called <a href="https://rstudio.github.io/learnr/">learnr</a>. There are many great resources online for getting started with R, but it can be useful to create tutorials specific to your internal data and domain. learnr tutorials can serve as training wheels for the other components of the internal R package or teach broader concepts and standards accepted across the organization. For example, you might provide a primer that teaches new users your organization’s R style guide.</p>
+<div class="figure">
+<img src="/post/2017-07-17-corporate-r-user-groups/learnr_example.gif" />
+
+</div>
+</div>
+<div id="sharing-an-internal-r-package" class="section level2">
+<h2>Sharing an Internal R Package</h2>
+<p>Internal packages can be built in the RStudio IDE and distributed as tar files. Alternatively, many organizations use RStudio Server or RStudio Server Pro to standardize the R environment in their organization. In addition to making it easy to share an internal package, a standard compute environment keeps new R users from having to spend time installing R, RStudio, and packages. While these are necessary skills, the first interactions with R should get new users to a data insight as fast as possible. RStudio Server Pro also includes IT functions for monitoring and restricting resources.</p>
+</div>
+<div id="wrap-up" class="section level2">
+<h2>Wrap Up</h2>
+<p>If you are leading an R group, an internal R package is a powerful way to support your users and the adoption of R. Imagine how easy it would be to introduce R to co-workers if they could connect to real, internal data and create a useful, beautiful plot in under 10 minutes. Investing in an internal R packages makes that on boarding experience possible.</p>
+</div>
