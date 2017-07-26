@@ -1,0 +1,121 @@
+---
+title: June 2017 New Package Picks
+author: Joseph Rickert
+date: '2017-07-26'
+slug: 'June 2017 New Package Picks'
+categories: 
+ - R Language
+ - Packages
+ - Opinion
+tags: 
+ - New R Packages
+ - R 
+---
+Two hundred and thirty-eight new packages were added to CRAN in June. Below are my picks for the "Top 40", organized into six categories: Biostatistics, Data, Machine Learning, Miscellaneous, Statistics and Utilities. Some packages, including `geofacet` and `secret`, already seem to be gaining traction.
+
+### Biostatistics
+[BIGL](https://cran.r-project.org/package=BIGL) v1.0.1: Implements response surface methods for drug synergy analysis, including generalized and classical Loewe formulations and the Highest Single Agent methodology. There are vignettes on [Methodology](https://cran.rstudio.com/web/packages/BIGL/vignettes/methodology.html) and [Synergy Analysis](https://cran.rstudio.com/web/packages/BIGL/vignettes/analysis.html).
+
+![](/post/2017-07-26-June-2017-New-Package-Picks_files/BIGL.png)
+
+
+
+[colorpatch](https://cran.r-project.org/package=colorpatch) v0.1.2: Provides functions to show color patches for encoding fold changes (e.g., log ratios) and confidence values within a diagram; especially useful for rendering gene expression data and other types of differential experiments. See the [vignette](https://cran.rstudio.com/web/packages/colorpatch/vignettes/introduction.html).
+
+[eesim](https://cran.r-project.org/package=eesim) v0.1.0: Provides functions to create simulated time series of environmental exposures (e.g., temperature, air pollution) and health outcomes for use in power analysis and simulation studies in environmental epidemiology. The [vignette](https://cran.rstudio.com/web/packages/eesim/vignettes/eesim.html) gives an overview of the package.
+
+[personalized](https://cran.r-project.org/package=personalized) v0.0.2: Provides functions for fitting and validating subgroup identification and personalized medicine models under the general subgroup identification framework of [Chen et al.](http://onlinelibrary.wiley.com/doi/10.1111/biom.12676/abstract) The [vignette](https://cran.rstudio.com/web/packages/personalized/vignettes/usage_of_the_personalized_package.html) provides a brief tutorial.
+
+![](/post/2017-07-26-June-2017-New-Package-Picks_files/personalized.png)
+
+
+[tidygenomics](https://cran.r-project.org/package=tidygenomics) v0.1.0: Provides method to deal with genomic intervals the "tidy way". The [vignette](https://cran.rstudio.com/web/packages/tidygenomics/vignettes/intro.html) explains how they work.
+
+### Data
+[alfred](https://cran.r-project.org/package=alfred) v0.1.1: Provides  direct access to the [ALFRED](https://alfred.stlouisfed.org) and [FRED](https://fred.stlouisfed.org) databases. The [vignette](https://cran.rstudio.com/web/packages/alfred/vignettes/alfred.html) gives a brief example. 
+
+[CityWaterBalance](https://CRAN.R-project.org/package=CityWaterBalance) v0.1.0: Provides functions to retrieve data and estimate unmeasured flows of water through an urban network. Data for US cities can be gathered via web services using this package and dependencies. See the [vignette](https://cran.rstudio.com/web/packages/CityWaterBalance/vignettes/CityWaterBalance_vignette.html) for an introduction to the package.
+
+[censusapi](https://CRAN.R-project.org/package=censusapi) v0.2.0: Provides a wrapper for the [U.S. Census Bureau APIs](https://www.census.gov/data/developers/data-sets.html) that returns data frames of census data and metadata. Available data sets include the Decennial Census, American Community Survey, Small Area Health Insurance Estimates, Small Area Income and Poverty Estimates, and Population Estimates and Projections. There is a brief [vignette](https://cran.rstudio.com/web/packages/censusapi/vignettes/getting-started.html).
+
+[dataverse](https://CRAN.R-project.org/package=dataverse) v0.2.0: Provides access to [Dataverse](https://dataverse.org/) version 4 APIs, enabling data search, retrieval, and deposit. There are four vignettes: [Introduction](https://cran.rstudio.com/web/packages/dataverse/vignettes/A-introduction.html), [Search and Discovery](https://cran.rstudio.com/web/packages/dataverse/vignettes/B-search.html), [Retrieval](https://cran.rstudio.com/web/packages/dataverse/vignettes/C-retrieval.html) and [Data Archiving](https://cran.rstudio.com/web/packages/dataverse/vignettes/D-archiving.html).
+
+![](/post/2017-07-26-June-2017-New-Package-Picks_files/dataverse.png)
+
+[data.world](https://cran.r-project.org/package=data.world) v1.1.1: Provides high-level tools for working with [data.world](https://data.world/) data sets. There is a [Quickstart Guide](https://cran.rstudio.com/web/packages/data.world/vignettes/quickstart.html) and a vignette for writing [Queries](tps://cran.rstudio.com/web/packages/data.world/vignettes/query.html).
+
+[SimMultiCorrData](https://cran.r-project.org/package=SimMultiCorrData) v0.1.0: Provides functions to generate continuous, binary, ordinal, and count variables with a specified correlation matrix that can be used to simulate data sets that mimic real-world situations (e.g., clinical data sets, plasmodes). There are several vignettes including an [Overall Workflow for Data Simulation](https://cran.rstudio.com/web/packages/SimMultiCorrData/vignettes/workflow.html) and a [Comparison to Other Packages](https://cran.rstudio.com/web/packages/SimMultiCorrData/vignettes/benefits.html).
+
+[tidycensus](https://cran.r-project.org/package=tidycensus) v0.1.2: Provides an integrated R interface to the decennial US Census and American Community Survey APIs, and the US Census Bureau's geographic boundary files.
+
+[ukbtools](https://CRAN.R-project.org/package=ukbtools) v0.9.0: Provides tools to work with [UK Biobank datasets](http://www.ukbiobank.ac.uk/). The [vignette](https://cran.rstudio.com/web/packages/ukbtools/vignettes/explore-ukb-data.html) shows how to get started.
+
+[wpp2017](https://cran.r-project.org/package=wpp2017) v1.0-1: Provides and interface to data sets from the [United Nation's World Population Prospects 2017](https://esa.un.org/unpd/wpp/).
+
+### Machine Learning
+[cld3](https://CRAN.R-project.org/package=cld3) v1.0: Provides an interface to Google's experimental [Compact Language Detector 3](https://github.com/google/cld3) algorithm, a neural network model for language identification that is the successor of [cld2](https://cran.rstudio.com/web/packages/cld2/). 
+
+[datafsm](https://CRAN.R-project.org/package=datafsm) v0.2.0: Implements a method that automatically generates models of dynamic decision-making that both have strong predictive power and are interpretable in human terms. The [vignette](https://cran.r-project.org/web/packages/datafsm/vignettes/datafsmVignette.html) provides an example.
+
+![](/post/2017-07-26-June-2017-New-Package-Picks_files/datafsm.png)
+
+
+[diceR](https://cran.r-project.org/package=diceR) v0.1.0: Provides functions for cluster analysis using an ensemble clustering framework. The [vignette](https://cran.rstudio.com/web/packages/diceR/vignettes/overview.html) shows some examples.
+
+[glmertree](https://cran.r-project.org/package=glmertree) v0.1-1: Implements recursive partitioning based on (generalized) linear mixed models (GLMMs) combining `lmer()` and `glmer()` from `lme4` and `lmtree()` and `glmtree()` from `partykit`. The [vignette](https://cran.rstudio.com/web/packages/glmertree/vignettes/glmertree.pdf) shows an example.
+
+[greta](https://cran.r-project.org/package=greta) v0.2.0: Lets users write statistical models in R and fit them by MCMC on CPUs and GPUs, using Google TensorFlow. There is a [website](https://goldingn.github.io/greta), a [Getting Started Guide](https://cran.rstudio.com/web/packages/greta/vignettes/get_started.html), and vignettes providing [Examples](https://cran.rstudio.com/web/packages/greta/vignettes/example_models.html) and[Technical Details](https://cran.rstudio.com/web/packages/greta/vignettes/technical_details.html).
+
+[penaltyLearning](https://cran.r-project.org/package=penaltyLearning) v2017.07.11: Implements algorithms from [Learning Sparse Penalties for Change-point Detection](http://proceedings.mlr.press/v28/hocking13.html) using Max Margin Interval Regression. There is a [vignette](https://cran.rstudio.com/web/packages/penaltyLearning/vignettes/Definition.pdf).
+
+[SentimentAnalysis](https://cran.r-project.org/package=SentimentAnalysis) v1.2-0: Implements functions to perform sentiment analysis of textual data using various existing dictionaries, such as Harvard IV, or finance-specific dictionaries, and create customized dictionaries. The [vignette](https://cran.rstudio.com/web/packages/SentimentAnalysis/vignettes/SentimentAnalysis.html) provides an introduction.
+
+### Miscellaneous
+[convexjlr](https://cran.r-project.org/package=convexjlr) v0.5.1: Provides a high-level wrapper for Julia package [Convex.jl](https://github.com/JuliaOpt/Convex.jl), which makes it easy to describe and solve convex optimization problems. There is a very nice [vignette](https://cran.rstudio.com/web/packages/convexjlr/vignettes/my-vignette.html) that shows how to optimize the parameters for several machine learning models.
+
+[interp](https://cran.r-project.org/package=interp) v1.0-29: Implements bivariate data interpolation on both regular and irregular grids using either linear methods or splines. 
+
+[pkggraph](https://cran.r-project.org/package=pkggraph) v0.2.0: Allows users to interactively explore and plot package dependencies for CRAN.
+
+[parallelDist](https://cran.r-project.org/package=parallelDist) v0.1.1: Provides a parallelized alternative to R's native `dist` function to calculate distance matrices for continuous, binary, and multi-dimensional input matrices with support for a broad variety of distance functions from the `stats`, `prox` and `dtw` R packages. The [vignette](https://cran.rstudio.com/web/packages/parallelDist/vignettes/parallelDist.pdf) offers some results on performance.
+
+
+### Stats
+[anchoredDistR](https://cran.r-project.org/package=anchoredDistr) v1.0.3: Supplements the [MAD# software](http://mad.codeplex.com/) that implements the Method of Anchored Distributions for [inferring geostatistical parameters](http://onlinelibrary.wiley.com/doi/10.1029/2009WR008799/abstract;jsessionid=9F65DB53ED4F0864AE5AD1E42757A407.f02t01). There is a [vignette](https://cran.rstudio.com/web/packages/anchoredDistr/vignettes/anchoredDistr.html).
+
+[bssm](https://cran.r-project.org/package=bssm) v01.1-1: Efficient methods for Bayesian inference of state space models via particle Markov chain Monte Carlo and importance sampling type corrected Markov chain Monte Carlo. There is a vignette on [Bayesian Inference of State Space Models](https://cran.rstudio.com/web/packages/bssm/vignettes/bssm.html) and an example of a [Logistic Growth Model](https://cran.rstudio.com/web/packages/bssm/vignettes/growth_model.html).
+
+[factorMerger](https://cran.r-project.org/package=factorMerger) v0.3.1 Provides a set of tools to support results of post-hoc testing and enable to extract hierarchical structure of factors. There is an [Introduction](https://cran.r-project.org/web/packages/factorMerger/vignettes/factorMerger.html) and vignettes on [Cox Regression Factor Merging](https://cran.rstudio.com/web/packages/factorMerger/vignettes/brca.html) and [Multidimensional Gaussian Merging](https://cran.rstudio.com/web/packages/factorMerger/vignettes/pisa2012.html).
+
+![](/post/2017-07-26-June-2017-New-Package-Picks_files/factorMerger.png)
+
+[MittagLeffleR](https://cran.r-project.org/package=MittagLeffleR) v0.1.0: Provides density, distribution, and quantile functions as well as random variate generation for the Mittag-Leffler distribution based on the [algorithm by Garrappa](http://epubs.siam.org/doi/10.1137/140971191). There are short vignettes for the [math](https://cran.rstudio.com/web/packages/MittagLeffleR/vignettes/probsNquantiles.html), [distribution functions](https://cran.rstudio.com/web/packages/MittagLeffleR/vignettes/MLdist.html) and [random variate generation](https://cran.rstudio.com/web/packages/MittagLeffleR/vignettes/parametrisation.html).
+
+[walker](https://cran.r-project.org/package=walker) v0.2.0: Provides functions for building dynamic Bayesian regression models where the regression coefficients can vary over time as random walks. The [vignette](https://cran.rstudio.com/web/packages/walker/vignettes/walker.html) shows some examples. 
+
+
+### Utilities
+[charlatan](https://cran.r-project.org/package=charlatan) v0.1.0: Provides functions to make fake data, including addresses, person names, dates, times, colors, coordinates, currencies, DOIs, jobs, phone numbers, 'DNA' sequences, doubles and integers from distributions and within a range. The [Introduction](https://cran.rstudio.com/web/packages/charlatan/vignettes/charlatan_vignette.html) will get you started.
+
+[colordistances](https://cran.r-project.org/package=colordistance) v0.8.0: Provides functions to load and display images, selectively mask specified background colors, bin pixels by color, quantitatively measure color similarity among images,and cluster images by object color similarity. There is an [Introduction](https://cran.rstudio.com/web/packages/colordistance/vignettes/colordistance-introduction.html) and vignettes on [Pixel Binning Methods](https://cran.rstudio.com/web/packages/colordistance/vignettes/binning-methods.html) and [Color Distance Metrics](https://cran.rstudio.com/web/packages/colordistance/vignettes/color-metrics.html).
+
+[dbplyr](https://cran.r-project.org/package=dbplyr) v1.1.0: Implements a `dplyr` back end for databases that allows working with remote database tables as if they are in-memory data frames. There is an [Introduction](https://cran.rstudio.com/web/packages/dbplyr/vignettes/dbplyr.html), a vignette for [Adding a new DBI backend](https://cran.rstudio.com/web/packages/dbplyr/vignettes/new-backend.html) and one for [SQL translation](https://cran.rstudio.com/web/packages/dbplyr/vignettes/sql-translation.html).
+
+[geofacet](https://CRAN.R-project.org/package=geofacet) v0.1.5: Provides geofaciting functionality (the ability to arrange a sequence of plots for different geographical entities into a grid that preserves some geographical orientation) for `ggplot2`. There is a [Package Reference](https://hafen.github.io/geofacet/rd.html) vignette and an [Introduction](https://hafen.github.io/geofacet/). The package is already getting some traction. [This](https://user-images.githubusercontent.com/10777197/28369701-653350a6-6c66-11e7-8666-56aa7a09470e.png) is a user submission:
+
+![](https://user-images.githubusercontent.com/10777197/28369701-653350a6-6c66-11e7-8666-56aa7a09470e.png)
+
+
+[ggformula](https://cran.r-project.org/package=ggformula) v0.4.0: Provides a formula interface to `ggplot2`. There is a [vignette](https://cran.rstudio.com/web/packages/ggformula/vignettes/ggformula.html) explaining how it works.
+
+![](/post/2017-07-26-June-2017-New-Package-Picks_files/ggformula.png)
+
+[gqlr](https://CRAN.R-project.org/package=gqlr) v0.0.1: Provides an implementation of the [GraphQL](http://facebook.github.io/graphql/) query language created by Facebook for describing data requirements on complex application [data models](http://graphql.org). `gqlr` should be useful for integrating R computations into production applications that use GraphQL.
+
+[later](https://CRAN.R-project.org/package=later) v0.3: Allows users to execute arbitrary R or C functions some time after the current time, after the R execution stack has emptied. The [vignette](https://cran.rstudio.com/web/packages/later/vignettes/later-cpp.html) shows how to use later from C++.
+
+[secret](https://CRAN.R-project.org/package=secret) v1.0.0: Allows sharing sensitive information like passwords, API keys, etc., in R packages, using public key cryptography. There is a [vignette](https://cran.rstudio.com/web/packages/secret/vignettes/secrets.html).
+
+[sessioninfo](https://cran.r-project.org/package=sessioninfo) v1.0.0: Provides functions to query and print information about the current R session. It is similar to `utils::sessionInfo()`, but includes more information.
+
+[webglobe](https://cran.r-project.org/package=webglobe) v1.0.2: Provides functions to display geospatial data on an interactive 3D globe. There is a [vignette](https://cran.rstudio.com/web/packages/webglobe/vignettes/webglobe.html)
