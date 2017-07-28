@@ -1,0 +1,107 @@
+---
+title: Looking for R at JSM
+author: Joseph Rickert
+date: '2017-07-28'
+slug: looking-for-r-at-jsm
+categories: 
+ - R Language
+ - Events
+tags: 
+ - R
+ - JSM 
+---
+
+I am very much looking forward to attending [JSM](https://ww2.amstat.org/meetings/jsm/2017/) which begins this Sunday. And once again, I will be spending a good bit of my time hunting for new and interesting applications of R. In years gone by, this was a difficult game at JSM because R, R Package, Shiny, tidyverse and the like did not often turn up in a keyword search. This year, however, there is quite a bit of low hanging fruit. Below twenty-five sessions are listed by their JSM Activity Number. 
+
+If you are going to the conference, try to work some of these into your program, and please feel free to write to me (joseph.rickert@rstudio.com) if you see an R related talk that was particularly interesting.
+
+### Sunday, 07/30/2017
+
+24 - [Acc: An R Package to Process, Visualize, and Analyze Accelerometer Data](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=323106) 
+Jae Joon Song, University of Texas Health Science Center; Michael Swartz, The University of Texas Health Science Center At Houston, School of Public Health; Matthew G. Cox, University of Texas MD Anderson Cancer Center; Karen Basen-Engquist, University of Texas MD Anderson Cancer Center 
+
+
+83 - [R Package TDA for Statistical Inference on Topological Data Analysis](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=324701) 
+Jisu Kim, Carnegie Mellon University 
+
+### Monday, 07/31/2017
+
+118 - [Identification of Potentially Problematic Prescribing to a Vulnerable Population](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=324829) 
+Ryan Jarrett; Richard Epstein, Chapin Hall at the University of Chicago; Michael Cull, Vanderbilt University; David Schlueter, Vanderbilt University; Kathy Gracey, Vanderbilt University; Molly Butler, Vanderbilt University; Rameela Chandrasekhar, Vanderbilt University
+
+159 - [No Punt Intended](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=325383)
+Nicholas Eisemann, California State Univ Chico; Camille Pensabene, St. John Fisher College; Dylan Gouthro, Chico State; Demond Handley, Kansas State University ; MyDoris Soto, California State University-Fullerton 
+
+159 - [A Shiny App for Investigation of NHL Draft Pick Career Trajectories](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=324633) 
+James White, St. Lawrence University; Michael Schuckers, St. Lawrence University 
+162 - [Forced Migration: Visualizing Patterns of Refugee Movements](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=324303) 
+Jacquelyn Neal, Vanderbilt University; Hannah E Weeks, Vanderbilt University 
+
+171 - [Developing a Web-Based Tool to Evaluate Survey Performance Using R Shiny](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=323817) 
+Scott Fricker, U.S. Bureau of Labor Statistics; Jeffrey Gonzalez, Bureau of Labor Statistics; Randall Powers, US Bureau of Labor Statistics 
+
+182 - [Identification of Potentially Problematic Prescribing to a Vulnerable Population](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=325369) 
+Ryan Jarrett; Richard Epstein, Chapin Hall at the University of Chicago; Michael Cull, Vanderbilt University; David Schlueter, Vanderbilt University; Kathy Gracey, Vanderbilt University; Molly Butler, Vanderbilt University; Rameela Chandrasekhar, Vanderbilt University 
+
+243 - [An R Shiny Foundation for Standardized Clinical Review Tools](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=323938) 
+Jimmy Wong, FDA 
+
+250 - [A Shiny App for Investigation of NHL Draft Pick Career Trajectories](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=325336) 
+James White, St. Lawrence University; Michael Schuckers, St. Lawrence University 
+253 - [Forced Migration: Visualizing Patterns of Refugee Movements](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=325302) 
+Jacquelyn Neal, Vanderbilt University; Hannah E Weeks, Vanderbilt University 
+
+
+### Tuesday, 08/01/2017
+
+279 - [Wilcoxon Rank-Based Tests for Clustered Data with R Package Clusrank](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=322761)
+Jun Yan, University of Connecticut; Yujing Jiang, University of Connecticut; Mei-Ling Ting Lee, University of Maryland; Xin He, University of Maryland, College Park; Bernard Rosner, Harvard Medical School 
+
+
+358 - [Contextualizing Sensitivity Analysis in Observational Studies: Calculating Bias Factors for Known Covariates](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=325286) (Note this is also listed as [Activity Number 252](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=324141))
+Lucy D'Agostino McGowan; Robert A Greevy, Jr, Vanderbilt University 
+
+389 - [Applications of Interactive Exploration of Large Multi-Panel Faceted Displays Using Trelliscope](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=322424) — Ryan Hafen, Purdue University
+
+389 - [Extracting Insights from Genomic Data via Complex Interactive Heatmaps](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=322423) — Alicia Schep, Stanford School of Medicine
+
+389 - [Visualizing the Changing Landscape of Software Developers](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=322422) — David Robinson, StackOverflowcom
+	
+
+### Wednesday, 08/02/2017
+
+454 - [An R Package for Spatio-Temporal Change of Support](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=323756) 
+Andrew Raim, U.S. Census Bureau; Scott H. Holan, University of Missouri; Jonathan R Bradley, Florida State University; Christopher Wikle, University of Missouri 
+
+504 - [Discriminative Power and Variable Selection in Logistic Regression Models under Outcome Misspecification](Discriminative Power and Variable Selection in Logistic Regression Models under Outcome Misspecification ) 
+Jia Bao, NYU Langone Medical Center; Yongzhao Shao, New York University-School of Medicine 
+
+518 - [EyeTrVis: An R Package for the Extraction and Visualization of Eye Tracking Data from People Looking at Posters](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=324696) — Chunyang Li ; Jurgen Symanzik, Utah State University
+
+518 - [In with the New: a Shiny App for Exploring Summary Data Tables from the Medical Expenditure Panel Survey](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=323971) — Emily Mitchell, Agency for Healthcare Research and Quality
+
+518 - [RCAP Designer: Creating Analytical Dashboards on the RCloud Platform](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=324972) — Robert Archibald, Macrosoft Inc ; Ganesh Subramaniam, AT&T ; Simon Urbanek, AT&T Labs Research
+
+518 - [Standardizing Assessment of Time-Series Forecasting Models](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=324441) — Nicholas G. Reich, University of Massachusetts Amherst ; Joshua Kaminsky, Johns Hopkins Bloomberg School of Public Health ; Lindsay Keegan, Johns Hopkins Bloomberg School of Public Health ; Stephen Lauer, University of Massachusetts - Amherst ; Krzysztof Sakrejda, University of Massachusetts - Amherst ; Justin Lessler, Johns Hopkins Bloomberg School of Public Health
+
+543 - [Discussing the Uses and Creation of R Shiny Applications](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=324225)
+Justin Post, North Carolina State University 
+
+
+548 - [A girl geek's guide to new research on interactive data visualization for statistics with lots of data](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=325414) — Dianne Cook, Monash University
+
+587 - [Ggmapr - Tools for Working with and Visualizing Maps](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=324627) 
+Heike Hofmann, Iowa State University 
+
+
+### Thursday, 08/03/2017
+599 - [Guiding Principles for Interactive Graphics Based on LIBD Data Science Projects](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=322284) 
+Leonardo Collado-Torres, Lieber Institute for Brain Development; Bill Ulrich, Lieber Institute for Brain Development; Stephen Semick, Lieber Institute for Brain Development; Andrew E Jaffe, Lieber Institute for Brain Development 
+
+
+599 - [Interactive Data Visualization on the Web Using R](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=322149) — Carson Sievert, Carson Sievert
+
+
+
+
+
