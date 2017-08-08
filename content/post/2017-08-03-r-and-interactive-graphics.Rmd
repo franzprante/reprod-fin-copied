@@ -17,9 +17,7 @@ But, it is exactly the desire to preserve the flow of exploratory analysis when 
 
 Below, I highlight two talks that address the need for new tools, and a third talk by [Chambers Awared](http://stat-computing.org/awards/jmc/) winner Carson Sievert who discussed design principles for creating interactive graphics software. These talks illustrated the state of the art of the integration of interactive graphics with R, and also showed how interactive visualization can be a real aid to statistical inference. 
 
-In his talk, [Applications of Interactive Exploration of Large Multi-Panel Faceted Displays Using Trelliscope](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=322424), Ryan Hafen showed how the **Small Multiples** capability of Trelliscope can help you simultaneously compare complex behavior of several entities. Ryan's slides convey the salient features of his talk.
-
-<iframe src = "http://slides.com/hafen/trelliscope-jsm#/" width = "100%" height = "500"></iframe>
+In his talk, [Applications of Interactive Exploration of Large Multi-Panel Faceted Displays Using Trelliscope](https://ww2.amstat.org/meetings/jsm/2017/onlineprogram/AbstractDetails.cfm?abstractid=322424), Ryan Hafen showed how the **Small Multiples** capability of Trelliscope can help you simultaneously compare complex behavior of several entities. Ryan's [slides](http://slides.com/hafen/trelliscope-jsm#/) convey the salient points of his presentation.
 
 Note that the interactive features work to keep you in the analytical flow by letting you easily change views and comparisons. Look [here](https://hafen.github.io/trelliscopejs/#trelliscope) for documentation on the underlying tressiscopejs package.
 
