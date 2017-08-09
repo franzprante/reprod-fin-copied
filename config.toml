@@ -18,17 +18,17 @@ theme = "hugo-icarus-theme"
 [params]
     # Tell me who you are
     author = "R Views"
-    bio = "An R community blog edited by <img src='/css/images/rstudio.svg' width=90 alt='RStudio' />"
-    location = "Boston, MA"
+    bio = "A reproducible finance site by <img src='/css/images/rstudio.svg' width=90 alt='RStudio' />"
+    location = "Atlanta, GA"
     site_description = "An R community blog edited by RStudio"
-    copyright  = "RStudio, Inc. All Rights Reserved."
+    copyright  = "Reproducible Finance, LLC All Rights Reserved."
     avatar = "css/images/logo.png"
     logo = "css/images/logo.png"
 
     # Format dates with Go's time formatting
     date_format = "2006-01-02"
 
-    fullURL = "https://rviews.rstudio.com"
+    fullURL = "www.reproduciblefinance.com"
 
 # Create custom menu entries by defining a label and a link for
 # them. Since you can also link posts, you've the option the
@@ -53,14 +53,14 @@ theme = "hugo-icarus-theme"
 
 # Enter a link for the follow button on the left
 [params.profile]
-    follow_button = "https://twitter.com/rstudio"
+    follow_button = "https://twitter.com/jkregenstein"
 
 
 [social]
 # Add your social network accounts to the profile section on the left
 # by entering your username. The links to your account will be
 # created automatically.
-    github          = "rstudio"
+    github          = "jkr216"
     gitlab          = ""
     bitbucket       = ""
     jsfiddle        = ""
@@ -78,20 +78,19 @@ theme = "hugo-icarus-theme"
     wordpress       = ""
     tumblr          = ""
     xing            = ""
-    linkedin        = "../company/rstudio-inc"
+    linkedin        = "regregenstein"
     slideshare      = ""
     stackoverflow   = ""
     reddit          = ""
     pinterest       = ""
     googleplus      = ""
-    facebook        = "pages/RStudio-Inc/267733656584415"
+    facebook        = ""
     facebook_admin  = ""
     twitter_domain  = ""
-    twitter         = "rstudio"
+    twitter         = "jkregenstein"
 
 # Enable and disable widgets for the right sidebar
 [params.widgets]
-    marketo = true
     recent_articles = true
     categories = true
     tags = false

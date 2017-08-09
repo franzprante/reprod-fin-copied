@@ -1,0 +1,161 @@
+---
+title: Portfolio Volatility Shiny App
+author: Jonathan Regenstein
+date: '2017-08-08'
+slug: portfolio-volatility-shiny-app
+categories:
+  - Finance
+tags:
+  - Finance
+draft: yes
+---
+
+
+
+<p>In our 3 previous posts, we walked through how to calculate <a href="https://rviews.rstudio.com/2017/07/12/introduction-to-volatility/">portfolio volatility</a>, then how to calculate <a href="https://rviews.rstudio.com/2017/07/18/introduction-to-rolling-volatility/">rolling volatility</a>, then how to <a href="https://rviews.rstudio.com/2017/07/21/visualizing-portfolio-volatility/">visualize rolling volatility</a>. Today, we will wrap all of that work into a Shiny app that allows a user to construct his/her own 5-asset portfolio, choose a benchmark and a time period and visualize the rolling volatilities over time.</p>
+<p>Here is the final app:</p>
+<iframe src="https://jkr216.shinyapps.io/Portfolio-Volatility/" width="100%" ; height="700">
+</iframe>
+<p>A slight departure in form today because we will use a <code>helpers.r</code> file to hold our functions - those same functions that we worked so hard to create in the previous three posts. There are a few reasons to put them in a helper file.</p>
+<ol style="list-style-type: decimal">
+<li><p>The end user won’t be able to see them, which leads to a tangent on the idea of reproducibility. We need to ask, “Reproducible by whom?”. In this case, the Shiny app is 100% reproducible by anyone who has access to that helper file, which would be my colleagues with access to my files/github. But, if the end user is an external client, for example, that end user wouldn’t have access and the analytical functions would remain a black box. In the world of finance, that’s necessary most of the time.</p></li>
+<li><p>From a workflow perspective, that helper file allows us to test those functions in different formats. I can create an Rmarkdown report that uses the file, test different Shiny apps, or tweak the functions themselves without having to alter the actual app code.</p></li>
+<li><p>From a stylistic perspective, the helper file keeps the Shiny app code a bit cleaner and much shorter. It’s not right or wrong to use a helpers file but it’s worth thinking about as our Shiny apps get more involved.</p></li>
+</ol>
+<p>Here’s how we load that file and have access to the functions and objects in it.</p>
+<pre class="r"><code>source(&quot;function-folder/simple-vol-helpers.r&quot;)</code></pre>
+<p>Since this is a blog post and we want to be complete, the code chunk below contains all the code from that <code>simple-vol-helpers.r</code> file.</p>
+<pre class="r"><code># Calculate component returns
+
+componentReturns_df &lt;- function(stock1, stock2, stock3, stock4, stock5, start_date){
+  
+  symbols &lt;- c(stock1, stock2, stock3, stock4, stock5)
+  
+  prices &lt;- 
+    getSymbols(symbols, src = &#39;yahoo&#39;, from = start_date, 
+               auto.assign = TRUE, warnings = FALSE) %&gt;% 
+    map(~Cl(get(.))) %&gt;% 
+    reduce(merge) %&gt;%
+    `colnames&lt;-`(symbols)
+  
+  # generate daily return series for funds
+  prices_monthly &lt;- to.monthly(prices, indexAt = &quot;first&quot;, OHLC = FALSE)
+  returns &lt;- na.omit(ROC(prices_monthly, 1, type = &quot;continuous&quot;))
+  
+  
+  returns_df &lt;- returns %&gt;% 
+    as_tibble(preserve_row_names = TRUE) %&gt;% 
+    mutate(date = ymd(row.names)) %&gt;% 
+    select(-row.names) %&gt;% 
+    select(date, everything())
+}
+
+
+# Calculate rolling Portfolio Standard Deviation
+
+rolling_portfolio_sd &lt;- function(returns_df, start = 1, window = 6, weights){
+  
+  start_date &lt;- returns_df$date[start]
+  
+  end_date &lt;-  returns_df$date[c(start + window)]
+  
+  interval_to_use &lt;- returns_df %&gt;% filter(date &gt;= start_date &amp; date &lt; end_date)
+  
+  returns_xts &lt;- interval_to_use %&gt;% as_xts(date_col = date) 
+  
+  w &lt;- weights
+  
+  results_as_xts &lt;- StdDev(returns_xts, weights = w, portfolio_method = &quot;single&quot;)
+  results_as_xts &lt;- round(results_as_xts, 4) * 100
+  
+  results_to_tibble &lt;- as_tibble(t(results_as_xts[,1])) %&gt;% 
+    mutate(date = ymd(end_date)) %&gt;% 
+    select(date, everything()) 
+  
+}
+
+# Look how long this code chunk is. Easier to stash this in a helpers.r file!</code></pre>
+<p>All of those functions were explained and constructed in our previoius Notebooks so we won’t dwell on them today. Let’s move on to the appearance of the app itself!</p>
+<p>First we need to create an input <code>sidebar</code> where the user can choose assets, weights, a date and a benchmark for comparison.</p>
+<pre class="r"><code># This creates the sidebar input for the first stock and its weight.
+# We&#39;ll need to copy paste this fluidRow for however many assets are in our portfolio. 
+fluidRow(
+  column(6,
+  textInput(&quot;stock1&quot;, &quot;Stock 1&quot;, &quot;SPY&quot;)),
+  column(4,
+  numericInput(&quot;w1&quot;, &quot;Portf. %&quot;, 40, min = 1, max = 100))
+)  
+
+# Let the user choose a benchmark to compare to the portfolio volatility.
+# We&#39;ll default to the Russell 2000 small cap index
+textInput(&quot;benchmark&quot;, &quot;Benchmark for Comparison&quot;, &quot;^RUT&quot;)
+
+
+fluidRow(
+  column(6,
+  dateInput(&quot;start_date&quot;, &quot;Start Date&quot;, value = &quot;2013-01-01&quot;)),
+  column(3,
+  numericInput(&quot;window&quot;, &quot;Window&quot;, 6, min = 3, max = 20, step = 1))
+)
+
+# This action button is important for user experience and server resources.
+actionButton(&quot;go&quot;, &quot;Submit&quot;)</code></pre>
+<p>That last line creates an <code>actionButton</code> which is important for the end user. We have more than 10 user inputs in that sidebar and without that <code>actionButton</code>, the app will start firing and reloading every time a usre changes any of the inputs. Annoying for the user and taxing on the server! We will make sure the reactives wait for the user to click that button by using <code>eventReactive</code>.</p>
+<p>For example, in the lines below, the app will wait to calculate the rolling portfolio volatility because the value <code>portfolio_rolling_vol</code> is an <code>eventReactive</code> that won’t fire until <code>input$go</code> is true.</p>
+<pre class="r"><code>portfolio_rolling_vol &lt;- eventReactive(input$go, {
+  
+  returns_df &lt;- 
+    componentReturns_df(input$stock1, input$stock2, input$stock3, input$stock4, 
+                        input$stock5, input$start_date) %&gt;% 
+    mutate(date = ymd(date))
+  
+  weights &lt;- c(input$w1/100, input$w2/100, input$w3/100, input$w4/100, input$w5/100)
+  
+  window &lt;- input$window
+  
+  roll_portfolio_result &lt;-
+    map_df(1:(nrow(returns_df) - window), rolling_portfolio_sd, 
+         returns_df = returns_df, window = window, weights = weights) %&gt;%
+    mutate(date = ymd(date)) %&gt;% 
+    select(date, everything()) %&gt;%
+    as_xts(date_col = date) %&gt;% 
+    `colnames&lt;-`(&quot;Rolling Port SD&quot;)
+   # an xts comes out of this
+})</code></pre>
+<p>The user is going to choose a benchmark for comparison and we need another <code>eventReactive</code> to take that input and calculate rolling volatility for the benchmark. The asset is passed via <code>input$benchmark</code> from the sidebar.</p>
+<pre class="r"><code>benchmark_rolling_vol &lt;- eventReactive(input$go, {
+  
+  benchmark_prices &lt;- 
+    getSymbols(input$benchmark, src = &#39;yahoo&#39;, from = input$start_date, 
+               auto.assign = TRUE, warnings = FALSE) 
+  benchmark_close &lt;- Cl(get(benchmark_prices))
+    
+  benchmark_prices_monthly &lt;- to.monthly(benchmark_close, indexAt = &quot;first&quot;, OHLC = FALSE)
+  benchmark_returns &lt;- na.omit(ROC(benchmark_prices_monthly, 1, type = &quot;continuous&quot;))
+  
+  benchmark_rolling_sd &lt;- rollapply(benchmark_returns,
+                             input$window,
+                             function(x) StdDev(x))
+  benchmark_rolling_sd &lt;- round(benchmark_rolling_sd, 4) * 100
+  
+  
+})</code></pre>
+<p>Finally, when we visualize it’s nice to include the chosen benchmark in the title. Thankfully, that is a simple <code>eventReactive</code>.</p>
+<pre class="r"><code>benchmark &lt;- eventReactive(input$go, {input$benchmark})</code></pre>
+<p>We have now calculated three reactive objects: <code>portfolio_rolling_vol()</code>, <code>benchmark_rolling_vol()</code>, and <code>benchmark()</code>. We pass them to <code>highcharter</code> and tweak aesthetics on the y-axis.</p>
+<pre class="r"><code>renderHighchart({
+  highchart(type = &quot;stock&quot;) %&gt;% 
+    hc_title(text = paste(&quot;Portfolio Volatility vs&quot;, benchmark(), &quot;Volatility&quot;, sep = &quot; &quot;)) %&gt;%
+    hc_yAxis(title = list(text = &quot;Vol Percent&quot;),
+           labels = list(format = &quot;{value}%&quot;),
+           opposite = FALSE) %&gt;% 
+    hc_add_series(portfolio_rolling_vol(), name = &quot;Portfolio Vol&quot;, color = &quot;blue&quot;) %&gt;%
+    hc_add_series(benchmark_rolling_vol(), 
+                  name = paste(benchmark(), &quot;Vol&quot;, sep = &quot; &quot;),
+                  color = &quot;green&quot;) %&gt;%
+    hc_add_theme(hc_theme_flat()) %&gt;%
+    hc_navigator(enabled = FALSE) %&gt;% 
+    hc_scrollbar(enabled = FALSE)
+})</code></pre>
+<p>Nothing new of substance today as those analytical functions were all built in previous posts. This app does allow the user to build a custom portfolio and compare to a benchmark of his/her choosing. Have fun with it and try to find some assets whose volatility has been increasing since the election in November.</p>
+<p>Next time we’ll take a closer look at the VIX and how it compares to realized volatility. Until then!</p>
