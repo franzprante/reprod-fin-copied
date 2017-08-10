@@ -18,12 +18,12 @@ theme = "hugo-icarus-theme"
 [params]
     # Tell me who you are
     author = "JKR"
-    bio = "A reproducible finance site by <img src='/css/images/rstudio.svg' width=90 alt='RStudio' />"
+    bio = "A reproducible finance site by <img src='/css/images/RF-logo.png' width=90 alt='RStudio' />"
     location = "Atlanta, GA"
     site_description = "A site dedicated to reproducible finance."
     copyright  = "Reproducible Finance, LLC All Rights Reserved."
-    avatar = "css/images/logo.png"
-    logo = "css/images/logo.png"
+    avatar = "css/images/RF-logo.png"
+    logo = "css/images/RF-logo.png"
 
     # Format dates with Go's time formatting
     date_format = "2006-01-02"
