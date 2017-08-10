@@ -5,7 +5,6 @@ date: '2017-08-10'
 slug: another-test
 categories: []
 tags: []
-draft: yes
 ---
 
 ```{r setup, include=FALSE}

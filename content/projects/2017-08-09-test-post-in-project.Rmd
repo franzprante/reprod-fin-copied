@@ -6,7 +6,6 @@ slug: test-post-in-project
 categories: []
 tags:
   - Finance
-draft: yes
 ---
 
 In our 3 previous posts, we walked through how to calculate [portfolio volatility](https://rviews.rstudio.com/2017/07/12/introduction-to-volatility/), then how to calculate [rolling volatility](https://rviews.rstudio.com/2017/07/18/introduction-to-rolling-volatility/), then how to [visualize rolling volatility](https://rviews.rstudio.com/2017/07/21/visualizing-portfolio-volatility/). Today, we will wrap all of that work into a Shiny app that allows a user to construct his/her own 5-asset portfolio, choose a benchmark and a time period and visualize the rolling volatilities over time. 
