@@ -75,6 +75,10 @@ roll_portfolio_result <-
 
 ```
 
+
+<iframe src = "https://jkr216.shinyapps.io/Sharpe-Ratio-Flex/" width = "100%"; height =  "700"></iframe>
+
+
 This is the third post in our series on portfolio volatility, variance and standard deviation. 
 If you want to start at the beginning with calculating portfolio volatility, have a look at the first post [here - Intro to Volatility](https://rviews.rstudio.com/2017/07/12/introduction-to-volatility/). The second post on calculating rolling standard deviations is [here: Intro to Rolling Volatility](url). 
 
